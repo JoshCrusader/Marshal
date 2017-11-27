@@ -1,0 +1,218 @@
+<html>
+<head>
+	 <link rel="stylesheet" type="text/css" href="css_standard.css">
+	 <link rel="stylesheet" type="text/css" href="test.css">
+	 <script src="jquery.js"></script>
+	 <script src="css_scripts.js"></script>
+
+	 <!-- remove this afterwards gg -->
+	 <meta charset="utf-8">
+	 <meta name="viewport" content="width=device-width, initial-scale=1">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	 <!--                           -->
+
+	 <style>
+	 /* For mobile phones: */
+		td{
+			height: 75px;
+			line-height: 75px !important;
+		}
+
+	 	.UD_conntainer{
+	 		width: 100%;
+	 		margin: auto;
+	 	}
+	 	.UD_hh_pp{
+	 		height:50px;
+	 		width: 50px;
+	 		/*background-color: yellow;*/
+
+	 	}
+	 	.UD_hh_pp img{
+	 		height:50px;
+	 		width: 50px;
+	 		/*background-color: yellow;*/
+	 		border-radius: 50%;
+	 	}
+	 	.UD_pp{
+	 		width: 150px;
+	 		height: 200px;
+	 		margin: auto;
+	 		/*background-color: yellow;*/
+	 	}
+	 	.UD_pp img{
+	 		border-radius: 50%;
+	 	}
+		@media only screen and (min-width: 768px) {
+		    /* For desktop: */
+		    
+		    .UD_conntainer{
+		 		width: 85%;
+		 	}
+		 	.UD_pp img{
+		 		border-radius: 0%;
+		 	}
+		}
+	 	body{
+	 		color:black;
+	 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	 		font-size: 14px;
+	 		line-height: 1.42857143;
+	 	}
+
+	 	.UD_left_container{
+	 		width:70%;
+	 		float:left;
+	 		background-color: white;
+	 	}
+	 	.UD_user_image{
+	 		width:250px;
+	 		height: 250px;
+	 		background-color: blue;
+	 		float:left;
+	 	}
+	 	
+	 	.UD_user_basic_info{
+	 		padding-top: 15px;
+	 		margin-left: 15%;
+	 		padding-bottom: 15px;
+
+	 	}
+	 	.UD_right_container{
+	 		width:30%;
+	 		float:left;
+	 		background-color: red;
+	 	}
+	 	
+	 	/* Household profile pic*/
+	 	
+	 	.UD_adiv{
+	 		padding: 15px;
+	 		padding-bottom: 15px;
+	 	}
+	 	
+	 </style>
+</head>
+
+<body>
+	<div class = "css-navbar"> 
+		<div class = "css-burgerbun pull-left"><div class = "css-hamburger"><div  class = "css-burgerinside"></div></div></div>
+		<!-- 
+		<input class = "pull-right css-search"type="text" id="directoryinput" name="directoryinput" placeholder="Search">
+	-->
+		<div class = "css-navright">
+			<div class = "nav-search">
+				<input class = "pull-left css-search"type="text" id="directoryinput" name="directoryinput" placeholder="Search">
+
+				<select class = "pull-left css-filterd">
+				  <option value="volvo" selected>Users</option>
+				  <option value="saab">Services</option>
+
+				</select>
+				<button class = "pull-left css-searchb"><i class="fa fa-search"></i></button>
+			</div>
+		</div>
+	</div>
+	<div id = "sidebartarget" class = "css-sidebarbody">
+		<div class = "css-darkness"></div>
+		<div class = "css-sidebar">
+			<div class = "css-profilediv">
+
+			</div>
+			<ul class = "css-sidelist">
+				<li>
+					<a href = "#"> User Management</a>
+				</li>
+				<li>
+					<a href = "#"> Security</a>
+				</li>
+				<li>
+					<a href = "#"> Records Management</a>
+				</li>
+				<li>
+					<a href = "#"> Module Configuration</a>
+				</li>
+				<li>
+					<a href = "#"> SMS Management</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id = "css-id-body" style = "top:70px;Position:absolute;width:100%;">
+		<div class = "UD_conntainer">
+			<h2></h2>
+			<div class = "col-8a pull-left UD_adiv" style = "background-color:#f6f7f9; box-shadow: 0px 5px 3px #888888;">
+				<div class = "col-5 pull-left">
+						<div class = "UD_pp">
+							<img src="placeholder1.jpg" style = "height:100%; width: 100%;">
+						</div>
+				</div>
+				<div class = "col-4 pull-left">
+						<center><a href = "#"><h3>Joshua Cruzada</h3> </a></center>
+						<center><h4>Software Engineer</h4></center>
+				</div><br>
+				<div class = "col-12 pull-left" style = "margin-top:15px;">
+					<table class = "table">
+						<tbody>
+						<tr>
+							<td>Mobile Number</td>
+							<td>09696969696</td>
+						</tr>
+						<tr>
+							<td>Telephone Number</td>
+							<td>550-23-09</td>
+						</tr>
+						<tr>
+							<td>Email Address </td>
+							<td>joshua_cruzada@dlsu.edu.ph</td>
+						</tr>
+						<tr>
+							<td>Home Address</td>
+							<td>525 Cessna St. St Mary’s Village</td>
+						</tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+			<div class = "col-4 pull-right" style = "">
+				<div class = "col-12 UD_adiv pull-left" style = "background-color:#f6f7f9; box-shadow: 0px 0px 3px #888888;">
+					<center><h4>Household Members</h4></center>
+					<div class = "col-12 pull-left margtop">
+						<div class = "UD_hh_pp pull-left"><img src="placeholder2.jpg" style = "height:100%; width: 100%;"></div>
+						<div class = "pull-left margleft">
+							<a href=""><span>Amiel James Bornales</span></a><br>
+							Front end developer
+						</div>
+					</div>
+					<div class = "col-12 pull-left margtop">
+						<div class = "UD_hh_pp pull-left"><img src="placeholder3.jpg" style = "height:100%; width: 100%;"></div>
+						<div class = "pull-left margleft">
+							<a href=""><span>Bob Thebuilder</span></a><br>
+							I lyk biking
+						</div>
+					</div>
+					<div class = "col-12 pull-left margtop">
+						<div class = "UD_hh_pp pull-left"><img src="placeholder4.jpg" style = "height:100%; width: 100%;"></div>
+						<div class = "pull-left margleft">
+							<a href=""><span>Submodules</span></a><br>
+							Ded inside
+						</div>
+					</div>
+				</div>
+				<div class = "col-12 UD_adiv pull-left margtop" style = "background-color:#f6f7f9; box-shadow: 0px 0px 3px #888888;">
+					<center><h4>Pet/s Owned</h4></center>
+					<div class = "col-12 pull-left margtop">
+						<div class = "UD_hh_pp pull-left"><img src="dogie.jpg" style = "height:100%; width: 100%;"></div>
+						<div class = "pull-left margleft" style = "line-height:50px;">
+							<a href=""><span>Woofy</span></a><br>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

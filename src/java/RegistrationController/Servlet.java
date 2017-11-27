@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Registration;
+package RegistrationController;
 
-import Registration.Homemember;
+import RegistrationController.Homemember;
 import java.sql.*;
 import java.io.IOException; 
 import java.sql.Connection;
@@ -15,9 +15,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Registration.Homeowner;
-import Registration.User;
-import Registration.Kasambahay;
+import RegistrationController.Homeowner;
+import Objects.User;
+import RegistrationController.Kasambahay;
 
 
 /**

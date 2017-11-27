@@ -1,44 +1,26 @@
+package RegistrationController;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Registration;
 
 /**
  *
  * @author User
  */
-public class Kasambahay {
+public class Homemember {
     
-    public String startDate;
-    public String endDate;
     public String userID;
     public int bNo;
     public int lNo;
+    public int renting;
     
-    
-    public Kasambahay(String userID){
+    public Homemember(String userID){
         this.userID=userID;
     }
     
-    
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
     public String getUserID() {
         return userID;
     }
@@ -61,5 +43,16 @@ public class Kasambahay {
 
     public void setlNo(int lNo) {
         this.lNo = lNo;
-    }    
+    }
+
+    public int getRenting() {
+        return renting;
+    }
+
+    public void setRenting(int renting) {
+        this.renting = renting;
+    }
+   
+    
+    
 }

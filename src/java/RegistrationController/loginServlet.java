@@ -117,8 +117,13 @@ public class loginServlet extends HttpServlet {
                           HttpSession session = request.getSession(true);
                           user.setUsertype(result.getInt("usertypeID"));
                           System.out.println(result.getInt("usertypeID"));
+
                           session.setAttribute("currentSessionUser",user); 
                           response.sendRedirect("reg.jsp"); //logged-in page      
+
+                          session.setAttribute("currentSessionUser",user);
+                          response.sendRedirect("home.jsp"); //logged-in page      
+
                     }
 
                 } 

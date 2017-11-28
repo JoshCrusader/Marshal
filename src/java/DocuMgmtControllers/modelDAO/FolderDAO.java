@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelDAO;
+package DocuMgmtControllers.modelDao;
 import java.sql.*;
-import model.*;
+import DocuMgmtControllers.model.*;
 
 
 /**

@@ -4,7 +4,7 @@
 <%@ page import="org.apache.commons.fileupload.disk.*" %>
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
 <%@ page import="org.apache.commons.io.output.*" %>
-<%@ page import="modelDAO.*" %>
+<%@ page import="DocuMgmtControllers.modelDao.*" %>
 
 <%
    File file ;

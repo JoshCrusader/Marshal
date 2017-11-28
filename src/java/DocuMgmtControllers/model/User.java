@@ -1,4 +1,4 @@
-package model;
+package DocuMgmtControllers.model;
 import java.io.Serializable;
 import java.util.Date;
 

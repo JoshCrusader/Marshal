@@ -1,4 +1,4 @@
-package servlet;
+package DocuMgmtControllers.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +21,7 @@ public class ForwardServlet extends HttpServlet {
             session.setAttribute("lastname", "Malabanan");
             session.setAttribute("userID", "oli.malabanan");
             session.setAttribute("activeFolder", "main");
-            request.getRequestDispatcher("documentmanagement.jsp").forward(request, response);
+            request.getRequestDispatcher("DocuMgmt/documentmanagement.jsp").forward(request, response);
     }
 
     @Override

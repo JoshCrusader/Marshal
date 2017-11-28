@@ -6,8 +6,8 @@
 <%@ page import="java.util.Date"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.io.*" %>
-<%@ page import="modelDAO.*"%>
-<% //Class.forName("com.mysql.jdbc.Driver");
+<%@ page import="DocuMgmtControllers.modelDao.*"%>
+<% 
 
     ResultSet rs = DocumentDAO.getDocument();
 %>
@@ -18,11 +18,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Document Management %></title>
-        <link href="css/marshal.css" rel="stylesheet" type="text/css">
-        <link href="css/css_standard.css" rel="stylesheet" type="text/css">
-        <link href="css/flexboxgrid.css" rel="stylesheet" type="text/css">
-        <link href="css/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="lib/DataTables/media/css/jquery.dataTables.css">
+        <link href="DocuMgmt/css/marshal.css" rel="stylesheet" type="text/css">
+        <link href="DocuMgmt/css/css_standard.css" rel="stylesheet" type="text/css">
+        <link href="DocuMgmt/css/flexboxgrid.css" rel="stylesheet" type="text/css">
+        <link href="DocuMgmt/css/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="DocuMgmt/lib/DataTables/media/css/jquery.dataTables.css">
     </head>
     <body>
         
@@ -90,7 +90,7 @@
                                                 String name = rsF.getString("folderName");
 
                                                 out.println("<tr>");
-                                                out.println("<td><img class='fileThumbnail-sm' src='img/folder.png'></td>");
+                                                out.println("<td><img class='fileThumbnail-sm' src='DocuMgmt/img/folder.png'></td>");
                                                 out.println("<td>" + name + "</td>");
                                                 out.println("</tr>");
                                             }
@@ -105,7 +105,7 @@
                                     String owner = rs.getString("create_userID");
 
                                     if (loc.toLowerCase().contains(".txt")){
-                                        loc = "img/document.png"; 
+                                        loc = "DocuMgmt/img/document.png"; 
                                     }
 
                                     out.println("<tr>");
@@ -121,7 +121,7 @@
                     </div>
                     
                     <!-- Grid View of Documents -->
-                    <div id="viewGrid" class="panel-docu">
+                    <div id="viewGrid" class="panel-docu" style="display:none;">
                         <div class="row" style="margin-left: .5rem; margin-right: .5rem;">
                             <!-- Retrieval of Documents -->
                             <% 
@@ -138,7 +138,7 @@
                                             
                                             out.println("<div class='file-blocks'>");
                                                 out.println("<div class='file-block-pic'>");
-                                                    out.println("<img class='fileThumbnail-sm' src='img/folder.png'>");
+                                                    out.println("<img class='fileThumbnail-sm' src='DocuMgmt/img/folder.png'>");
                                                 out.println("</div>");
                                                 out.println("<div class='file-block-desc'>");
                                                     out.println(name);
@@ -156,8 +156,8 @@
                                 String name = rs.getString("description");
                                 String owner = rs.getString("create_userID");
 
-                                if (!loc.toLowerCase().contains(".png.gif.jpeg.bmp.tif.psd")){
-                                    loc = "img/document.png"; 
+                                if (loc.toLowerCase().contains(".txt")){
+                                    loc = "DocuMgmt/img/document.png"; 
                                 }
 
                                 out.println("<div class='file-blocks'>");

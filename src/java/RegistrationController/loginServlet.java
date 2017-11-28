@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author User
  */
-@WebServlet(urlPatterns = {"/loginServlet"})
+@WebServlet(urlPatterns = {"/Registration/loginServlet"})
 public class loginServlet extends HttpServlet {
 
     /**
@@ -86,7 +86,7 @@ public class loginServlet extends HttpServlet {
             try{	
                 
                     Class.forName("com.mysql.jdbc.Driver");
-                    Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","password");
+                    Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","");
                     
                     
                     String searchQuery ="select * from users where userID='"+uName+"' AND passwd='"+pw+"'";
@@ -114,9 +114,11 @@ public class loginServlet extends HttpServlet {
                     }
                     else{
                           isValid= true;
-                          HttpSession session = request.getSession(true);	    
-                          session.setAttribute("currentSessionUser",user); 
-                          response.sendRedirect("reg.jsp"); //logged-in page      
+                          HttpSession session = request.getSession(true);
+                          user.setUsertype(result.getInt("usertypeID"));
+                          System.out.println(result.getInt("usertypeID"));
+                          session.setAttribute("currentSessionUser",user);
+                          response.sendRedirect("home.jsp"); //logged-in page      
                     }
 
                 } 

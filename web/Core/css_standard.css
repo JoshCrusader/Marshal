@@ -290,6 +290,9 @@ tr,th{
 	.css_container{
  		width: 85%;
  	}
+        .active{
+            background-color: none;
+        }
 }
 
 /* pages */

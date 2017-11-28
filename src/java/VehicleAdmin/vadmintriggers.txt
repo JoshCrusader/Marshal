@@ -1,0 +1,23 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `vfinal`.`stickerinventory_BEFORE_INSERT` BEFORE INSERT ON `stickerinventory` FOR EACH ROW
+BEGIN
+	set new.stickerYear=year(now());
+    set new.dateReleased=now();
+    
+    INSERT INTO `trxreferences` (`amount`, `interest`) VALUES (new.cost, '0');
+END
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `vfinal`.`user_vehicles_BEFORE_UPDATE` BEFORE UPDATE ON `user_vehicles` FOR EACH ROW
+BEGIN
+	declare stickyr year;
+    declare sticcost decimal(9,2);
+    
+	set stickyr=(SELECT stickerYear FROM stickerinventory where stickerID=new.stickerID);
+    set sticcost =(SELECT cost FROM stickerinventory where stickerID=new.stickerID);
+	
+    UPDATE `trxreferences` SET `description`=CONCAT("Fee for sticker ",stickyr," : ", sticcost) WHERE `trxID`=new.trxID;
+END
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `vfinal`.`trxreferences_BEFORE_INSERT` BEFORE INSERT ON `trxreferences` FOR EACH ROW
+BEGIN
+	set new.totalamount=new.amount+new.interest;
+END

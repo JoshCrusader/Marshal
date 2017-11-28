@@ -8,7 +8,7 @@ import java.sql.SQLException;
 /**
  * Java class Database
  * The class illustrates how to get the database connection from Java to MySQL 
- * 
+ * to generate JavaDoc documentation
  *
  * @author Fred Purisima
  * 
@@ -19,7 +19,7 @@ public class Database {
     private static final String DRIVER_NAME ="com.mysql.jdbc.Driver";
     private static final String JDBC_URL ="jdbc:mysql://localhost:3306/vfinal";
     private static final String DB_USER ="root";
-    private static final String DB_PASSWORD ="";
+    private static final String DB_PASSWORD ="Kuroneko_1";
                     
     /**It gets the database connection of MySQL
      *

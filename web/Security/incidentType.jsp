@@ -187,7 +187,7 @@ th, td {
                 if (kindID == 1) {
                     out.println("List of your Complaints:");
                      
-                     sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2USER uu on sv.securityReportID = uu.securityReportID where incidentTypeID = '"+typeID+"' and uu.complainant_userID = 'olie@gmail.com'";       
+                     sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2USER uu on sv.securityReportID = uu.securityReportID where incidentTypeID = '"+typeID+"'";       
                 }
                 else {
                     out.println("List of your Accusations:");

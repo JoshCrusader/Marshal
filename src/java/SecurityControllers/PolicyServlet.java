@@ -5,7 +5,6 @@
  */
 package SecurityControllers;
 
-import SecurityControllers.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -88,8 +87,8 @@ public class PolicyServlet extends HttpServlet {
         
         try{
         
-            String sql = "UPDATE `hoa_db`.`security_violations` SET `violatedpolicyID`= ? WHERE `securityReportID`= ?";
-            String sql2 = "UPDATE `hoa_db`.`security_violations` SET `trxID`= ? WHERE `securityReportID`= ?";
+            String sql = "UPDATE `mydb`.`security_violations` SET `violatedpolicyID`= ? WHERE `securityReportID`= ?";
+            String sql2 = "UPDATE `mydb`.`security_violations` SET `trxID`= ? WHERE `securityReportID`= ?";
             int policy_ID = Integer.parseInt(request.getParameter("policies"));
             int security_report_ID = Integer.parseInt (request.getParameter("violationID"));
             int transaction_ID = Integer.parseInt(request.getParameter("transactions"));

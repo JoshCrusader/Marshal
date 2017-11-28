@@ -6,9 +6,9 @@ import java.sql.DriverManager;
 public class Database 
 {
 	private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
-	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/hoa_db";
+	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/mydb";
 	private static final String DB_USER = "root";
-	private static final String DB_PASSWORD = "password";
+	private static final String DB_PASSWORD = "";
 
 	public static Connection getDBConnection()
 	{

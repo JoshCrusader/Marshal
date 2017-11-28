@@ -77,9 +77,9 @@ public class forwardServlet extends HttpServlet {
             String violationtypesql = "";
             String max_id = "";
             String mappointsql = "SELECT MAX(MAPPOINTID) FROM MAPPOINT";/*Gets the max value of map point ID (the most recent in this case)*/
-            String mapsql = "INSERT INTO `hoa_db`.`mappoint` (`xAxis`, `yAxis`, `title`, `description`, `userID`, `createDate`, `removed`, `mappointcategoryID`) VALUES (?, ?, 'Incident Location', 'Incident Happened Here', ?, DATE(NOW()), '0', '1');";
+            String mapsql = "INSERT INTO `mydb`.`mappoint` (`xAxis`, `yAxis`, `title`, `description`, `userID`, `createDate`, `removed`, `mappointcategoryID`) VALUES (?, ?, 'Incident Location', 'Incident Happened Here', ?, DATE(NOW()), '0', '99');";
             /*mapsql query creates a new mappoint*/
-            String sql = "INSERT INTO `hoa_db`.`SECURITY_VIOLATIONS` (`incidenttypeID`,`complaint`, `securityID`, `mappointID`, `reportDate`) VALUES (?, ?, ?, ?, DATE(NOW()));";
+            String sql = "INSERT INTO `mydb`.`SECURITY_VIOLATIONS` (`incidenttypeID`,`complaint`, `securityID`, `mappointID`, `reportDate`) VALUES (?, ?, ?, ?, DATE(NOW()));";
             /*sql query inserts into security violations*/
             
             String transactionsql = "SELECT trxID, description FROM trxReferences";
@@ -87,19 +87,19 @@ public class forwardServlet extends HttpServlet {
             /*This line of if's determine which table based on incident type the security violation information will be placed*/
             if (Integer.parseInt(request.getParameter("report_type")) == 1){
             
-                violationtypesql = "INSERT INTO `hoa_db`.`user2user` (`securityReportID`, `complainant_userID`, `accused_userID`) VALUES ((SELECT MAX(security_violations.securityReportID) FROM security_violations), ?, ?);";
+                violationtypesql = "INSERT INTO `mydb`.`user2user` (`securityReportID`, `complainant_userID`, `accused_userID`) VALUES ((SELECT MAX(security_violations.securityReportID) FROM security_violations), ?, ?);";
                 
             }
             
             if (Integer.parseInt(request.getParameter("report_type")) == 2){
             
-                violationtypesql = "INSERT INTO `hoa_db`.`user2anyone` (`securityReportID`, `otherparty`, `userID`) VALUES ((SELECT MAX(security_violations.securityReportID) FROM security_violations), ?, ?);";
+                violationtypesql = "INSERT INTO `mydb`.`user2anyone` (`securityReportID`, `otherparty`, `userID`) VALUES ((SELECT MAX(security_violations.securityReportID) FROM security_violations), ?, ?);";
                 
             }
             
             if (Integer.parseInt(request.getParameter("report_type")) == 3){
             
-                violationtypesql = "INSERT INTO `hoa_db`.`vehicle2vehicle` (`securityReportID`, `complainantplatenum`, `accusedplatenum`) VALUES ((SELECT MAX(security_violations.securityReportID) FROM security_violations), ?, ?);";
+                violationtypesql = "INSERT INTO `mydb`.`vehicle2vehicle` (`securityReportID`, `complainantplatenum`, `accusedplatenum`) VALUES ((SELECT MAX(security_violations.securityReportID) FROM security_violations), ?, ?);";
                 
             }
             

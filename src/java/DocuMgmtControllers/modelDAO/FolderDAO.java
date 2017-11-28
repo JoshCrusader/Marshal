@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DocuMgmtControllers.modelDao;
+package DocuMgmtControllers.modelDAO;
 import java.sql.*;
 import DocuMgmtControllers.model.*;
 

@@ -3,10 +3,13 @@
     Created on : 11 17, 17, 11:20:27 PM
     Author     : Serus Caligo
 --%>
+<%@page import="SecurityControllers.Database"%>
+<%@page import="DocuMgmtControllers.modelDAO.DocumentDAO"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.io.*" %>
 <%@ page import="DocuMgmtControllers.modelDao.*"%>
+
 <% 
     ResultSet rs = DocumentDAO.getDocument();
 %>

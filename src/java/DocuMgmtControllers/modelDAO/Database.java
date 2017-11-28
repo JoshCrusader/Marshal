@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DocuMgmtControllers.modelDao;
+package DocuMgmtControllers.modelDAO;
 
 import java.sql.*;
 
@@ -14,15 +14,16 @@ import java.sql.*;
 public class Database {
     private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/";
-    private static final String DB_NAME = "hoav2";
+    private static final String DB_NAME = "mydb";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "1234";
+    private static final String DB_PASSWORD = "";
     
     public static Connection getDBConnection(){
         Connection conn = null;
         try{
             Class.forName(DRIVER_NAME);
-            conn = DriverManager.getConnection(JDBC_URL+DB_NAME, DB_USER, DB_PASSWORD);
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root", "");
+            
         }catch(SQLException | ClassNotFoundException e){
             e.printStackTrace();
         }

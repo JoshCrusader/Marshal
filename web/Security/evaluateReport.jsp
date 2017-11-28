@@ -8,7 +8,7 @@
 <%@page import="SecurityControllers.Users" %>
 <!DOCTYPE html>
 <html>
-<title>View Incident</title>
+<title>Evaluate Reports</title>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -121,10 +121,10 @@ d {
 
   <li><img src="LOGO.png" align="middle" width="40" height="40" ></li>
 
-  <li><a href="<%=request.getContextPath()%>/Security/home.jsp">Home</a></li>
-  <li><a href="<%=request.getContextPath()%>/Security/viewIncident.jsp" class = "active" >View Incidents</a></li>
+  <li><a href="home1.jsp">Home</a></li>
+  <li><a href="<%=request.getContextPath()%>/Security/evaluateReport.jsp" class = "active" >Evaluate Reports</a></li>
   
-  <li><a href="<%=request.getContextPath()%>/Security/viewPenalties.jsp">View Penalties</a></li>
+  <li><a href="<%=request.getContextPath()%>/Security/viewReport.jsp">View Reports</a></li>
 
   
   
@@ -132,24 +132,27 @@ d {
 
 
 <div style="padding:20px;margin-top:30px;background-color:white;height:1500px;">
-<l><h2><center>View Incidents</center></h2></l>
+<l><h2><center>Evaluate Reports</center></h2></l>
 
 <div class="container-fluid">
-    <% 
+      <% 
+         
          int i = ((Users) session.getAttribute("sessionUser")).getUsertype();
          String j = ((Users) session.getAttribute("sessionUser")).getUsername();
-         
+         int num = 0;
+         num = ((Integer) session.getAttribute("sessionz"));
         %>
         <%= i + j%>
+
   <div class="row">
     <div class="col-sm-3" style="background-color:white;"></div>
     
     <div class="col-sm-6" style="background-color:lavenderblush;">
         <div class="center">
-            <form name ='selectType' method ='get' action ='<%=request.getContextPath()%>/Security/incidentType.jsp'>
-            <li><h4>Select type of incident:
-                    <select id = "type" name = "type" onchange="changeSelect(this.value)"> 
-                     <option id = "1" value = "1">User to User</option>
+            <form name ='selectType' method ='get' action ='<%=request.getContextPath()%>/Security/reportType.jsp'>
+            <li><h4 >Select type of incident:
+                    <select id = "type" name = "type"> 
+                    <option id = "1" value = "1">User to User</option>
                     <option id = "2" value = "2">User to Anyone</option>
                     <option id = "3" value = "3">Vehicle to Vehicle</option>
                     <option id = "4" value = "4">Vehicle to User</option>		
@@ -157,28 +160,54 @@ d {
                      <button type="submit" name="submit" class="btn btn-default" >Select</button>
                     
             </h4></li>  
-             <li><div id="change">
-                 <h4>Select kind:
-                    <select id = "kind" name = "kind"> 
-                    <option id = "1" value = "1">Complaints</option>
-                    <option id = "2" value = "2">Accusations</option>
-                   	
-                </select>
-                    
-                 </h4></div>
-             </li>  
             
+              
+        <%@page import="java.sql.DriverManager"%>
+        <%@page import="java.sql.ResultSet"%>
+        <%@page import="java.sql.PreparedStatement"%>
+        <%@page import="java.sql.Connection"%>
             
              
              
             </form>
+            <%
+         String k = ((Users) session.getAttribute("sessionUser")).getUsername();
+        %>
+        <%= i %>
+            
+            <%    
+               
+                 Class.forName("com.mysql.jdbc.Driver");
+            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root",null);
+       
+            String sqlinsert = "";
+            
+               
+                 String stat = request.getParameter( "status" );
+            session.setAttribute( "incidentType!", stat );
+            
+            String repID = request.getParameter( "pls" );
+            session.setAttribute( "incidentType!!", repID );
             
             
-            <%     
-                 
-                String kind = request.getParameter("kind");
-                String incidentType = request.getParameter("type");
-             
+           String resol = request.getParameter( "comment" );
+            session.setAttribute( "incidentType!!!", resol );
+      out.print(stat);
+      out.print(resol);
+      out.print(num);
+    if (num != 0){
+        
+            sqlinsert = "UPDATE security_violations set resolution = '"+resol+"', status = '"+stat+"' where securityReportID = '"+num+"'";
+                
+                PreparedStatement a = con.prepareStatement(sqlinsert);
+                a.executeUpdate();
+
+    }
+    else {
+        out.print("ANOBA");
+    }
+            
+ 
             %>
 
              

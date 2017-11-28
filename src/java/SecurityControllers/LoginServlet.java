@@ -82,6 +82,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String path = "wrong.jsp";
         Users user = new Users (username, password);
+       
         
         try{
         
@@ -90,15 +91,40 @@ public class LoginServlet extends HttpServlet {
             
             String sql = "SELECT * FROM USERS WHERE userID = '"+ user.getUsername() +"' AND passwd ='" + user.getPassword() + "'";
             
+            
             PreparedStatement prep = conn.prepareStatement(sql);
             ResultSet rs = prep.executeQuery();
          
             while (rs.next()){
-            
-                path = "testjsp.jsp";
+                int i = rs.getInt("usertypeid");
+                String j = rs.getString("fname");
+                user.setUsertype(i);
+                user.setfName(j);
+                if (i == 3) {
+                    
+                    path = "testjsp.jsp";
                 
-                HttpSession session = request.getSession();
-                session.setAttribute("sessionUser", user);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("sessionUser", user);
+                }
+                else if (i == 2) {
+                    path = "Security/home.jsp";
+                
+                    HttpSession session = request.getSession();
+                    session.setAttribute("sessionUser", user);
+                }
+                else if (i == 1){
+                  
+                }
+                else if (i == 4) {
+                    
+                    path = "Security/home1.jsp";
+                    
+                    HttpSession session = request.getSession();
+                    session.setAttribute("sessionUser", user);
+                    session.setAttribute("sessionz", 0);
+                }
+              
                 
             }
             

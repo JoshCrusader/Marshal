@@ -4,12 +4,11 @@
     Author     : Mharjorie Sandel
 --%>
 
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="SecurityControllers.Users" %>
 <!DOCTYPE html>
 <html>
-<title>View Incident</title>
+<title>Evaluate Reports</title>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -126,15 +125,14 @@ th, td {
 
 <body>
 
-        
 <ul> 
 
   <li><img src="LOGO.png" align="middle" width="40" height="40" ></li>
 
   <li><a href="home.jsp">Home</a></li>
-  <li><a href="viewIncident.jsp" class = "active" >View Incidents</a></li>
+  <li><a href="evaluateReport.jsp" class = "active" >Evaluate Reports</a></li>
   
-  <li><a href="viewPenalties.jsp">View Penalties</a></li>
+  <li><a href="#">View Reports</a></li>
 
   
   
@@ -142,14 +140,51 @@ th, td {
 
 
 <div style="padding:20px;margin-top:30px;background-color:white;height:1500px;">
-<l><h2><center>View Incidents</center></h2></l>
+<l><h2><center>Evaluate Reports</center></h2></l>
 
 <div class="container-fluid">
   
-
+ <%
+            int i = ((Users) session.getAttribute("sessionUser")).getUsertype();
+            String j = ((Users) session.getAttribute("sessionUser")).getUsername();
+         
+        %>
+        <%= i + j%>
+        
   <div class="row">
-    <div class="col-sm-2" style="background-color:white;"></div>
+    <div class="col-sm-2" style="background-color:white;">
+        <li> <p>Legend:</p></li>
+    <table style = "width: 100%" border = "1">
+        <tr bgcolor = "white"> 
+         
+          
+       
+          <th  style='text-align:center'>Status</th>
+     
+        </tr>
     
+         <tr bgcolor="white">
+
+           
+            
+            <td  style='text-align:center'>0 = Pending</td></tr>
+             <tr bgcolor="white">
+    
+        
+            <td  style='text-align:center'>1 = On Going</td>
+             </tr>
+            <tr bgcolor="white">
+            
+            <td  style='text-align:center'>2 = Resolved</td>
+             </tr>
+             <tr bgcolor="white">
+           
+            <td  style='text-align:center'>3 = Not Resolved</td>
+             </tr>
+             
+            </tr>
+           </table><br>
+    </div>
     <div class="col-sm-8" ">
         <table style = "width: 100%" border = "1">
         <tr bgcolor = "white">
@@ -166,24 +201,16 @@ th, td {
         <%@page import="java.sql.ResultSet"%>
         <%@page import="java.sql.PreparedStatement"%>
         <%@page import="java.sql.Connection"%>
-         <%
-            int i = ((Users) session.getAttribute("sessionUser")).getUsertype();
-            String j = ((Users) session.getAttribute("sessionUser")).getUsername();
-         
-        %>
-        <%= i + j%>
-        
-        
         <%
             String type = request.getParameter( "type" );
             session.setAttribute( "incidentType", type );
             int typeID = Integer.parseInt(type);
-          
-            int kindID = 0;
+      
             
          %>
-        
-        
+         <li>
+         <p align ='center'> List of Reports: </p>
+         </li>
          <%
         try
         {
@@ -191,46 +218,27 @@ th, td {
             Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root",null);
             String sql = "";
             if (typeID == 1){
-                String kind = request.getParameter( "kind" );
-                session.setAttribute( "incidentType", kind );
-                kindID = Integer.parseInt(kind);
+               
                 
-                if (kindID == 1) {
-                    out.println("List of your Complaints:");
+               
                      
-                     sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2USER uu on sv.securityReportID = uu.securityReportID where incidentTypeID = '"+typeID+"' and uu.complainant_userID = '"+j+"'";       
-                }
-                else {
-                    out.println("List of your Accusations:");
-                     
-                    sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2USER uu on sv.securityReportID = uu.securityReportID where incidentTypeID = '"+typeID+"' and uu.accused_userID = '"+j+"'"; 
-                }
+                     sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2USER uu on sv.securityReportID = uu.securityReportID where incidentTypeID = '"+typeID+"' and (sv.status = 0 || sv.status =1)";       
+               
                }
             else if (typeID == 2){
-               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2anyone ua on sv.securityReportID = ua.securityReportID where incidentTypeID = '"+typeID+"' and ua.userID = '"+j+"'";        
+     
+               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2anyone ua on sv.securityReportID = ua.securityReportID where incidentTypeID = '"+typeID+"'";        
             }
             else if (typeID == 3){
-                String kind = request.getParameter( "kind" );
-                session.setAttribute( "incidentType", kind );
-                kindID = Integer.parseInt(kind);
-                out.println(kindID);
-                
-                 
-                 
-                if (kindID == 1){
-                    out.println("List of your Vehicle's Complaints:");
+            
+             
                      
-                    sql ="SELECT * FROM (SELECT * FROM USER_VEHICLES WHERE USERID = '"+j+"') UV JOIN VEHICLE2VEHICLE VV ON UV.plateNum = VV.complainantplatenum LEFT JOIN SECURITY_VIOLATIONS SV ON SV.securityReportID = VV.securityReportID;";        
-                }
-                else {
-                    out.println("List of your Vehicle's Accusations:");
-                     
-                     sql ="SELECT * FROM (SELECT * FROM USER_VEHICLES WHERE USERID = '"+j+"') UV JOIN VEHICLE2VEHICLE VV ON UV.plateNum = VV.accusedplatenum LEFT JOIN SECURITY_VIOLATIONS SV ON SV.securityReportID = VV.securityReportID;";        
-               }
+                    sql ="SELECT * FROM SECURITY_VIOLATIONS sv join VEHICLE2VEHICLE vv on sv.securityReportID = vv.securityReportID where incidentTypeID = '"+typeID+"'";        
+              
                }
             else {
-               sql ="SELECT * FROM (SELECT * FROM USER_VEHICLES WHERE USERID = '"+j+"') UV JOIN VEHICLE2USER VU ON UV.plateNum = VU.platenum LEFT JOIN SECURITY_VIOLATIONS SV ON SV.securityReportID = VU.securityReportID"; 
-               }
+               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join VEHICLE2User vu on sv.securityReportID = vu.securityReportID where incidentTypeID = '"+typeID+"'";         
+            }
             PreparedStatement pStmt= con.prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery(sql);
             while(resultSet.next()){
@@ -254,7 +262,7 @@ th, td {
             }%></td>
             <td  style='text-align:center'><%=resultSet.getString("complaint") %></td>
             <td  style='text-align:center'><%=resultSet.getInt("status") %></td>
-            <form name ='viewRep' method ='get' action ='report.jsp'>
+            <form name ='viewRep' method ='get' action ='eReport.jsp'>
             <td><center><button type ="submit" name="viewreport" value ="<%=resultSet.getInt("securityReportID") %>" class="btn btn-default" >View</button></center></td>
             </form>
             </tr>
@@ -269,7 +277,7 @@ th, td {
         }
         %>
         </table><br>
-        <center><button type="button" class="btn btn-default" onclick="location.href='viewIncident.jsp'" >Back</button></center>
+        <center><button type="button" class="btn btn-default"><a href = "<%=request.getContextPath()%>/Security/evaluateReport.jsp">Back</a></button></center>
         
 	
     </div>

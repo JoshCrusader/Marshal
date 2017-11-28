@@ -182,7 +182,7 @@ th, td {
                 while (rs.next()){
                     i = rs.getInt("usertypeID");
                     fname = rs.getString("fname");
-                    String path = "viewIncident.jsp";
+                    String path = "evaluateReport.jsp";
                 }
             
            
@@ -201,10 +201,10 @@ th, td {
           
   <li><img src="LOGO.png" align="middle" width="40" height="40" ></li>
 
-  <li><a href="<%=request.getContextPath()%>/Security/home.jsp" class = "active">Home</a></li>
-  <li><a href="<%=request.getContextPath()%>/Security/viewIncident.jsp"  >View Incidents</a></li>
+  <li><a href="<%=request.getContextPath()%>/Security/home1.jsp" class = "active">Home</a></li>
+  <li><a href="<%=request.getContextPath()%>/Security/evaluateReport.jsp"  >View Incidents</a></li>
   
-  <li><a href="<%=request.getContextPath()%>/Security/viewPenalties.jsp">View Penalties</a></li>
+  <li><a href="<%=request.getContextPath()%>/Security/viewReport.jsp">View Penalties</a></li>
 
   
   

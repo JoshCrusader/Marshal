@@ -8,7 +8,7 @@ import java.sql.SQLException;
 /**
  * Java class Database
  * The class illustrates how to get the database connection from Java to MySQL 
- * to generate JavaDoc documentation
+ * 
  *
  * @author Fred Purisima
  * 

@@ -104,16 +104,14 @@ public class RegVecServ extends HttpServlet {
 
             request.setAttribute("regv", regv);
             request.getRequestDispatcher("RegVehOutput.jsp").forward(request, response);
-        
             
         }
         
         else{
             RegisterVehicle regv=new RegisterVehicle();
             request.setAttribute("regv", regv);
-            request.getRequestDispatcher("RegVehOutputErr.jsp").forward(request, response);
+            request.getServletContext().getRequestDispatcher("RegVehOutputErr.jsp").forward(request, response);
             
-        
         }
   
     }

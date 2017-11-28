@@ -8,7 +8,6 @@
 <%@ page import="java.io.*" %>
 <%@ page import="DocuMgmtControllers.modelDao.*"%>
 <% 
-
     ResultSet rs = DocumentDAO.getDocument();
 %>
 
@@ -17,12 +16,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Document Management %></title>
-        <link href="DocuMgmt/css/marshal.css" rel="stylesheet" type="text/css">
-        <link href="DocuMgmt/css/css_standard.css" rel="stylesheet" type="text/css">
-        <link href="DocuMgmt/css/flexboxgrid.css" rel="stylesheet" type="text/css">
-        <link href="DocuMgmt/css/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="DocuMgmt/lib/DataTables/media/css/jquery.dataTables.css">
+        <title>Document Management</title>
+        <link href="${pageContext.request.contextPath}/DocuMgmt/css/marshal.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.request.contextPath}/DocuMgmt/css/css_standard.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.request.contextPath}/DocuMgmt/css/flexboxgrid.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.request.contextPath}/DocuMgmt/css/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/DocuMgmt/lib/DataTables/media/css/jquery.dataTables.css">
     </head>
     <body>
         
@@ -90,15 +89,17 @@
                                                 String name = rsF.getString("folderName");
 
                                                 out.println("<tr>");
-                                                out.println("<td><img class='fileThumbnail-sm' src='DocuMgmt/img/folder.png'></td>");
+                                                %>
+                                                <td><img class="fileThumbnail-sm" src="${pageContext.request.contextPath}/DocuMgmt/img/folder.png"></td>
+                                                <%
                                                 out.println("<td>" + name + "</td>");
+                                                out.println("<td></td>");
                                                 out.println("</tr>");
                                             }
                                     }
                                     catch(Exception e) {
                                         e.printStackTrace();
                                     }
-                                    
                                     while(rs.next()){
                                     String loc = rs.getString("documentLocation");
                                     String name = rs.getString("description");
@@ -138,13 +139,15 @@
                                             
                                             out.println("<div class='file-blocks'>");
                                                 out.println("<div class='file-block-pic'>");
-                                                    out.println("<img class='fileThumbnail-sm' src='DocuMgmt/img/folder.png'>");
+                                                %>
+                                                <td><img class="fileThumbnail-sm" src="${pageContext.request.contextPath}/DocuMgmt/img/folder.png"></td>
+                                                <%
                                                 out.println("</div>");
                                                 out.println("<div class='file-block-desc'>");
                                                     out.println(name);
                                                 out.println("</div>");
                                             out.println("</div>");
-                                        }
+                                        }   
                                 }
                                 catch(Exception e) {
                                     e.printStackTrace();
@@ -157,7 +160,7 @@
                                 String owner = rs.getString("create_userID");
 
                                 if (loc.toLowerCase().contains(".txt")){
-                                    loc = "DocuMgmt/img/document.png"; 
+                                    loc = "DocuMgmt/img/document.png";
                                 }
 
                                 out.println("<div class='file-blocks'>");
@@ -198,7 +201,7 @@
                                 </div>
                                 <div class="modal-body">
                                     Select a file to upload: <br />
-                                    <form action="fileupload.jsp" method="post" enctype="multipart/form-data">
+                                    <form action="${pageContext.request.contextPath}/DocuMgmt/fileupload.jsp" method="post" enctype="multipart/form-data">
                                         <input type="file" name="file" size="50" />
                                         <br />
                                         <input type="submit" value="Upload File" />
@@ -225,7 +228,7 @@
                                     <h2>Add Folder</h2>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="documentmanagement.jsp" method="POST">
+                                    <form action="${pageContext.request.contextPath}/DocuMgmt/documentmanagement.jsp" method="POST">
                                         <input type="text" name="foldername" id="foldername"/>
                                         <button id="create">Create Test Directory</button>
                                     </form>
@@ -251,7 +254,7 @@
                                     <h2>Delete Folder</h2>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="documentmanagement.jsp" method="POST">
+                                    <form action="${pageContext.request.contextPath}/DocuMgmt/documentmanagement.jsp" method="POST">
                                         <input type="text" name="dfoldername" id="dfoldername"/>
                                         <button id="create">Delete Test Directory</button>
                                     </form>
@@ -277,7 +280,7 @@
                                     <h2>Delete Folder</h2>
                                 </div>
                                 <div class="modal-body" style="color:black;">
-                                    <form action="documentmanagement.jsp" method="POST">
+                                    <form action="DocuMgmt/documentmanagement.jsp" method="POST">
                                         Old Folder Name:
                                         <input type="text" name="oldname" id="oldname"/><br>
                                         New Folder Name: 
@@ -293,26 +296,44 @@
                         <!-- END Edit Folder-->
                         
                         <%
-                            if (request.getParameter("foldername") != null){ 
-                                String foldername = request.getParameter("foldername");
-                                if (foldername.length() != 0) {
-                                    new File("C:\\"+foldername).mkdir();//Modify this path to specify where to create a folder
+                            try{
+                                if (request.getParameter("foldername") != null){ 
+                                    String nfoldername = request.getParameter("foldername");
+                                    if (nfoldername.length() != 0) {
+                                        new File("C:/Users/Serus Caligo/Documents/NetBeansProjects/Marshal/web/DocuMgmt/docu/Forms/"+nfoldername).mkdir();//Modify this path to specify where to create a folder
+                                    }
                                 }
                             }
-                            if (request.getParameter("dfoldername") != null){ 
-                                String foldername = request.getParameter("dfoldername");
-                                if (foldername.length() != 0) {
-                                    new File("C:\\"+foldername).delete(); //Modify this path to specify where to delete a folder
-                                }
+                            catch(Exception ex) {
+                                System.out.println(ex);
                             }
                             
-                            if (request.getParameter("oldname") != null && request.getParameter("newname") != null){ 
-                                String old = request.getParameter("oldname");
-                                String newname = request.getParameter("newname");
-                                if (old.length() != 0) {
-                                    new File("C:\\"+old).renameTo(new File("C:\\"+newname)); //Modify this path to specify where to modify a folder
+                            try{
+                                if (request.getParameter("dfoldername") != null){ 
+                                    String foldername = request.getParameter("dfoldername");
+                                    if (foldername.length() != 0) {
+                                        new File("C:/Users/Serus Caligo/Documents/NetBeansProjects/Marshal/web/DocuMgmt/docu/Forms/"+foldername).delete(); //Modify this path to specify where to delete a folder
+                                    }
                                 }
                             }
+                            catch(Exception ex) {
+                                System.out.println(ex);
+                            }
+                            
+                            try{
+                                if (request.getParameter("oldname") != null && request.getParameter("newname") != null){ 
+                                    String old = request.getParameter("oldname");
+                                    String newname = request.getParameter("newname");
+                                    if (old.length() != 0) {
+                                        new File("C:/Users/Serus Caligo/Documents/NetBeansProjects/Marshal/web/DocuMgmt/docu/Forms/"+old).renameTo(new File("C:/Users/Serus Caligo/Documents/NetBeansProjects/Marshal/web/DocuMgmt/docu/Forms/"+newname)); //Modify this path to specify where to modify a folder
+                                    }
+                                }
+                            }
+                            catch(Exception ex) {
+                                System.out.println(ex);
+                            }
+                            
+                            
                             
                         %>
                         <!-- Assign Permissions -->
@@ -345,9 +366,9 @@
         </div>
         
            
-        <script type="text/javascript" charset="utf8" src="js/jquery.js"></script>
-        <script type="text/javascript" charset="utf8" src="js/css_scripts.js"></script>
-        <script type="text/javascript" charset="utf8" src="lib/DataTables/media/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" charset="utf8" src="DocuMgmt/js/jquery.js"></script>
+        <script type="text/javascript" charset="utf8" src="DocuMgmt/js/css_scripts.js"></script>
+        <script type="text/javascript" charset="utf8" src="DocuMgmt/lib/DataTables/media/js/jquery.dataTables.js"></script>
         <script>
             //DataTable
             $('#docu').DataTable();

@@ -10,7 +10,7 @@
    File file ;
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
-   String filePath = "C:/Users/Serus Caligo/Documents/NetBeansProjects/Mashal/web/docu/"; //Modify the path to indicate where to upload
+   String filePath = "C:/Users/Serus Caligo/Documents/NetBeansProjects/Marshal/web/DocuMgmt/docu/Forms/"; //Modify the path to indicate where to upload
    
    String contentType = request.getContentType();
    if ((contentType.indexOf("multipart/form-data") >= 0)) {
@@ -51,4 +51,4 @@
       out.println("</html>");
    }
 %>
-<meta http-equiv="refresh" content="3;url=http://localhost:8080/Mashal//documentmanagement.jsp" />
+<meta http-equiv="refresh" content="3;url=http://localhost:8080/Marshal/DocumentManagement" />

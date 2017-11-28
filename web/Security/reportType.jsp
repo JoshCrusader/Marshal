@@ -227,17 +227,17 @@ th, td {
                }
             else if (typeID == 2){
      
-               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2anyone ua on sv.securityReportID = ua.securityReportID where incidentTypeID = '"+typeID+"'";        
+               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2anyone ua on sv.securityReportID = ua.securityReportID where incidentTypeID = '"+typeID+"' and (sv.status = 0 || sv.status =1)";        
             }
             else if (typeID == 3){
             
              
                      
-                    sql ="SELECT * FROM SECURITY_VIOLATIONS sv join VEHICLE2VEHICLE vv on sv.securityReportID = vv.securityReportID where incidentTypeID = '"+typeID+"'";        
+                    sql ="SELECT * FROM SECURITY_VIOLATIONS sv join VEHICLE2VEHICLE vv on sv.securityReportID = vv.securityReportID where incidentTypeID = '"+typeID+"' and (sv.status = 0 || sv.status =1)";        
               
                }
-            else {
-               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join VEHICLE2User vu on sv.securityReportID = vu.securityReportID where incidentTypeID = '"+typeID+"'";         
+            else if (typeID == 4) {
+               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join VEHICLE2User vu on sv.securityReportID = vu.securityReportID where incidentTypeID = '"+typeID+"' and (sv.status = 0 || sv.status =1)";         
             }
             PreparedStatement pStmt= con.prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery(sql);

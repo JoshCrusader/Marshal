@@ -181,7 +181,7 @@ th, td {
             </tr>
            </table><br>
         </div>    
-    <div class="col-sm-6" ">
+    <div class="col-sm-6" >
         
         
         <%@page import="java.sql.DriverManager"%>
@@ -221,17 +221,25 @@ th, td {
                     <div class="col-sm-8" style="background-color:white;">
                          <li> 
                 <p></p>
-                 <p align = 'center'><b>Report Date: </b> <%=resultSet.getString("reportDate") %></p>
+                
                 <p><b>Security Report ID: </b> <%=resultSet.getInt("securityReportID") %></p>
                 
                 <p><b>Incident Type ID: </b><%=resultSet.getInt("incidentTypeID") %></p>
                 <p><b>Map Point ID: </b> <%=resultSet.getInt("mappointID") %></p>
                 <p><b>Violated Policy ID: </b> <%=resultSet.getInt("violatedpolicyID") %></p>
-                <p><b>Status: </b> <%=resultSet.getInt("status") %></p>
+                
                 <p><b>Complaint:</b></p>
                 <p><%=resultSet.getString("complaint") %></p>
                 <p><b>Resolution:</b></p>
                 <p><%=resultSet.getString("resolution") %></p>
+                    </div>
+                    <div class="col-sm-4" style="background-color:white;">
+                         <li> 
+                <p></p>
+                <p><b>Report Date: </b> <%=resultSet.getString("reportDate") %></p>
+                <p align = 'right'><b>Security ID: </b> <%=resultSet.getString("securityID") %></p>
+                 <p align = 'right'><b>Board Member: </b> <%=resultSet.getString("boardmemberID") %></p>
+                <p align = 'right'><b>Status: </b> <%=resultSet.getInt("status") %></p>
                     </div>
         
                    

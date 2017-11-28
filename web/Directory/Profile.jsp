@@ -11,8 +11,8 @@
 
     Double lot = (Double)request.getAttribute("lot");
     Double block = (Double)request.getAttribute("block");
-    int lotnum = (int)request.getAttribute("blocknum");
-    int blocknum = (int)request.getAttribute("blocknum");
+    int lotnum = (Integer)request.getAttribute("blocknum");
+    int blocknum = (Integer)request.getAttribute("lotnum");
     %>
 <html>
 <html>
@@ -168,7 +168,7 @@
 				</div>
 				<div class = "col-4 pull-left">
 						<center><a href = "UserProfile?uId=<%= user.getUserID() %>"><h3><%=user.getfName() %> <%=user.getmName() %> <%= user.getlName() %></h3> </a></center>
-						<center><h4><%= user.getOccupation() %></h4></center>
+						<center><h4><%= user.getOccupation() %> </h4></center>
 				</div><br>
 				<div class = "col-12 pull-left" style = "margin-top:15px;">
 					<table class = "table">
@@ -273,6 +273,7 @@
 			
 		</div>
 	</div>
+                                        
 </body>
 <script>
 	  function dontdisplayme(){
@@ -288,12 +289,12 @@
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: <%= lot%>, lng: <%= block%>},
+          center: {lat: <%= block%>, lng: <%= lot%>},
           zoom: 20,
           mapTypeId: 'satellite'
         });
         var marker = new google.maps.Marker({
-          position: {lat: 14.382563, lng: 121.048059},
+          position: {lat: <%= block%>, lng: <%= lot%>},
           map: map
         });
       }

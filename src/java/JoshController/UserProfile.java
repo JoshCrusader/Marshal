@@ -136,12 +136,19 @@ public class UserProfile extends HttpServlet {
 			
 			sql = "SELECT xAxis, yAxis from (SELECT mappointID from REF_PROPERTIES WHERE lotnum = "+lot+" and blocknum = "+block+") RP\n" + 
 					"					LEFT JOIN MAPPOINT MP on RP.mappointID = MP.mappointID;";
+                        System.out.println(sql);
 			pStmt = conn.prepareStatement(sql);
 			ResultSet blockset = pStmt.executeQuery();
-			
+			Double lat = 1.0;
+                        Double alt = 1.0;
 			blockset.next();
-			Double lat = blockset.getDouble(1);
-			Double alt = blockset.getDouble(2);
+                        try{
+			 lat = blockset.getDouble(1);
+                         alt = blockset.getDouble(2);
+                        }
+                        catch(Exception e){
+                            
+                        }
 			
 			request.setAttribute("myUser",myUser);
 			request.setAttribute("ho",homeowners);

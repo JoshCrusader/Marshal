@@ -188,7 +188,7 @@ th, td {
             </tr>
            </table><br>
         </div>    
-    <div class="col-sm-6" ">
+    <div class="col-sm-6" >
         
         
         <%@page import="java.sql.DriverManager"%>
@@ -216,7 +216,7 @@ th, td {
             Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root",null);
             String sql = "";
              String sqlinsert = "";
-            sqlinsert = "UPDATE security_violations set status = '1' where securityReportID = '"+repID+"'";
+            sqlinsert = "UPDATE security_violations set status = '1', boardmemberID = '"+j+"' where securityReportID = '"+repID+"'";
             PreparedStatement a = con.prepareStatement(sqlinsert);
                 a.executeUpdate();
             sql = "SELECT * FROM SECURITY_VIOLATIONS WHERE SECURITYREPORTID = '"+repID+"'";
@@ -249,6 +249,8 @@ th, td {
                          <li> 
                 <p></p>
                 <p align = 'right'><b>Report Date: </b> <%=resultSet.getString("reportDate") %></p>
+                <p align = 'right'><b>Security ID: </b> <%=resultSet.getString("securityID") %></p>
+                 <p align = 'right'><b>Board Member: </b> <%=resultSet.getString("boardmemberID") %></p>
                 <p align = 'right'><b>Status: </b> <%=resultSet.getInt("status") %></p>
                 
                 

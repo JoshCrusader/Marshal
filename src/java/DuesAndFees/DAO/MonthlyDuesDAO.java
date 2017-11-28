@@ -1,13 +1,13 @@
-package DAO;
+package DuesAndFees.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import Model.CurrentMonthlyDue;
-import Model.FutureDues;
-import Model.MonthlyDues;
-import Model.PastDues;
-import Model.ToBeDues;
+import DuesAndFees.Model.CurrentMonthlyDue;
+import DuesAndFees.Model.FutureDues;
+import DuesAndFees.Model.MonthlyDues;
+import DuesAndFees.Model.PastDues;
+import DuesAndFees.Model.ToBeDues;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -132,13 +132,17 @@ public class MonthlyDuesDAO {
                                                                           + "FROM ref_monthlydues rm WHERE rm.mduesID = ? ");
                 currentDueQuery.setInt(1, mduesID);
                 ResultSet currentDueResult = currentDueQuery.executeQuery();
-                currentDueResult.next();
+                
+                
+                if (currentDueResult.next()) {
                 
                 cmd.setStartmonth(currentDueResult.getInt(1));
                 cmd.setStartyear(currentDueResult.getInt(2));
                 cmd.setEndmonth(currentDueResult.getInt(3));
                 cmd.setEndyear(currentDueResult.getInt(4));
                 cmd.setAmount(currentDueResult.getDouble(5));
+                
+                }
                 
                 return cmd;
                 
@@ -245,6 +249,12 @@ public class MonthlyDuesDAO {
             
     }
     
+    /**
+     * 
+     * This method returns the list of future dues that has not been implemented yet
+     * 
+     * @return
+     */
     public static FutureDues futureDues() {
         
         FutureDues fd = new FutureDues();
@@ -287,6 +297,11 @@ public class MonthlyDuesDAO {
         
     }
     
+    /**
+     *
+     * @param mduesID 
+     * @return
+     */
     public static MonthlyDues getSelectedFutureDue(int mduesID) {
         
         MonthlyDues md = new MonthlyDues();
@@ -325,6 +340,11 @@ public class MonthlyDuesDAO {
         
     }
     
+    /**
+     *
+     * @param mduesID
+     * @return
+     */
     public static int removeDue(int mduesID) {
         
         int flag = 0;
@@ -394,6 +414,12 @@ public class MonthlyDuesDAO {
         
     }
     
+    /**
+     *
+     * @param mduesID
+     * @param amount
+     * @return
+     */
     public static int editAmount(int mduesID, double amount) {
         
         int flag = 0;

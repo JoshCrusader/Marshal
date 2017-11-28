@@ -26,7 +26,7 @@ import VehicleAdmin.model.RequestSticker;
  *
  * @author Fred Purisima
  */
-@WebServlet(urlPatterns = {"/ReqVehSticServ"})
+@WebServlet(urlPatterns = {"/VehicleAdmin/ReqVehSticServ"})
 public class ReqVehSticServ extends HttpServlet {
 
     /**

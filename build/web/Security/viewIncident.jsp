@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="SecurityControllers.Users" %>
 <!DOCTYPE html>
 <html>
 <title>View Incident</title>
@@ -120,10 +121,10 @@ d {
 
   <li><img src="LOGO.png" align="middle" width="40" height="40" ></li>
 
-  <li><a href="home.jsp">Home</a></li>
-  <li><a href="viewIncident.jsp" class = "active" >View Incidents</a></li>
+  <li><a href="<%=request.getContextPath()%>/Security/home.jsp">Home</a></li>
+  <li><a href="<%=request.getContextPath()%>/Security/viewIncident.jsp" class = "active" >View Incidents</a></li>
   
-  <li><a href="viewPenalties.jsp">View Penalties</a></li>
+  <li><a href="<%=request.getContextPath()%>/Security/viewPenalties.jsp">View Penalties</a></li>
 
   
   
@@ -134,17 +135,21 @@ d {
 <l><h2><center>View Incidents</center></h2></l>
 
 <div class="container-fluid">
-  
-
+    <% 
+         int i = ((Users) session.getAttribute("sessionUser")).getUsertype();
+         String j = ((Users) session.getAttribute("sessionUser")).getUsername();
+         
+        %>
+        <%= i + j%>
   <div class="row">
     <div class="col-sm-3" style="background-color:white;"></div>
     
     <div class="col-sm-6" style="background-color:lavenderblush;">
         <div class="center">
-            <form name ='selectType' method ='get' action ='incidentType.jsp'>
+            <form name ='selectType' method ='get' action ='<%=request.getContextPath()%>/Security/incidentType.jsp'>
             <li><h4>Select type of incident:
                     <select id = "type" name = "type" onchange="changeSelect(this.value)"> 
-                    <option id = "1" value = "1">User to User</option>
+                     <option id = "1" value = "1">User to User</option>
                     <option id = "2" value = "2">User to Anyone</option>
                     <option id = "3" value = "3">Vehicle to Vehicle</option>
                     <option id = "4" value = "4">Vehicle to User</option>		
@@ -169,7 +174,8 @@ d {
             </form>
             
             
-            <%      
+            <%     
+                 
                 String kind = request.getParameter("kind");
                 String incidentType = request.getParameter("type");
              

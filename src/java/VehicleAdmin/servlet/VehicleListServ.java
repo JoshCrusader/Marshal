@@ -23,7 +23,7 @@ import VehicleAdmin.model.ViewVehicleList;
  *
  * @author Fred Purisima
  */
-@WebServlet(urlPatterns = {"/VehicleListServ"})
+@WebServlet(urlPatterns = {"/VehicleAdmin/VehicleListServ"})
 public class VehicleListServ extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.

@@ -1,4 +1,4 @@
-package Controller;
+package DuesAndFees.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,15 +8,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Model.*;
-import DAO.*;
+import DuesAndFees.Model.*;
+import DuesAndFees.DAO.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
  * Servlet implementation class MonthlyDues
  */
-@WebServlet("/MonthlyDuesController")
+@WebServlet("/DuesAndFees/MonthlyDuesController")
 public class MonthlyDuesController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

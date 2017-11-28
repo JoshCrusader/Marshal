@@ -1,4 +1,4 @@
-package DAO;
+package DuesAndFees.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,7 +24,7 @@ public class DBConnect {
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/marshal", "root" , "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root" , "");
 			
 		}
 		

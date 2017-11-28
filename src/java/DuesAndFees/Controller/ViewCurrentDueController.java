@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package DuesAndFees.Controller;
 
+import DuesAndFees.DAO.MonthlyDuesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,15 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.*;
-import DAO.*;
+import DuesAndFees.Model.*;
 import javax.servlet.RequestDispatcher;
 
 /**
  *
  * @author Patrick
  */
-@WebServlet(name = "ViewCurrentDueController", urlPatterns = {"/ViewCurrentDueController"})
+@WebServlet(name = "ViewCurrentDueController", urlPatterns = {"/DuesAndFees/ViewCurrentDueController"})
 public class ViewCurrentDueController extends HttpServlet {
     
     /**

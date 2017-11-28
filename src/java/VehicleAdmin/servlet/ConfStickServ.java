@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Fred Purisima
  */
-@WebServlet(urlPatterns = {"/ConfStickServ"})
+@WebServlet(urlPatterns = {"/VehicleAdmin/ConfStickServ"})
 public class ConfStickServ extends HttpServlet {
 
     /**

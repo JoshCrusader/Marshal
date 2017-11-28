@@ -31,7 +31,7 @@ import javax.servlet.annotation.WebServlet;
  * @author Johannes
  */
 
-@WebServlet(urlPatterns = {"/banvehicleservlet"})
+@WebServlet(urlPatterns = {"/VehicleAdmin/banvehicleservlet"})
 public class banvehicleservlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

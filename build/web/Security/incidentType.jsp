@@ -4,7 +4,9 @@
     Author     : Mharjorie Sandel
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="SecurityControllers.Users" %>
 <!DOCTYPE html>
 <html>
 <title>View Incident</title>
@@ -124,6 +126,7 @@ th, td {
 
 <body>
 
+        
 <ul> 
 
   <li><img src="LOGO.png" align="middle" width="40" height="40" ></li>
@@ -163,6 +166,14 @@ th, td {
         <%@page import="java.sql.ResultSet"%>
         <%@page import="java.sql.PreparedStatement"%>
         <%@page import="java.sql.Connection"%>
+         <%
+            int i = ((Users) session.getAttribute("sessionUser")).getUsertype();
+            String j = ((Users) session.getAttribute("sessionUser")).getUsername();
+         
+        %>
+        <%= i + j%>
+        
+        
         <%
             String type = request.getParameter( "type" );
             session.setAttribute( "incidentType", type );
@@ -187,36 +198,39 @@ th, td {
                 if (kindID == 1) {
                     out.println("List of your Complaints:");
                      
-                     sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2USER uu on sv.securityReportID = uu.securityReportID where incidentTypeID = '"+typeID+"' and uu.complainant_userID = 'olie@gmail.com'";       
+                     sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2USER uu on sv.securityReportID = uu.securityReportID where incidentTypeID = '"+typeID+"' and uu.complainant_userID = '"+j+"'";       
                 }
                 else {
                     out.println("List of your Accusations:");
                      
-                    sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2USER uu on sv.securityReportID = uu.securityReportID where incidentTypeID = '"+typeID+"' and uu.accused_userID = 'olie@gmail.com'"; 
+                    sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2USER uu on sv.securityReportID = uu.securityReportID where incidentTypeID = '"+typeID+"' and uu.accused_userID = '"+j+"'"; 
                 }
                }
             else if (typeID == 2){
-               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2anyone ua on sv.securityReportID = ua.securityReportID where incidentTypeID = '"+typeID+"' and ua.userID = 'mharj@gmail.com'";        
+               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join USER2anyone ua on sv.securityReportID = ua.securityReportID where incidentTypeID = '"+typeID+"' and ua.userID = '"+j+"'";        
             }
             else if (typeID == 3){
                 String kind = request.getParameter( "kind" );
                 session.setAttribute( "incidentType", kind );
                 kindID = Integer.parseInt(kind);
                 out.println(kindID);
+                
+                 
+                 
                 if (kindID == 1){
                     out.println("List of your Vehicle's Complaints:");
                      
-                    sql ="SELECT * FROM SECURITY_VIOLATIONS sv join VEHICLE2VEHICLE vv on sv.securityReportID = vv.securityReportID where incidentTypeID = '"+typeID+"' and vv.complainantplatenum = 'KYA143'";        
+                    sql ="SELECT * FROM (SELECT * FROM USER_VEHICLES WHERE USERID = '"+j+"') UV JOIN VEHICLE2VEHICLE VV ON UV.plateNum = VV.complainantplatenum LEFT JOIN SECURITY_VIOLATIONS SV ON SV.securityReportID = VV.securityReportID;";        
                 }
                 else {
                     out.println("List of your Vehicle's Accusations:");
                      
-                     sql ="SELECT * FROM SECURITY_VIOLATIONS sv join VEHICLE2VEHICLE vv on sv.securityReportID = vv.securityReportID where incidentTypeID = '"+typeID+"' and vv.accusedplatenum = 'TEH115'";   
-                }
+                     sql ="SELECT * FROM (SELECT * FROM USER_VEHICLES WHERE USERID = '"+j+"') UV JOIN VEHICLE2VEHICLE VV ON UV.plateNum = VV.accusedplatenum LEFT JOIN SECURITY_VIOLATIONS SV ON SV.securityReportID = VV.securityReportID;";        
+               }
                }
             else {
-               sql ="SELECT * FROM SECURITY_VIOLATIONS sv join VEHICLE2User vu on sv.securityReportID = vu.securityReportID where incidentTypeID = '"+typeID+"' and vu.platenum = 'ULO221'";         
-            }
+               sql ="SELECT * FROM (SELECT * FROM USER_VEHICLES WHERE USERID = '"+j+"') UV JOIN VEHICLE2USER VU ON UV.plateNum = VU.platenum LEFT JOIN SECURITY_VIOLATIONS SV ON SV.securityReportID = VU.securityReportID"; 
+               }
             PreparedStatement pStmt= con.prepareStatement(sql);
             ResultSet resultSet = pStmt.executeQuery(sql);
             while(resultSet.next()){

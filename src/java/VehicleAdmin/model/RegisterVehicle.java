@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class RegisterVehicle implements Serializable {
    
     private String platenum,model,make,userid;
-    private int year;
+    private String year;
     private boolean banned;
 
     /**It gets the plate number of the registered vehicle 
@@ -89,7 +89,7 @@ public class RegisterVehicle implements Serializable {
      *
      * @return An int representing the year when the registered vehicle is bought
      */
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
@@ -97,7 +97,7 @@ public class RegisterVehicle implements Serializable {
      *
      * @param year An int containing the year when the registered vehicle is bought
      */
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 

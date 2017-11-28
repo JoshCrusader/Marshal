@@ -29,7 +29,7 @@ import VehicleAdmin.model.RegisterVehicle;
  *
  * @author Fred Purisima
  */
-@WebServlet(name = "RegVecServ", urlPatterns = {"/RegVecServ"})
+@WebServlet(name = "RegVecServ", urlPatterns = {"/VehicleAdmin/RegVecServ"})
 public class RegVecServ extends HttpServlet {
     
     /**
@@ -50,7 +50,6 @@ public class RegVecServ extends HttpServlet {
         String model=request.getParameter("model");
         String make=request.getParameter("make");
         String year=request.getParameter("year");
-        int result = Integer.parseInt(year);
         String userid=request.getParameter("userid");
         boolean isExist = false;
         
@@ -59,25 +58,28 @@ public class RegVecServ extends HttpServlet {
         try {
             pStmt1 = conn.prepareStatement(sql1);
         } catch (SQLException ex) {
+            System.out.println("Logshit1");
             Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
         }
         ResultSet rs1 = null;
         try {
             rs1 = pStmt1.executeQuery();
         } catch (SQLException ex) {
+            System.out.println("Logshit2");
             Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
+            
             rs1.next();
-            if(rs1.getString(1)==null){
+            if(rs1.getString(1).equals("")){
                 isExist=false;
-        
             }
             else{
                 isExist=true;
             
             }
         } catch (SQLException ex) {
+            System.out.println("Logshit3");
             Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -86,19 +88,21 @@ public class RegVecServ extends HttpServlet {
             regv.setPlatenum(platenum);
             regv.setModel(model);
             regv.setMake(make);
-            regv.setYear(result);
+            regv.setYear(year);
             regv.setBanned(false);
             regv.setUserid(userid);
 
             try {
                 regv.insertVehicle();
             } catch (SQLException ex) {
+                System.out.println("Logshit4");
                 Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             try {
                 regv.insertUserVehicle();
             } catch (SQLException ex) {
+                System.out.println("Logshit5");
                 Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -110,7 +114,7 @@ public class RegVecServ extends HttpServlet {
         else{
             RegisterVehicle regv=new RegisterVehicle();
             request.setAttribute("regv", regv);
-            request.getServletContext().getRequestDispatcher("RegVehOutputErr.jsp").forward(request, response);
+            request.getServletContext().getRequestDispatcher("/VehicleAdmin/RegVehOutputErr.jsp").forward(request, response);
             
         }
   

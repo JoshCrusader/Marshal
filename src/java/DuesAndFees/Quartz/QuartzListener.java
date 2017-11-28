@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Quartz;
+package DuesAndFees.Quartz;
 
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
-import DAO.*;
+import DuesAndFees.DAO.*;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -61,9 +61,17 @@ public class QuartzListener implements ServletContextListener {
                         .withSchedule(monthlyOnDayAndHourAndMinute(1, 12, 0)) // fire on the 5th day of every month at 15:00
                         .build();
                                 
-                        /*.startNow()
-                        .withSchedule(cronSchedule("0 0 15 5 * ?")) // fire on the 5th day of every month at 15:00
-                        .build();*/
+                        /*
+                        .withSchedule(simpleSchedule()
+                        .withIntervalInSeconds(2)
+                        .repeatForever())
+                        .build();
+                        */
+                                
+                        /*
+                        .withSchedule(monthlyOnDayAndHourAndMinute(1, 12, 0)) // fire on the 5th day of every month at 15:00
+                        .build();
+                        */
 
                         // Setup the Job and Trigger with Scheduler & schedule jobs
                         scheduler = new StdSchedulerFactory().getScheduler();

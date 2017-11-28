@@ -1,4 +1,4 @@
-package Model;
+package DuesAndFees.Model;
 
 import java.io.Serializable;
 

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package DuesAndFees.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import Model.MonthlyDues;
+import DuesAndFees.Model.MonthlyDues;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

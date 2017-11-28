@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package DuesAndFees.Controller;
 
-import DAO.MonthlyDuesDAO;
-import Model.MonthlyDues;
+import DuesAndFees.DAO.MonthlyDuesDAO;
+import DuesAndFees.Model.MonthlyDues;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Patrick
  */
-@WebServlet(name = "ViewDueToRemove", urlPatterns = {"/ViewDueToRemove"})
+@WebServlet(name = "ViewDueToRemove", urlPatterns = {"/DuesAndFees/ViewDueToRemove"})
 public class ViewDueToRemove extends HttpServlet {
     
     /**

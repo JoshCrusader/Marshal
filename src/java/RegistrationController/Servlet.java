@@ -18,13 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 import RegistrationController.Homeowner;
 import Objects.User;
 import RegistrationController.Kasambahay;
+import javax.servlet.http.HttpSession;
 
 
 /**
  *
  * @author User
  */
-@WebServlet(urlPatterns = {"/Servlet"})
+@WebServlet(urlPatterns = {"/Registration/Servlet"})
 public class Servlet extends HttpServlet {
     
     public Servlet(){
@@ -63,7 +64,7 @@ public class Servlet extends HttpServlet {
      
     try{
         Class.forName("com.mysql.jdbc.Driver");
-        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","password");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","");
         String existingUname= "select * from users where userID='"+uName+"'";
         PreparedStatement pStmt= con.prepareStatement(existingUname);
         ResultSet result= pStmt.executeQuery();
@@ -159,6 +160,8 @@ public class Servlet extends HttpServlet {
             a1.settNum(tNum);
             a1.setmNum(mNum); 
             a1.setEmail(email);
+            HttpSession session = request.getSession();
+            session.setAttribute("RegisterdUser",a1);
            
             /*String referenceproperties= "INSERT INTO ref_properties (blocknum,lotnum,mappointID) VALUES ("+bNo+","+lNo+",2)"; //need to insert other rows
             PreparedStatement ref= con.prepareStatement(referenceproperties);

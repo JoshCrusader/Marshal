@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package DuesAndFees.Controller;
 
-import DAO.MonthlyDuesDAO;
+import DuesAndFees.DAO.MonthlyDuesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Patrick
  */
-@WebServlet(name = "EditDuesController", urlPatterns = {"/EditDuesController"})
+@WebServlet(name = "EditDuesController", urlPatterns = {"/DuesAndFees/EditDuesController"})
 public class EditDuesController extends HttpServlet {
 
     /**

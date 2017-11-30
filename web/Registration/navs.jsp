@@ -9,6 +9,9 @@
 				<img src="<%= request.getContextPath() %>/Core/Marshal.png" style = "height:100%;width:100%;">
 			</div>
 		</a>
+                        <a href="#">
+                            <div class = "pull-left css-item" style = "text-alignment:center;margin-left:15px;width:100px;background-color:#009688;height:35px;border-radius: 3px;line-height: 30px;text-align: center;"> Submodule</div>
+                        </a>
 		
 		<form id = "directorysearchform" action = "${pageContext.request.contextPath}/SearchDirectory" method = "GET">
 				<div class = "nav-search">

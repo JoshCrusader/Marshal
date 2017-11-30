@@ -4,9 +4,6 @@
     Author     : Andrew Santiago
 --%>
 
-<%@page import="dao.UserDAO"%>
-<%@page import="dao.BoardMemberDAO"%>
-<%@page import="dao.DocumentDAO"%>
 <%@page import="dao.PolicyDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,12 +11,12 @@
 <%@ page import="model.Users,model.Policy,model.Penalty, model.Document,model.BoardMember" %>
 <%
 Users currUser = null;
-currUser = UserDAO.getUserbyUsername("yutakun");
+currUser = PolicyDAO.getUserbyUsername("yutakun");
 session.setAttribute("loginUser",currUser);
 ArrayList<Policy> allPolicies = (ArrayList<Policy>) request.getAttribute("filteredPolicies");
 ArrayList<Penalty> allPenalties = PolicyDAO.getAllPenalties();
-ArrayList<Document> allDocuments = DocumentDAO.getAllDocumentsFromFolder(1001);
-ArrayList<BoardMember> allBoardMembers = BoardMemberDAO.getAllActiveBoardMembers();
+ArrayList<Document> allDocuments = PolicyDAO.getAllDocumentsFromFolder(1001);
+ArrayList<BoardMember> allBoardMembers = PolicyDAO.getAllActiveBoardMembers();
 %>
 <html>
     <head>
@@ -207,14 +204,16 @@ ArrayList<BoardMember> allBoardMembers = BoardMemberDAO.getAllActiveBoardMembers
     </head>
     <body>
         
-        <form action="removePolicy" method="POST" id="removeForm">
+        <form action="PolicyController" method="POST" id="removeForm">
             <div class="form-group">
+                    <input type="hidden" name="action" value="removePolicy">
                     <input type="hidden" class="form-control" name="idToRemove" id="disstrack">
             </div>
         </form>
         
         <div id="searchForm">
-            <form action="FilterPolicies" method="POST">
+            <form action="PolicyController" method="GET">
+                <input type="hidden" name="filterType" value="policy">
                     <div class="form-group">
                             <input type="hidden" name="action" value="search">
                             <input type="text" class="form-control" placeholder="Search a policy..." name="searchkeyword" id="grpsearch" size="50">
@@ -222,9 +221,9 @@ ArrayList<BoardMember> allBoardMembers = BoardMemberDAO.getAllActiveBoardMembers
                     </div>
             </form>
             <br>
-            <a href="FilterPolicies?action=ALL"><button type="button"> View All Policies </button></a>
-            <a href="FilterPolicies?action=activeOnly"><button type="button" > View Active Policies </button></a>
-            <a href="FilterPolicies?action=inactiveOnly"><button type="button" > View Inactive Policies </button></a><br><br>
+            <a href="PolicyController?action=ALL&filterType=policy"><button type="button"> View All Policies </button></a>
+            <a href="PolicyController?action=activeOnly&filterType=policy"><button type="button" > View Active Policies </button></a>
+            <a href="PolicyController?action=inactiveOnly&filterType=policy"><button type="button" > View Inactive Policies </button></a><br><br>
             <button type="button" onclick="openAddModal()"> Add Policy </button>
             
             
@@ -266,7 +265,8 @@ ArrayList<BoardMember> allBoardMembers = BoardMemberDAO.getAllActiveBoardMembers
               <h2 id="modalTitle">Request</h2>
             </div>
             <div class="modal-body">
-                <form action="editPolicy" method="POST">
+                <form action="PolicyController" method="POST">
+                    <input type="hidden" name="action" value="editPolicy">
                     <input type="hidden" name="policyID" id="policyID" value="" readonly>
                     <br>
                     <b>Description: </b><input type="text" name="description" id="description" value=""><br><br>
@@ -317,7 +317,8 @@ ArrayList<BoardMember> allBoardMembers = BoardMemberDAO.getAllActiveBoardMembers
               <h2>Add New Policy</h2>
             </div>
             <div class="modal-body">
-                <form action="addPolicy" method="POST" id="addPolicyForm">
+                <form action="PolicyController" method="POST" id="addPolicyForm">
+                    <input type="hidden" name="action" value="addPolicy">
                     <input type="hidden" name="policyID" id="policyID" value="" readonly>
                     <br>
                     <b>Description: </b><input type="text" name="description" value=""><br><br>

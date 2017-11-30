@@ -4,9 +4,6 @@
     Author     : Andrew Santiago
 --%>
 
-<%@page import="dao.UserDAO"%>
-<%@page import="dao.BoardMemberDAO"%>
-<%@page import="dao.DocumentDAO"%>
 <%@page import="dao.PolicyDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,10 +11,10 @@
 <%@ page import="model.Users,model.Policy,model.Penalty, model.Document,model.BoardMember,model.Ref_PenaltyLevel" %>
 <%
 Users currUser = null;
-currUser = UserDAO.getUserbyUsername("yutakun");
+currUser = PolicyDAO.getUserbyUsername("yutakun");
 session.setAttribute("loginUser",currUser);
 ArrayList<Penalty> allPenalties = PolicyDAO.getAllPenalties();
-ArrayList<Document> allDocuments = DocumentDAO.getAllDocumentsFromFolder(1002);
+ArrayList<Document> allDocuments = PolicyDAO.getAllDocumentsFromFolder(1002);
 ArrayList<Ref_PenaltyLevel> allLevels = PolicyDAO.getAllPenaltyLevels();
 String msg = (String) request.getAttribute("msg");
 %>
@@ -207,27 +204,28 @@ String msg = (String) request.getAttribute("msg");
     </head>
     <body>
         <div id="searchForm">
-            <form action="FilterPenalties" method="POST">
+            <form action="PolicyController" method="GET">
+                <input type="hidden" name="filterType" value="penalty">
                     <div class="form-group">
                             <input type="hidden" name="action" value="search">
-                            <input type="text" class="form-control" placeholder="Search a policy..." name="searchkeyword" id="grpsearch" size="50">
+                            <input type="text" class="form-control" placeholder="Search a penalty..." name="searchkeyword" id="grpsearch" size="50">
                             <input type="submit" value="Search">
                     </div>
             </form>
             Filters<br>
             Fee: <select onchange="location = this.value;">
                 <option disabled selected>Please choose...</option>
-                <option value="FilterPenalties?action=feeHigh">Highest to Lowest</option>
-                <option value="FilterPenalties?action=feeLow">Lowest to Highest</option>
-            </select>
+                <option value="PolicyController?action=feeHigh&filterType=penalty">Highest to Lowest</option>
+                <option value="PolicyController?action=feeLow&filterType=penalty">Lowest to Highest</option>
+                </select>
             
             Level: <select onchange="location = this.value;">
                 <option disabled selected>Please choose...</option>
-                <option value="FilterPenalties?action=levelHigh">Highest to Lowest</option>
-                <option value="FilterPenalties?action=levelLow">Lowest to Highest</option>
+                <option value="PolicyController?action=levelHigh&filterType=penalty">Highest to Lowest</option>
+                <option value="PolicyController?action=levelLow&filterType=penalty">Lowest to Highest</option>
             </select><br><br>
             
-            <a href="FilterPenalties?action=ALL"><button type="button"> View All Penalties </button></a>
+            <a href="PolicyController?action=ALL&filterType=penalty"><button type="button"> View All Penalties </button></a>
             
             
             <br><br>
@@ -255,7 +253,7 @@ String msg = (String) request.getAttribute("msg");
                         <button class="dropbtn"><i class="fa fa-cog" aria-hidden="true"></i></button>
                         <div class="dropdown-content">
                             <a href="#" specID="<%=penalty.getPenaltyID() %>" specPenaltyLevel="<%=penalty.getPenaltyLevel() %>" specPenaltyDesc="<%=penalty.getDescription() %>" specPenaltyFee="<%=penalty.getFee() %>"
-                              specPenaltyAction="<%=penalty.getPenaltyAction() %>" specEnablingDocID="<%=penalty.getEnablingDocumentID() %>"  onclick="opModal(this)">Edit Penalty</a>
+                               specPenaltyAction="<%=penalty.getPenaltyAction() %>" specEnablingDocID="<%=penalty.getEnablingDocumentID() %>" specEnablingDoc="<%=PolicyDAO.getDocumentbyID(penalty.getEnablingDocumentID()).getDocumentLocation() %>" specEnablingDocDesc="<%=PolicyDAO.getDocumentbyID(penalty.getEnablingDocumentID()).getDescription() %>"  onclick="opModal(this)">Edit Penalty</a>
                         </div>
                       </div>
                  </div>
@@ -274,8 +272,10 @@ String msg = (String) request.getAttribute("msg");
               <h2 id="modalTitle">Edit Penalty</h2>
             </div>
             <div class="modal-body">
-                <form action="editPenalty" method="POST">
+                <form action="PolicyController" method="POST">
+                    <input type="hidden" name="action" value="editPenalty">
                     <input type="hidden" name="penaltyID" id="penaltyID" value="" readonly>
+                    <input type="hidden" name="enablingDocID" value="">
                     <br>
                     <b>Description: </b><input type="text" name="description" id="description" value=""><br><br>
                     <b>Level:</b>
@@ -287,12 +287,9 @@ String msg = (String) request.getAttribute("msg");
                     </select><br><br>
                     <b>Fee: </b><input type="number" name="penaltyFee" id="penaltyFee" step="0.25" value="0.00" min="0"><br><br>
                     <b>Action: </b><input type="text" name="penaltyAction" id="penaltyAction" value=""><br><br>
-                    <b>Enabling Document: </b>
-                    <select name="enablingDocID" id="enablingDocID">
-                        <%for(Document doc : allDocuments){ %>
-                        <option value="<%=doc.getDocumentID() %>"><%=doc.getDescription() %> (<%=doc.getDocumentLocation() %>)</option>
-                        <% } %>
-                    </select>
+                    <b>Enabling Document file: </b><input type="text" name="enablingDoc" value="" id="enablingDoc" size="40" readonly><br><br>
+                    <b>New Enabling Document: </b><input id="filereplacer" type="file" accept=".doc, .docx, .pdf"><br><br>
+                    <b>Enabling Document Description: </b><input type="text" name="enablingDocDesc" value="" id="enablingDocDesc"><br><br>
                     <br><br>
                     <input type="submit">
                     <br>
@@ -318,7 +315,8 @@ String msg = (String) request.getAttribute("msg");
               <h2 id="modalTitle">Add Penalty</h2>
             </div>
             <div class="modal-body">
-                <form action="addPenalty" method="POST">
+                <form action="PolicyController" method="POST">
+                    <input type="hidden" name="action" value="addPenalty">
                     <br>
                     <b>Description: </b><input type="text" name="description" value=""><br><br>
                     <b>Level:</b>
@@ -330,13 +328,8 @@ String msg = (String) request.getAttribute("msg");
                     </select><br><br>
                     <b>Fee: </b><input type="number" name="penaltyFee" step="0.25" value="0.00" min="0"><br><br>
                     <b>Action: </b><input type="text" name="penaltyAction" value=""><br><br>
-                    <b>Enabling Document: </b>
-                    <select name="enablingDocID">
-                        <%for(Document doc : allDocuments){ %>
-                        <option value="<%=doc.getDocumentID() %>"><%=doc.getDescription() %> (<%=doc.getDocumentLocation() %>)</option>
-                        <% } %>
-                    </select>
-                    <br><br>
+                    <b>Enabling Document: </b><input name="enablingDoc" type="file" accept=".doc, .docx, .pdf"><br><br>
+                    <b>Enabling Document Description: </b><input type="text" name="enablingDocDesc" value=""><br><br>
                     <input type="submit">
                     <br>
                 </form>
@@ -363,13 +356,15 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal and auto-bind the values from the source policy object to the input fields
 function opModal(obj){
     modal.style.display = "block";
-    $("#modalTitle").html("Edit Policy # " + obj.getAttribute("specID"));
+    $("#modalTitle").html("Edit Penalty # " + obj.getAttribute("specID"));
     $("#penaltyID").val(obj.getAttribute("specID"));
     $("#description").val(obj.getAttribute("specPenaltyDesc"));
     $("#penaltylevel").val(obj.getAttribute("specPenaltyLevel"));
     $("#penaltyFee").val(obj.getAttribute("specPenaltyFee"));
     $("#penaltyAction").val(obj.getAttribute("specPenaltyAction"));
     $("#enablingDocID").val(obj.getAttribute("specEnablingDocID"));
+    $("#enablingDocDesc").val(obj.getAttribute("specEnablingDocDesc"));
+    $("#enablingDoc").val(obj.getAttribute("specEnablingDoc"));
     
 }
 
@@ -414,6 +409,11 @@ window.onclick = function(event) {
 </script>
             
 <script>
+$("#filereplacer").change(function() {
+    var filename = $('#filereplacer').val().replace(/C:\\fakepath\\/i, '')
+        $("#enablingDoc").val(filename);
+    });      
+    
 function removePolicy(obj){
     var polID = obj.getAttribute("specID");
     document.getElementById("disstrack").setAttribute("value",polID);

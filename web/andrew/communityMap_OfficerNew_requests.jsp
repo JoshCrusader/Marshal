@@ -4,8 +4,6 @@
     Author     : Andrew Santiago
 --%>
 
-<%@page import="dao.UserDAO"%>
-<%@page import="dao.BoardMemberDAO"%>
 <%@page import="dao.mappointDAO"%>
 <%@page import="model.mapCategory"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,12 +12,12 @@
 <!DOCTYPE html>
 <%
 Users currUser = null;
-currUser = UserDAO.getUserbyUsername("yutakun");
+currUser = mappointDAO.getUserbyUsername("yutakun");
 session.setAttribute("loginUser",currUser);
 ArrayList<mappoint> currMapPoints = mappointDAO.getAllPoints();
 ArrayList<mapCategory> currMapCategories = mappointDAO.getAllCategories();
 ArrayList<String> allStreets = mappointDAO.getAllStreets();
-ArrayList<PendingRequest_Map> allReqs = BoardMemberDAO.getAllPendingMapPointRequests();
+ArrayList<PendingRequest_Map> allReqs = mappointDAO.getAllPendingMapPointRequests();
 String msg = (String) request.getAttribute("msg");
 %>
 <html>
@@ -220,8 +218,9 @@ String msg = (String) request.getAttribute("msg");
               <h2 id="modalTitle">Request</h2>
             </div>
             <div class="modal-body">
-                <form action="mappointApproval" method="POST" id="addMarkerForm">
-                    <input type="hidden" name="action" value="approve" readonly>
+                <form action="mappointController" method="POST" id="addMarkerForm">
+                    <input type="hidden" name="action" value="mappointApproval">
+                    <input type="hidden" name="approveAction" value="approve" readonly>
                     <input type="hidden" name="reqID" id="reqID" value="" readonly>
                     <b>Requested By: </b><input class="inputReadOnly" type="text" name="userID" id="userID" value="" readonly><br><br>
                     <b>Block Number: </b><input type="number" name="blocknum" id="blocknum" class="integer" min="1" value=""><br><br>
@@ -251,9 +250,10 @@ String msg = (String) request.getAttribute("msg");
                     <center><button type="button" onclick="hey()" style="font-size:30px;display:inline;">Approve</button></center><br>
                 </form>
                         
-                <form action="mappointApproval" method="POST">
+                <form action="mappointController" method="POST">
+                    <input type="hidden" name="action" value="mappointApproval">
                     <input type="hidden" name="dreqID" id="dreqID" value="" readonly>
-                    <input type="hidden" name="action" value="disapprove" readonly>
+                    <input type="hidden" name="approveAction" value="disapprove" readonly>
                     <center><input type="submit" value="Disapprove" style="font-size:30px;"></center>
                 </form><br>
             

@@ -4,7 +4,6 @@
     Author     : Andrew Santiago
 --%>
 
-<%@page import="dao.UserDAO"%>
 <%@page import="dao.mappointDAO"%>
 <%@page import="model.mapCategory"%>
 <%@page import="java.util.ArrayList"%>
@@ -13,7 +12,7 @@
 <!DOCTYPE html>
 <%
 Users currUser = null;
-currUser = UserDAO.getUserbyUsername("yutakun");
+currUser = mappointDAO.getUserbyUsername("yutakun");
 session.setAttribute("loginUser",currUser);
 ArrayList<mappoint> currMapPoints = mappointDAO.getAllPoints();
 ArrayList<mapCategory> currMapCategories = mappointDAO.getAllCategories();
@@ -136,14 +135,16 @@ String msg = (String) request.getAttribute("msg");
             <%= msg%>
         <% }%>
         
-        <form action="removeMappoint" method="POST" id="removePointForm">
+        <form action="mappointController" method="POST" id="removePointForm">
+            <input type="hidden" name="action" value="removeMappoint">
             <input type="hidden" name="idToReomve" id="mapIDbind">
         </form>
         
         <h1>Add a point</h1>
         <input type="checkbox" id="propertyFormControl" onclick="manipulateForm(this)">This is a property map point<br><br>
-        <form action="addMapPoint" method="POST" id="addMarkerForm">
-            <input type="hidden" name="action" value="propertyNo" id="propertyCheck">
+        <form action="mappointController" method="POST" id="addMarkerForm">
+            <input type="hidden" name="action" value="addMapPoint">
+            <input type="hidden" name="addAction" value="propertyNo" id="propertyCheck">
             Title:<br>
             <input type="text" name="maptitle" id="maptitle" value=""><br>
             Description:<br>
@@ -211,8 +212,9 @@ String msg = (String) request.getAttribute("msg");
               <h2 id="modalTitle">Request</h2>
             </div>
             <div class="modal-body">
-                <form action="editMapPoint" method="POST">
-                    <input type="hidden" name="action" value="propertyYes">
+                <form action="mappointController" method="POST">
+                    <input type="hidden" name="action" value="editMapPoint">
+                    <input type="hidden" name="editAction" value="propertyYes">
                     <input type="hidden" name="mapID" id="mapID" value="">
                     Title:<br>
                     <input type="text" name="mapTitle" id="mapTitle"  value=""><br>
@@ -266,8 +268,9 @@ String msg = (String) request.getAttribute("msg");
               <h2 id="modalTitle2">Request</h2>
             </div>
             <div class="modal-body">
-                <form action="editMapPoint" method="POST">
-                    <input type="hidden" name="action" value="propertyNo">
+                <form action="mappointController" method="POST">
+                    <input type="hidden" name="action" value="editMapPoint">
+                    <input type="hidden" name="editAction" value="propertyNo">
                     <input type="hidden" name="mapID" id="mapID2" value="">
                     Title:<br>
                     <input type="text" name="mapTitle" id="mapTitle2"  value=""><br>

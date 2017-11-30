@@ -4,9 +4,6 @@
     Author     : Andrew Santiago
 --%>
 
-<%@page import="dao.UserDAO"%>
-<%@page import="dao.BoardMemberDAO"%>
-<%@page import="dao.DocumentDAO"%>
 <%@page import="dao.PolicyDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,12 +11,12 @@
 <%@ page import="model.Users,model.Policy,model.Penalty, model.Document,model.BoardMember" %>
 <%
 Users currUser = null;
-currUser = UserDAO.getUserbyUsername("yutakun");
+currUser = PolicyDAO.getUserbyUsername("yutakun");
 session.setAttribute("loginUser",currUser);
 ArrayList<Policy> allPolicies = PolicyDAO.getAllPolicies();
 ArrayList<Penalty> allPenalties = PolicyDAO.getAllPenalties();
-ArrayList<Document> allDocuments = DocumentDAO.getAllDocumentsFromFolder(1001);
-ArrayList<BoardMember> allBoardMembers = BoardMemberDAO.getAllActiveBoardMembers();
+ArrayList<Document> allDocuments = PolicyDAO.getAllDocumentsFromFolder(1001);
+ArrayList<BoardMember> allBoardMembers = PolicyDAO.getAllActiveBoardMembers();
 String msg = (String) request.getAttribute("msg");
 %>
 <html>
@@ -208,14 +205,16 @@ String msg = (String) request.getAttribute("msg");
     </head>
     <body>
         
-        <form action="removePolicy" method="POST" id="removeForm">
+        <form action="PolicyController" method="POST" id="removeForm">
+            <input type="hidden" name="action" value="removePolicy">
             <div class="form-group">
                     <input type="hidden" class="form-control" name="idToRemove" id="disstrack">
             </div>
         </form>
         
         <div id="searchForm">
-            <form action="FilterPolicies" method="POST">
+            <form action="PolicyController" method="GET">
+                <input type="hidden" name="filterType" value="policy">
                     <div class="form-group">
                             <input type="hidden" name="action" value="search">
                             <input type="text" class="form-control" placeholder="Search a policy..." name="searchkeyword" id="grpsearch" size="50">
@@ -223,9 +222,9 @@ String msg = (String) request.getAttribute("msg");
                     </div>
             </form>
             <br>
-            <a href="FilterPolicies?action=ALL"><button type="button"> View All Policies </button></a>
-            <a href="FilterPolicies?action=activeOnly"><button type="button" > View Active Policies </button></a>
-            <a href="FilterPolicies?action=inactiveOnly"><button type="button" > View Inactive Policies </button></a><br><br>
+            <a href="PolicyController?action=ALL&filterType=policy"><button type="button"> View All Policies </button></a>
+            <a href="PolicyController?action=activeOnly&filterType=policy"><button type="button" > View Active Policies </button></a>
+            <a href="PolicyController?action=inactiveOnly%filterType=policy"><button type="button" > View Inactive Policies </button></a><br><br>
             <button type="button" onclick="openAddModal()"> Add Policy </button>
             
             
@@ -249,8 +248,8 @@ String msg = (String) request.getAttribute("msg");
                     <div class="dropdown">
                         <button class="dropbtn"><i class="fa fa-cog" aria-hidden="true"></i></button>
                         <div class="dropdown-content">
-                            <a href="#" specID="<%=policy.getPolicyID() %>" specDesc="<%= policy.getPolicyDescription() %>" specPenaltyID="<%=policy.getPenaltyID() %>" specSuppDoc="<%=policy.getSupportingDocumentID() %>"
-                               specEnactDate="<%= policy.getEnactmentDate() %>" specStopDate="<%= policy.getStopImplementDate() %>" specEnablingBoard="<%= policy.getEnablingBoard() %>" onclick="opModal(this)">Edit Policy</a>
+                            <a href="#" specID="<%=policy.getPolicyID() %>" specDesc="<%= policy.getPolicyDescription() %>" specPenaltyID="<%=policy.getPenaltyID() %>" specSuppDocID="<%=policy.getSupportingDocumentID() %>"
+                               specEnactDate="<%= policy.getEnactmentDate() %>" specSuppDocID="<%=policy.getSupportingDocumentID() %>" specStopDate="<%= policy.getStopImplementDate() %>" specEnablingBoard="<%= policy.getEnablingBoard() %>" specSuppDoc="<%=PolicyDAO.getDocumentbyID(policy.getSupportingDocumentID()).getDocumentLocation() %>" specSuppDocDesc="<%=PolicyDAO.getDocumentbyID(policy.getSupportingDocumentID()).getDescription() %>" onclick="opModal(this)">Edit Policy</a>
                             <a href="#" specID="<%=policy.getPolicyID()%>" onclick="removePolicy(this)">Dismiss/Remove Policy</a>
                         </div>
                       </div>
@@ -270,8 +269,10 @@ String msg = (String) request.getAttribute("msg");
               <h2 id="modalTitle">Request</h2>
             </div>
             <div class="modal-body">
-                <form action="editPolicy" method="POST">
+                <form action="PolicyController" method="POST">
+                    <input type="hidden" name="action" value="editPolicy">
                     <input type="hidden" name="policyID" id="policyID" value="" readonly>
+                    <input type="hidden" name="suppDocID" id="suppDocID" value="">
                     <br>
                     <b>Description: </b><input type="text" name="description" id="description" value=""><br><br>
                     <b>Penalty:</b>
@@ -281,13 +282,10 @@ String msg = (String) request.getAttribute("msg");
                         <% } %>
                         
                     </select><br><br>
-                    <b>Supporting Document: </b>
-                    <select name="suppDoc" id="suppDoc">
-                        <%for(Document doc : allDocuments){ %>
-                        <option value="<%=doc.getDocumentID() %>"><%=doc.getDescription() %> (<%=doc.getDocumentLocation() %>)</option>
-                        <% } %>
-                        
-                    </select><br><br>
+                    <b>Supporting Document file: </b><input type="text" name="suppDoc" value="" id="suppDoc" size="40" readonly><br><br>
+                    <b>New Supporting Document: </b><input id="filereplacer" type="file" accept=".doc, .docx, .pdf"><br><br>
+                    <b>Supporting Document Description: </b><input type="text" name="suppDocDesc" value="" id="suppDocDesc"><br><br>
+                    
                     <b>Enactment Date: </b><input type="date" name="enactDate" id="enactDate" value=""><br><br>
                     <b>Expiration Date: </b><input type="date" name="stopDate" id="stopDate" value=""><br><br>
                     <b>Enabled by: </b>
@@ -321,7 +319,8 @@ String msg = (String) request.getAttribute("msg");
               <h2>Add New Policy</h2>
             </div>
             <div class="modal-body">
-                <form action="addPolicy" method="POST" id="addPolicyForm">
+                <form action="PolicyController" method="POST" id="addPolicyForm">
+                    <input type="hidden" name="action" value="addPolicy">
                     <input type="hidden" name="policyID" id="policyID" value="" readonly>
                     <br>
                     <b>Description: </b><input type="text" name="description" value=""><br><br>
@@ -332,13 +331,8 @@ String msg = (String) request.getAttribute("msg");
                         <% } %>
                         
                     </select><br><br>
-                    <b>Supporting Document: </b>
-                    <select name="suppDoc">
-                        <%for(Document doc : allDocuments){ %>
-                        <option value="<%=doc.getDocumentID() %>"><%=doc.getDescription() %> (<%=doc.getDocumentLocation() %>)</option>
-                        <% } %>
-                        
-                    </select><br><br>
+                    <b>Supporting Document: </b><input name="suppDoc" type="file" accept=".doc, .docx, .pdf">
+                    <b>Supporting Document Description: </b><input type="text" name="suppDocDesc" value=""><br><br>
                     <b>Enactment Date: </b><input type="date" name="enactDate" value=""><br><br>
                     <b>Expiration Date: </b><input type="date" name="stopDate" value=""><br><br>
                     <b>Enabled by: </b>
@@ -376,10 +370,12 @@ function opModal(obj){
     $("#policyID").val(obj.getAttribute("specID"));
     $("#description").val(obj.getAttribute("specdesc"));
     $("#penalty").val(obj.getAttribute("specPenaltyID"));
-    $("#suppDoc").val(obj.getAttribute("specsuppdoc"));
+    $("#suppDocID").val(obj.getAttribute("specSuppDocID"));
     $("#enactDate").val(obj.getAttribute("specEnactDate"));
     $("#stopDate").val(obj.getAttribute("specstopdate"));
     $("#enablingboard").val(obj.getAttribute("specEnablingBoard"));
+    $("#suppDocDesc").val(obj.getAttribute("specSuppDocDesc"));
+    $("#suppDoc").val(obj.getAttribute("specSuppDoc"));
     
 }
 
@@ -424,6 +420,11 @@ window.onclick = function(event) {
 </script>
             
 <script>
+$("#filereplacer").change(function() {
+    var filename = $('#filereplacer').val().replace(/C:\\fakepath\\/i, '')
+        $("#suppDoc").val(filename);
+    });    
+    
 function removePolicy(obj){
     var polID = obj.getAttribute("specID");
     document.getElementById("disstrack").setAttribute("value",polID);

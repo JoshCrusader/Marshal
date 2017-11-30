@@ -5,7 +5,7 @@
  */
 package model;
 
-import dao.UserDAO;
+import dao.PolicyDAO;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +34,7 @@ public class BoardMember extends Users implements Serializable {
     this.statusID = statusID;
     this.electionID = electionID;
     
-    Users userObj = UserDAO.getUserbyUsername(userID);
+    Users userObj = PolicyDAO.getUserbyUsername(userID);
     super.setuserID(userObj.getuserID());
     super.setPassword(userObj.getPassword());
     super.setuserType(userObj.getuserType());

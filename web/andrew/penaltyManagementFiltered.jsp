@@ -4,9 +4,6 @@
     Author     : Andrew Santiago
 --%>
 
-<%@page import="dao.UserDAO"%>
-<%@page import="dao.BoardMemberDAO"%>
-<%@page import="dao.DocumentDAO"%>
 <%@page import="dao.PolicyDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,10 +11,10 @@
 <%@ page import="model.Users,model.Policy,model.Penalty, model.Document,model.BoardMember,model.Ref_PenaltyLevel" %>
 <%
 Users currUser = null;
-currUser = UserDAO.getUserbyUsername("yutakun");
+currUser = PolicyDAO.getUserbyUsername("yutakun");
 session.setAttribute("loginUser",currUser);
 ArrayList<Penalty> allPenalties = (ArrayList<Penalty>) request.getAttribute("filteredPenalties");
-ArrayList<Document> allDocuments = DocumentDAO.getAllDocumentsFromFolder(1002);
+ArrayList<Document> allDocuments = PolicyDAO.getAllDocumentsFromFolder(1002);
 ArrayList<Ref_PenaltyLevel> allLevels = PolicyDAO.getAllPenaltyLevels();
 String msg = (String) request.getAttribute("msg");
 %>
@@ -207,7 +204,7 @@ String msg = (String) request.getAttribute("msg");
     </head>
     <body>
         <div id="searchForm">
-            <form action="FilterPenalties" method="POST">
+            <form action="PolicyController" method="GET">
                     <div class="form-group">
                             <input type="hidden" name="action" value="search">
                             <input type="text" class="form-control" placeholder="Search a policy..." name="searchkeyword" id="grpsearch" size="50">
@@ -217,17 +214,17 @@ String msg = (String) request.getAttribute("msg");
             Filters<br>
             Fee: <select onchange="location = this.value;">
                 <option disabled selected>Please choose...</option>
-                <option value="FilterPenalties?action=feeHigh">Highest to Lowest</option>
-                <option value="FilterPenalties?action=feeLow">Lowest to Highest</option>
+                <option value="PolicyController?action=feeHigh&filterType=penalty">Highest to Lowest</option>
+                <option value="PolicyController?action=feeLow&filterType=penalty">Lowest to Highest</option>
             </select>
             
             Level: <select onchange="location = this.value;">
                 <option disabled selected>Please choose...</option>
-                <option value="FilterPenalties?action=levelHigh">Highest to Lowest</option>
-                <option value="FilterPenalties?action=levelLow">Lowest to Highest</option>
+                <option value="PolicyController?action=levelHigh&filterType=penalty">Highest to Lowest</option>
+                <option value="PolicyController?action=levelLow&filterType=penalty">Lowest to Highest</option>
             </select><br><br>
             
-            <a href="FilterPenalties?action=ALL"><button type="button"> View All Penalties </button></a>
+            <a href="PolicyController?action=ALL&filterType=penalty"><button type="button"> View All Penalties </button></a>
             
             
             <br><br>
@@ -274,7 +271,8 @@ String msg = (String) request.getAttribute("msg");
               <h2 id="modalTitle">Edit Penalty</h2>
             </div>
             <div class="modal-body">
-                <form action="editPenalty" method="POST">
+                <form action="PolicyController" method="POST">
+                    <input type="hidden" name="action" value="editPenalty">
                     <input type="hidden" name="penaltyID" id="penaltyID" value="" readonly>
                     <br>
                     <b>Description: </b><input type="text" name="description" id="description" value=""><br><br>
@@ -318,7 +316,8 @@ String msg = (String) request.getAttribute("msg");
               <h2 id="modalTitle">Add Penalty</h2>
             </div>
             <div class="modal-body">
-                <form action="addPenalty" method="POST">
+                <form action="PolicyController" method="POST">
+                    <input type="hidden" name="action" value="addPenalty">
                     <br>
                     <b>Description: </b><input type="text" name="description" value=""><br><br>
                     <b>Level:</b>

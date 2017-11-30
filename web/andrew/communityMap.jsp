@@ -4,7 +4,6 @@
     Author     : Andrew Santiago
 --%>
 
-<%@page import="dao.UserDAO"%>
 <%@page import="dao.mappointDAO"%>
 <%@page import="model.mapCategory"%>
 <%@page import="java.util.ArrayList"%>
@@ -13,7 +12,7 @@
 <!DOCTYPE html>
 <%
 Users currUser = null;
-currUser = UserDAO.getUserbyUsername("santiago_ja");
+currUser = mappointDAO.getUserbyUsername("santiago_ja");
 session.setAttribute("loginUser",currUser);
 ArrayList<mappoint> currMapPoints = mappointDAO.getAllPoints();
 ArrayList<mapCategory> currMapCategories = mappointDAO.getAllCategories();
@@ -87,8 +86,8 @@ String msg = (String) request.getAttribute("msg");
                     </select>
                         <br>
                 <h1>Can't see your property? Fill up the request form below!</h1>
-                <form action="makeMapRequest" method="POST" id="addMarkerForm">
-                    <input type="hidden" name="action" value="propertyNo" id="propertyCheck">
+                <form action="mappointController" method="POST" id="addMarkerForm">
+                    <input type="hidden" name="action" value="makeMapRequest">
                     Title:<br>
                     <input type="text" name="maptitle" id="maptitle" value=""><br>
                     Description:<br>

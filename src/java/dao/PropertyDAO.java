@@ -43,7 +43,7 @@ public class PropertyDAO {
         return owners;
     }
     */
-    public static Ref_Properties GetHomeMember(int blocknum, int lotnum){
+    public static Ref_Properties getProperties(int blocknum, int lotnum){
         Connection conn = DatabaseUtils.retrieveConnection();
         Ref_Properties property = null;
         try{

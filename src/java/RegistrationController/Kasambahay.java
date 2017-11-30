@@ -4,50 +4,29 @@
  * and open the template in the editor.
  */
 package RegistrationController;
+import model.Users;
 
 /**
  *
  * @author User
  */
-public class Kasambahay {
+public class Kasambahay extends Users {
+
+
+    private int bNo;
+    private int lNo;
+    private String startdate;
+    private String enddate;
     
-    public String startDate;
-    public String endDate;
-    public String userID;
-    public int bNo;
-    public int lNo;
-    
-    
-    public Kasambahay(String userID){
-        this.userID=userID;
+    public Kasambahay(String userID, String password, int userType, String lname, String fname, String mame, String bDate, int photoID, int occupationID, String movingIn, int movingOutclearID, int trxID, String telno, String phoneno, String email,String startdate, String enddate,int bNo, int lNo){
+        super(userID,password,userType,lname,fname,mame,bDate,photoID,occupationID,movingIn,movingOutclearID,trxID,telno,phoneno,email);
+        this.bNo=bNo;
+        this.lNo=lNo;
+        this.startdate = startdate;
+        this.enddate = enddate;
+        
     }
-    
-    
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
-    public int getbNo() {
+        public int getbNo() {
         return bNo;
     }
 
@@ -59,7 +38,24 @@ public class Kasambahay {
         return lNo;
     }
 
+   
+    
     public void setlNo(int lNo) {
         this.lNo = lNo;
-    }    
+    }
+    public void setStart(String startdate){
+        this.startdate = startdate;
+    }
+    public String getStartDate(){
+        return this.startdate;
+    }
+    public void setEnd(String endDate){
+        this.enddate = endDate;
+    }
+    
+    public String getEndDate(){
+        return this.enddate;
+    }
+
+            
 }

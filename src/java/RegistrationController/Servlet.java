@@ -18,7 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import RegistrationController.Homeowner;
 import Objects.User;
 import RegistrationController.Kasambahay;
+import dao.HomeownerDAO;
+import dao.PropertyDAO;
+import dao.UserDAO;
 import javax.servlet.http.HttpSession;
+import model.Ref_Properties;
+import model.Users;
 
 
 /**
@@ -57,29 +62,22 @@ public class Servlet extends HttpServlet {
      int tempOID = 0;
      boolean isexistingUname= false;
      boolean isvalidPw= false;
-     boolean isexistingBno= false;
-     boolean isexistingLno= false;
+
     
         System.out.println("UserType: " + usertype);
      
     try{
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","");
-        String existingUname= "select * from users where userID='"+uName+"'";
-        PreparedStatement pStmt= con.prepareStatement(existingUname);
-        ResultSet result= pStmt.executeQuery();
-        boolean more= result.next();
+         Users existingUser= UserDAO.getUserbyUsername(uName);
+         Users existingHo= HomeownerDAO.GetHomeOwner(uName);
+         Ref_Properties existingBno= PropertyDAO.getProperties(lNo, bNo);
         
-        if (!more){
-            isexistingUname= false;
-            System.out.println(more);
+        if (existingUser==null){
+            System.out.println(existingUser);
             
         }
         else{
-            isexistingUname= true;
             System.out.println("Invalid");
-            request.setAttribute("Existing","NO");
-                
+            request.setAttribute("Existing","NO");      
         }
         
         if (pw.equals(pw2)){
@@ -91,28 +89,23 @@ public class Servlet extends HttpServlet {
             request.setAttribute("Invalid","NO");
         }
         
-         
-        String existingBno= "select * from homeowners where blocknum='"+bNo+"' && lotnum='"+lNo+"'";
-        PreparedStatement pStmt1= con.prepareStatement(existingBno);
-        ResultSet result1= pStmt.executeQuery();
-        boolean existBno= result1.next();
-        System.out.println(existBno);
+        Class.forName("com.mysql.jdbc.Driver"); //must be changed to DatabaseUtils for it to be shorter
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","");
+
+       
         
-        if (existBno){
-            isexistingBno= false;
-            System.out.println(isexistingBno);
+        if (existingBno==null){
+            System.out.println(existingBno);
             System.out.println("Invalid");
             request.setAttribute("existingBno","NO");
            
         }
         else{
-            isexistingBno= true;                
+            System.out.print("true");             
         }
         
-        
-        
-        if ((isvalidPw==true) && (more==false) && (isexistingBno==true)){  
-             
+        if ((isvalidPw==true) && (existingBno!=null)){
+
               String occ= "Select occupationID from ref_occupation where occupation='"+occupation+"'";
               PreparedStatement o= con.prepareStatement(occ);
               ResultSet rs = o.executeQuery();
@@ -145,7 +138,6 @@ public class Servlet extends HttpServlet {
                    System.out.println("userVehicle");
                    user.executeUpdate();*/
               }
-            
             String statement= "INSERT INTO users  (userID, passwd, lname, fname, mame, bDate, usertypeID, occupationID, movingIn, telno,phoneno,email) VALUES ('"+uName+"','"+pw+"','"+lName+"','"+mName+"','"+fName+"','"+bDate+"', "+usertype+", '"+tempOID+"', NOW(), '"+tNum+"', '"+mNum+"','"+email+"')";
             PreparedStatement a = con.prepareStatement(statement);
             System.out.print(statement);
@@ -175,38 +167,38 @@ public class Servlet extends HttpServlet {
               PreparedStatement ho = con.prepareStatement(sql);
               System.out.print(sql);
               ho.executeUpdate();
-              Homeowner h1= new Homeowner(bNo,lNo);
-              h1.setUserID(uName);
-              request.setAttribute("homeowner",h1);
+              //Homeowner h1= new Homeowner(bNo,lNo);
+              //h1.setUserID(uName);
+              //request.setAttribute("homeowner",h1);
             }
             else if (livingAs==2){
               String sql= "INSERT INTO homemember  (userid,blocknum,lotnum, renting) VALUES ('"+uName+"',"+bNo+","+lNo+","+renting+")";
               PreparedStatement ho = con.prepareStatement(sql);
               System.out.print(sql);
               ho.executeUpdate();
-              Homemember h1= new Homemember(uName);
-              h1.setbNo(bNo);
-              h1.setlNo(lNo);
-              request.setAttribute("homemember",h1);
+              //Homemember h1= new Homemember(uName);
+              //h1.setbNo(bNo);
+              //h1.setlNo(lNo);
+              //request.setAttribute("homemember",h1);
             }
-            else if (livingAs==3){
+            else if ((livingAs==3) && (existingHo!=null)){
               String sql= "INSERT INTO kasambahay (userid,blocknum,lotnum) VALUES ('"+uName+"',"+bNo+","+lNo+")";
               PreparedStatement ho = con.prepareStatement(sql);
               System.out.print(sql);
               ho.executeUpdate();
        
-              Kasambahay h1 = new Kasambahay(uName);
-              h1.setbNo(bNo);
-              h1.setlNo(lNo);
-              request.setAttribute("kasambahay",h1);
+              //Kasambahay h1 = new Kasambahay(uName);
+              //h1.setbNo(bNo);
+              //h1.setlNo(lNo);
+              //request.setAttribute("kasambahay",h1);
             }
             
-        } 
+        }
           
         else{
              request.getRequestDispatcher("reg.jsp").forward(request,response);
-        }   
-        
+        }
+          
         con.close();
     } catch (Exception e){
         System.out.println(e);

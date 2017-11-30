@@ -246,7 +246,7 @@
 						<div class = "col-12 pull-left margtop">
 							<div class = "UD_hh_pp pull-left"><img src="<%= kb.get(i).getphotolocation() %>" style = "height:100%; width: 100%;"></div>
 							<div class = "pull-left margleft">
-								<a href="UserProfile?uId=<%= kb.get(i).getUserID() %>"><span><%= kb.get(i).getfName() %> <%= kb.get(i).getmName() %> <%= hm.get(i).getlName() %></span></a><br>
+								<a href="UserProfile?uId=<%= kb.get(i).getUserID() %>"><span><%= kb.get(i).getfName() %> <%= kb.get(i).getmName() %> <%= kb.get(i).getlName() %></span></a><br>
 								<%= kb.get(i).getOccupation() %>
 							</div>
 						</div>

@@ -24,10 +24,12 @@ public class VehiclesDAO {
      */
     public static Vehicles GetVehicleByPlateNum(String platenum){
         Vehicles vehicle = null;
-        String sql = "";
+        String sql = "SELECT * FROM VEHICLES WHERE PLATENUM = ?;";
         Connection conn = DatabaseUtils.retrieveConnection();
         try{
+            
             PreparedStatement pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, platenum);
             ResultSet rs = pStmt.executeQuery();
             if(rs.next()){
                 vehicle = new Vehicles(rs.getString("platenum"),rs.getString("model"));

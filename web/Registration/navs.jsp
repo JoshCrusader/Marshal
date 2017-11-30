@@ -4,7 +4,7 @@
 		<input class = "pull-right css-search"type="text" id="directoryinput" name="directoryinput" placeholder="Search">
 	-->
 	<div class = "css_container">
-		<a href = "Registration/home.jsp">
+		<a href = "/Registration/home.jsp">
 			<div class = "pull-left css-item" style = "width:50px;height:50px;margin-top:-7px;">
 				<img src="<%= request.getContextPath() %>/Core/Marshal.png" style = "height:100%;width:100%;">
 			</div>

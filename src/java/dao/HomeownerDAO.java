@@ -9,13 +9,38 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import model.DatabaseUtils;
+import RegistrationController.Homeowner;
+import java.util.ArrayList;
 
 /**
  *
  * @author Andrew Santiago
  */
 public class HomeownerDAO {
-
+    
+    public static ArrayList<Homeowner>GetHomeOwner(){
+        Connection conn = DatabaseUtils.retrieveConnection();
+        ArrayList<Homeowner> owners = new ArrayList<Homeowner>();
+        try{
+            String sql = "SELECT * FROM USERS U RIGHT JOIN HOMEOWNER HO ON HO.userID = U.userID;";
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            ResultSet rs = pStmt.executeQuery();
+            while(rs.next()){
+                
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            if(conn != null){
+                try{
+                        conn.close();
+                }catch(Exception e){}
+            }
+        }
+        return owners;
+    }
     /**
      * This method adds a request and its details to the PendingRequests_Map table in the database.
      * @param blocknum
@@ -68,4 +93,5 @@ public class HomeownerDAO {
         }
         return setter;
     }
+    
 }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class HomeownerDAO {
     
-    public static ArrayList<Homeowner>GetHomeOwner(){
+    public static ArrayList<Homeowner>GetAllHomeOwner(){
         Connection conn = DatabaseUtils.retrieveConnection();
         ArrayList<Homeowner> owners = new ArrayList<Homeowner>();
         try{
@@ -26,7 +26,8 @@ public class HomeownerDAO {
             PreparedStatement pStmt = conn.prepareStatement(sql);
             ResultSet rs = pStmt.executeQuery();
             while(rs.next()){
-                
+                Homeowner ho = new Homeowner(rs.getString(1), rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getInt(8),rs.getInt(9),rs.getString(10),rs.getInt(11),rs.getInt(12),rs.getString(13),rs.getString(14),rs.getString(15),rs.getInt(16),rs.getInt(17));
+               owners.add(ho);
             }
         }
         catch(Exception e){
@@ -40,6 +41,30 @@ public class HomeownerDAO {
             }
         }
         return owners;
+    }
+    public static Homeowner GetHomeOwner(String userId){
+        Connection conn = DatabaseUtils.retrieveConnection();
+        Homeowner owner = null;
+        try{
+            String sql = "SELECT * FROM USERS U RIGHT JOIN HOMEOWNER HO ON HO.userID = U.userID where U.userID = '"+userId+"';";
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            ResultSet rs = pStmt.executeQuery();
+            while(rs.next()){
+                owner = new Homeowner(rs.getString(1), rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getInt(8),rs.getInt(9),rs.getString(10),rs.getInt(11),rs.getInt(12),rs.getString(13),rs.getString(14),rs.getString(15),rs.getInt(16),rs.getInt(17));
+                
+            } 
+       }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            if(conn != null){
+                try{
+                        conn.close();
+                }catch(Exception e){}
+            }
+        }
+        return owner;
     }
     /**
      * This method adds a request and its details to the PendingRequests_Map table in the database.

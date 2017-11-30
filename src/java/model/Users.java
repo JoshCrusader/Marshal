@@ -28,11 +28,13 @@ public class Users implements Serializable{
     private String movingIn;
     private int movingOutclearID;
     private int trxID;
-    
+    private String telno;
+    private String phoneno;
+    private String email;
     public Users(){}
     
     
-    public Users(String userID, String password, int userType, String lname, String fname, String mame, String bDate, int photoID, int occupationID, String movingIn, int movingOutclearID, int trxID){
+    public Users(String userID, String password, int userType, String lname, String fname, String mame, String bDate, int photoID, int occupationID, String movingIn, int movingOutclearID, int trxID, String telno, String phoneno, String email){
         this.userID = userID;
         this.password = password;
         this.userType = userType;
@@ -45,6 +47,9 @@ public class Users implements Serializable{
         this.movingIn = movingIn;
         this.movingOutclearID = movingOutclearID;
         this.trxID = trxID;
+        this.telno = telno;
+        this.phoneno = phoneno;
+        this.email = email;
     }
     
     public String getuserID(){return this.userID;}
@@ -100,5 +105,14 @@ public class Users implements Serializable{
     
     public int geuserType(){
         return this.userType;
+    }
+    public String getTelno(){
+        return this.telno;
+    }
+    public String getPhoneno(){
+        return this.phoneno;
+    }
+    public String getEmail(){
+        return this.email;
     }
 }

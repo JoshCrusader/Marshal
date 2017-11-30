@@ -4,22 +4,24 @@
  * and open the template in the editor.
  */
 package RegistrationController;
+import model.Users;
 
 /**
  *
  * @author User
  */
-public class Homeowner {
+public class Homeowner extends Users {
 
 
-    public int bNo;
-    public int lNo;
-    public String userID;
+    private int bNo;
+    private int lNo;
    
     
-    public Homeowner(int bNo, int lNo){
+    public Homeowner(String userID, String password, int userType, String lname, String fname, String mame, String bDate, int photoID, int occupationID, String movingIn, int movingOutclearID, int trxID, String telno, String phoneno, String email,int bNo, int lNo){
+        super(userID,password,userType,lname,fname,mame,bDate,photoID,occupationID,movingIn,movingOutclearID,trxID,telno,phoneno,email);
         this.bNo=bNo;
         this.lNo=lNo;
+        
     }
         public int getbNo() {
         return bNo;
@@ -37,12 +39,5 @@ public class Homeowner {
         this.lNo = lNo;
     }
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
             
 }

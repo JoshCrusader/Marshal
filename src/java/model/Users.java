@@ -97,4 +97,8 @@ public class Users implements Serializable{
     public void setTrxID(int newTRXID){
         this.trxID = newTRXID;
     }
+    
+    public int geuserType(){
+        return this.userType;
+    }
 }

@@ -35,9 +35,9 @@
 
 			</div>
 			<ul class = "css-sidelist">
-                            <%@page import = "Objects.User" %>
-                            <% User user = (User) session.getAttribute("currentSessionUser"); %>
-                                <% if(user.getUsertype() == 2){%>
+                            <%@page import = "model.Users" %>
+                            <% Users user = (Users) session.getAttribute("currentSessionUser"); %>
+                                <% if(user.getuserType() == 2){%>
 				<li>
 					<a href = "#"> Preventions</a>
 				</li>

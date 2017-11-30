@@ -28,94 +28,38 @@
 		</div>
 		</div>
 	</div>
-	<div id = "sidebartarget" class = "css-sidebarbody" style = "background-color:red;">
+	<div id = "sidebartarget" class = "css-sidebarbody" style = "background-color: rgba(0,0,0,0) !important;">
 		<div class = "css-darkness"></div>
 		<div class = "css-sidebar">
 			<div class = "css-profilediv">
 
 			</div>
 			<ul class = "css-sidelist">
-                            <%@page import = "Objects.User" %>
-                            <% User user = (User) session.getAttribute("currentSessionUser"); %>
-                                <% if(user.getUsertype() == 1){%>
-                                    <li>
-                                            <a href = "#"> Preventions</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Vehicle Management</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Fees Processing</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Payment Processing</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Users</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Policy and Mapping</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Document Management</a>
-                                    </li>
+                            <%@page import = "model.Users" %>
+                            <% Users user = (Users) session.getAttribute("currentSessionUser"); %>
+                                <% if(user.getuserType() == 2){%>
+				<li>
+					<a href = "#"> Preventions</a>
+				</li>
                                 <% } %>
-                                <% else if(user.getUsertype() == 2){%>
-                                    <li>
-                                            <a href = "#"> Vehicle Management</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Fees Processing</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Payment Processing</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Users</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Policy and Mapping</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Document Management</a>
-                                <% } %>
-                                <% else if(user.getUsertype() == 3){%>
-                                    <li>
-                                            <a href = "#"> Vehicle Management</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Fees Processing</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Payment Processing</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Users</a>
-                                    </li>
-                                <% } %>
-                                <% if(user.getUsertype() == 1){%>
-                                    <li>
-                                            <a href = "#"> Preventions</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Vehicle Management</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Fees Processing</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Payment Processing</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Users</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Policy and Mapping</a>
-                                    </li>
-                                    <li>
-                                            <a href = "#"> Document Management</a>
-                                    </li>
-                                <% } %>
+				<li>
+					<a href = "#"> Vehicle Management</a>
+				</li>
+				<li>
+					<a href = "#"> Fees Processing</a>
+				</li>
+				<li>
+					<a href = "#"> Payment Processing</a>
+				</li>
+				<li>
+					<a href = "#"> Users</a>
+				</li>
+                                <li>
+					<a href = "#"> Policy and Mapping</a>
+				</li>
+                                <li>
+					<a href = "#"> Document Management</a>
+				</li>
 			</ul>
 		</div>
 	</div>

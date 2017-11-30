@@ -56,7 +56,7 @@ td, th {
         
 </head>
 <body>  
-              <%@include file= "/Core/navs.jsp"%>
+              <%@include file= "navs.jsp"%>
               <div id = "css-id-body">
               <script>
             

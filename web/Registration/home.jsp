@@ -23,7 +23,7 @@
         
 </head>
 <body>
-    <%@include file="navs.jsp"%>
+    <%@include file= "navs.jsp"%>
     <div id = "css-id-body">
    <div class="slideshow-container">
 

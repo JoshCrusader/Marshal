@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import dao.UserDAO;
+import model.Users;
 /**
  *
  * @author User
@@ -82,57 +83,21 @@ public class loginServlet extends HttpServlet {
             String pw=request.getParameter("password");
             boolean isValid= false;
             
-           
-            try{	
-                
-                    Class.forName("com.mysql.jdbc.Driver");
-                    Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","");
-                    
-                    
-                    String searchQuery ="select * from users where userID='"+uName+"' AND passwd='"+pw+"'";
-                    PreparedStatement pStmt= con.prepareStatement(searchQuery);
-                    ResultSet result= pStmt.executeQuery();
-                    boolean more = result.next();
-                    System.out.println(more);
-                    User user = new User(uName);
-                    user.setPw(pw);
-                     
-                    
-                    System.out.println("Your user name is " + uName);          
-                    System.out.println("Your password is " + pw);
-                    System.out.println("Query: "+searchQuery);
-                   
-                    if(more==false){
-                          System.out.println("Sorry, you are not a registered user! Please sign up first");
-                          isValid=false;
-                          System.out.println("Invalid");
-                          request.setAttribute("Invalid","NO");
-                          request.getRequestDispatcher("index.jsp").forward(request,response);
-                         
-                          
-                         
-                    }
-                    else{
-                          isValid= true;
-                          HttpSession session = request.getSession(true);
-                          user.setUsertype(result.getInt("usertypeID"));
-                          System.out.println(result.getInt("usertypeID"));
-
-                          session.setAttribute("currentSessionUser",user); 
-                          response.sendRedirect("reg.jsp"); //logged-in page      
-
-                          session.setAttribute("currentSessionUser",user);
-                          response.sendRedirect("home.jsp"); //logged-in page      
-
-                    }
-
-                } 
+            Users me = UserDAO.getUserbyUsername(uName);
+            if(pw.equals(me.getPassword())){
+                HttpSession session = request.getSession(true);
+                session.setAttribute("currentSessionUser",me);
+                response.sendRedirect("home.jsp"); //logged-in page    
+            }
+            else{
+                request.setAttribute("Invalid","NO");
+                request.getRequestDispatcher("index.jsp").forward(request,response);
+            }
+            
+            
+              
 
 
-                catch (Throwable theException) 	    
-                {
-                     System.out.println(theException); 
-                }
                        
     }
 }

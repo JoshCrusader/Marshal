@@ -196,10 +196,15 @@ public class UserDAO {
      
        String statement=  "INSERT INTO homeowner  (userID,blocknum,lotnum) VALUES ('"+userID+"','"+blocknum+"','"+lotnum+"')";
        Connection conn = DatabaseUtils.retrieveConnection();
+       String statement2 = "UPDATE REF_PROPERTIES SET PROPERTYSTATUSID = 2 WHERE BLOCKNUM = ? AND LOTNUM = ?;";
        try{
              PreparedStatement ho = conn.prepareStatement(statement);
              System.out.print(statement);
              ho.executeUpdate();
+             PreparedStatement up = conn.prepareStatement(statement2);
+             up.setString(1, blocknum+"");
+             up.setString(2, lotnum+"");
+             up.executeUpdate();
        }catch(Exception e){
                e.printStackTrace();
        }finally{

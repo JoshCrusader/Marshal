@@ -13,6 +13,9 @@ import VehicleAdmin.model.Vehicle;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author user
+ * @author Fred Purisima
  */
 @WebServlet(name = "EditVServlet", urlPatterns = {"/EditVServlet"})
 public class EditVServlet extends HttpServlet {
@@ -104,14 +107,21 @@ public class EditVServlet extends HttpServlet {
             String model=request.getParameter("model");
             String make=request.getParameter("make");
             String year=request.getParameter("year");
-            int result = Integer.parseInt(year);
             
+            Date date=new Date();  
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(year);
+            } catch (ParseException ex) { 
+                Logger.getLogger(EditVServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+            java.sql.Date d= new java.sql.Date(date.getTime());
             
             Vehicle vehicle=new Vehicle();
             vehicle.setPlatenum(platenum);
             vehicle.setModel(model);
             vehicle.setMake(make);
-            vehicle.setYear(result);
+            vehicle.setYear(d);
             boolean isUpdate = false;
             try {
                 isUpdate=VehicleDAO.updateVehicle(vehicle);

@@ -4,6 +4,7 @@
     Author     : Johannes
 --%>
 
+<%@page import="VehicleAdmin.dao.VehicleDAO"%>
 <!-- BOARD MEMBER -->
 <%@page import="java.util.*"%>
 <%@page import="java.sql.SQLException"%>
@@ -73,27 +74,24 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="RegisterVehicle.jsp">Register a Vehicle</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="ReqVehicleSticker.jsp">Request for Vehicle Pass</a>
-            </li>
+            <li class="nav-item">  
+                <div class="dropdown">
+                    <a class="nav-link">Vehicle List</a>
+                    <div class="dropdown-content">
+                        <a href="viewVehicleList.jsp">View User Vehicle List</a>
+                        <a href="ConStickTrans.jsp">Confirm Vehicle Pass Request</a>
+                    </div>
+                </div>
+            </li> 
+		
             <li class="nav-item">
                 <a class="nav-link" href="banvehicle.jsp">Ban a Vehicle</a>
             </li>
-            <li class="nav-item">  
-		<div class="dropdown">
-		<a class="nav-link" href="vehicleform.jsp">Vehicle List</a>
-		<div class="dropdown-content">
-                    <a href="viewVehicleList.jsp">View User Vehicle List</a>
-                    <a href="vehicleform.jsp">View Your Vehicle List</a>
-		</div>
-                </div>
-            </li> 
+            
             <li class="nav-item">
-            <a class="nav-link" href="ConStickTrans.jsp">Confirm Vehicle Pass Request</a>
-          </li>
+		<a class="nav-link" href="ChangeVPassPricing.jsp">Change Vehicle Pass Price</a>
+            </li>
+			
         </ul>
       </div>
     </div>
@@ -109,24 +107,15 @@
             <div class="form-group"><label class="form-control-label">User Vehicle</label>
               <select name="banselect">
                 <%
-                    ArrayList<String> model = new ArrayList<String>();
-                    ArrayList<String> platenum = new ArrayList<String>();
+                    ArrayList<Vehicle> vehicle =VehicleDAO.getExceedViolationVehicles();
+
+                    for(int i=0;i<vehicle.size();i++){
+                        
+                        out.print("<option value='"+vehicle.get(i).getPlatenum()+"'>"+vehicle.get(i).getPlatenum()+"</option>");
                     
-                    Connection conn = Database.getDBConnection();
-
-                    String sql = "SELECT * FROM vehicles JOIN user_vehicles ON vehicles.platenum = user_vehicles.plateNum WHERE banned = 0;";
-
-                    PreparedStatement pStmt = conn.prepareStatement(sql);
-
-                    ResultSet rs = pStmt.executeQuery();
-                    while(rs.next()){
-                        model.add(rs.getString(2));
-                        platenum.add(rs.getString(1));
                     }
                         
-                    for(int x = 0; x < platenum.size(); x++){
-                        out.println("<option value='" + platenum.get(x) +"'>" + model.get(x) + " - " + platenum.get(x) + "</option>");
-                    }
+                    
                         
                         
                     

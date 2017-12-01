@@ -8,7 +8,10 @@ package VehicleAdmin.dao;
 
 import VehicleAdmin.dao.Database;
 import VehicleAdmin.model.User;
+import VehicleAdmin.model.User;
 import VehicleAdmin.model.UserVehicle;
+import VehicleAdmin.model.UserVehicle;
+import VehicleAdmin.model.Vehicle;
 import VehicleAdmin.model.Vehicle;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -63,7 +66,7 @@ public class ViewVehicleList implements Serializable{
                     PreparedStatement pStmt=conn.prepareStatement(sql);
                     ResultSet rs = pStmt.executeQuery();
                     while(rs.next()){
-                        listOfV.add(new Vehicle(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5)));
+                        listOfV.add(new Vehicle(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getBoolean(5)));
                     }
                     
                     sql="SELECT distinct uv.userID,u.lname,u.fname,u.mame from user_vehicles uv join users u on uv.userID=u.userID;";
@@ -88,7 +91,7 @@ public class ViewVehicleList implements Serializable{
                     pStmt=conn.prepareStatement(sql);
                     rs = pStmt.executeQuery();
                     while(rs.next()){
-                        listOfV.add(new Vehicle(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5)));
+                        listOfV.add(new Vehicle(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getBoolean(5)));
                     }
                     
                     sql="SELECT distinct uv.userID,u.lname,u.fname,u.mame from user_vehicles uv join users u on uv.userID=u.userID;";
@@ -110,7 +113,7 @@ public class ViewVehicleList implements Serializable{
                     pStmt=conn.prepareStatement(sql);
                     rs = pStmt.executeQuery();
                     while(rs.next()){
-                        listOfV.add(new Vehicle(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5)));
+                        listOfV.add(new Vehicle(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getBoolean(5)));
                     }
                    
                     sql="SELECT distinct uv.userID,u.lname,u.fname,u.mame from user_vehicles uv join users u on uv.userID=u.userID where uv.stickerID is null or uv.stickerPaid=false or uv.stickerissuedBy is null;";

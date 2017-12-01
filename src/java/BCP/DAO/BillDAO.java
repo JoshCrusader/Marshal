@@ -7,6 +7,15 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+/**
+ * This class is used for retrieving information with regards to bills,
+ * their transactions, their payments, and their journals. A list of methods
+ * are provided to generate and retrieve such.
+ * 
+ * 
+ * @author Nigel Tan & Carlos Garcia
+ * @since 1.0
+ */
 public class BillDAO implements Serializable 
 {
         /**
@@ -16,8 +25,7 @@ public class BillDAO implements Serializable
         
 	/**
     * Returns true if the address exists.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
+    * @param b the object Bill of the homeowner
     * @return true if the address exists based on the specified parameters, false otherwise
     * @since       1.0
     */
@@ -61,8 +69,7 @@ public class BillDAO implements Serializable
 	
 	/**
     * Returns true if there are no bills for the current date.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
+    * @param b the object Bill of the homeowner
     * @return true if there are no bills generated for the current date, false otherwise
     * @since       1.0
     */
@@ -106,8 +113,7 @@ public class BillDAO implements Serializable
 	
 	/**
     * Returns true if the payment is greater than or equal to the bill's total amount.
-	* @param billingID the bill ID number of the homeowner
-    * @param payment the amount paid by the homeowner
+    * @param b the object Bill of the homeowner
     * @return true payment is greater than or equal to the bill's total amount, false otherwise
     * @since       1.0
     */
@@ -153,8 +159,7 @@ public class BillDAO implements Serializable
 	
 	/**
     * Inserts values based on the specified block and lotnum.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
+    * @param b the object Bill of the homeowner
     * @return true if insertion was successful, false otherwise
     * @since       1.0
     */
@@ -190,8 +195,8 @@ public class BillDAO implements Serializable
 	
 	/**
     * Inserts values based on the specified block and lotnum.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
+    * @param b the object Bill of the homeowner
+    * @param trxs the list of transactions of the homeowner's bill
     * @since       1.0
     */
 	public static void insertBillingDetails(Bill b, ArrayList<trxReferences> trxs)
@@ -230,7 +235,7 @@ public class BillDAO implements Serializable
 	
 	/**
     * Inserts values based on the specified bill ID in the transaction journal
-	* @param billingID the ID of the bill to be inserted
+    * @param b the object Bill of the homeowner
         * @since       1.0
     */
 	public static void insertJournal(Bill b)
@@ -262,6 +267,7 @@ public class BillDAO implements Serializable
 	
 	/**
     * Inserts values in the transaction list
+    * @param trxs the list of transactions of the homeowner
     * @since       1.0
     */
 	public static void insertTrxList(ArrayList<trxReferences> trxs)
@@ -301,7 +307,8 @@ public class BillDAO implements Serializable
 	
 	/**
     * Inserts values based on the specified bill ID
-	* @param billingID the ID of the bill to be inserted
+    * @param b the object Bill of the homeowner
+    * @param trxs the list of transactions of the homeowner's bill
         * @since       1.0
     */
 	public static void insertPaymentDetails(Bill b, ArrayList<trxReferences> trxs)
@@ -340,6 +347,7 @@ public class BillDAO implements Serializable
 	
 	/**
     * Queries for the list of all homeowner addresses and saves into ArrayList address.
+    * @return an ArrayList of addresses
     * @since       1.0
     */
 	public static ArrayList<String> queryAddresses()
@@ -381,6 +389,7 @@ public class BillDAO implements Serializable
 	
 	/**
     * Queries for the list of all homeowner bills and saves into ArrayList bills.
+    * @return an ArrayList of Bill
     * @since       1.0
     */
 	public static ArrayList<Bill> queryBills()
@@ -423,7 +432,8 @@ public class BillDAO implements Serializable
 	
 	/**
     * Queries for the list of transactions based on the specified bill ID and saves into ArrayList trxs.
-	* @param billID the bill ID of the homeowner
+    * @param b the object Bill of the homeowner
+    * @return an ArrayList of transactions
         * @since       1.0
     */
 	public static ArrayList<trxReferences> queryBillTrxs(Bill b)
@@ -467,6 +477,7 @@ public class BillDAO implements Serializable
 	/**
     * Queries for the list of all homeowner addresses based on the specified name and saves into ArrayList addresses.
 	* @param name the name of the homeowner
+        * @return and ArrayList of addresses
         * @since       1.0
     */
 	public static ArrayList<String> queryHOAddresses(String name)
@@ -517,9 +528,8 @@ public class BillDAO implements Serializable
 	
 	/**
     * Gets the latest bill date based on the blocknum and lotnum parameters.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
-    * @return a String of the latest bill date
+    * @param b the object Bill of the homeowner
+    * @return a Bill object
     * @since       1.0
     */
 	public static Bill queryHOBillingDate(Bill b)
@@ -556,9 +566,8 @@ public class BillDAO implements Serializable
 	
 	/**
     * Gets the most recent bill ID based on the blocknum and lotnum parameters.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
-    * @return a String of the latest bill ID
+    * @param b the object Bill of the homeowner
+    * @return a Bill object
     * @since       1.0
     */
 	public static Bill queryHOBillingID(Bill b)
@@ -595,8 +604,8 @@ public class BillDAO implements Serializable
 	
 	/**
     * Queries for the list of all homeowner bills based on the specified name and saves into ArrayList addresses.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
+    * @param b the object Bill of the homeowner
+    * @return a list of Bill objects
     * @since       1.0
     */
 	public static ArrayList<Bill> queryHOBills(Bill b)
@@ -639,6 +648,7 @@ public class BillDAO implements Serializable
 	
 	/**
     * Queries for the list of all homeowner names and user Ids and saves into ArrayList userIDs, ArrayList fname and ArrayList lname.
+    * @return a list of names
     * @since       1.0
     */
 	public static ArrayList<String> queryNames()
@@ -677,8 +687,9 @@ public class BillDAO implements Serializable
 	/**
     * Queries for the list of monthly dues transactions and saves it to ArrayList trxs and adds the amount to the totalDues variable 
 	* based on the specified parameters.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
+    * @param b the object Bill of the homeowner
+    * @param trxs the list of transactions of the homeowner's bill
+    * @return an ArrayList of transactions
     * @since       1.0
     */
 	public static ArrayList<trxReferences> queryTrxMonthlyDues(Bill b, ArrayList<trxReferences> trxs)
@@ -719,8 +730,9 @@ public class BillDAO implements Serializable
 	/**
     * Queries for the list of registration transactions and saves it to ArrayList trxs and adds the amount to the totalDues variable 
 	* based on the specified parameters.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
+    * @param b the object Bill of the homeowner
+    * @param trxs the list of transactions of the homeowner's bill
+    * @return an ArrayList of transactions
     * @since       1.0
     */
 	public static ArrayList<trxReferences> queryTrxRegistrations(Bill b, ArrayList<trxReferences> trxs)
@@ -761,8 +773,9 @@ public class BillDAO implements Serializable
 	/**
     * Queries for the list of vehicle sticker transactions and saves it to ArrayList trxs and adds the amount to the totalDues variable 
 	* based on the specified parameters.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
+    * @param b the object Bill of the homeowner
+    * @param trxs the list of transactions of the homeowner's bill
+    * @return an ArrayList of transactions
     * @since       1.0
     */
 	public static ArrayList<trxReferences> queryTrxVehicles(Bill b, ArrayList<trxReferences> trxs)
@@ -803,8 +816,9 @@ public class BillDAO implements Serializable
 	/**
     * Queries for the list of violation transactions and saves it to ArrayList trxs and adds the amount to the totalDues variable 
 	* based on the specified parameters.
-	* @param blocknum the block number of the homeowner
-    * @param lotnum the lot number of the homeowner
+    * @param b the object Bill of the homeowner
+    * @param trxs the list of transactions of the homeowner's bill
+    * @return an ArrayList of transactions
     * @since       1.0
     */
 	public static ArrayList<trxReferences> queryTrxViolations(Bill b, ArrayList<trxReferences> trxs)
@@ -856,8 +870,7 @@ public class BillDAO implements Serializable
 	
 	/**
     * Updates the bill's payment status if payment is greater than the bill's total dues based on the billing ID parameter.
-	* @param billingID the bill ID number of the homeowner
-    * @param payment the amount paid by the homeowner
+    * @param b the object Bill of the homeowner
     * @since       1.0
     */
 	public static void updatePayment(Bill b)
@@ -885,4 +898,82 @@ public class BillDAO implements Serializable
 			}
 		}
 	}
+        
+        /**
+         * 
+         * Searches the database for the blocknum based on user ID
+         * @param userID the user ID of the homeowner
+         * @return a blocknum integer
+         */
+        public static int queryBlocknum(String userID)
+        {
+                String sql = "SELECT BLOCKNUM FROM HOMEOWNER WHERE USERID = " + userID + ";";
+		Connection conn = DatabaseUtils.retrieveConnection();
+		int blocknum = 0;
+                
+		try
+		{
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			ResultSet rs = pStmt.executeQuery();
+			
+			while (rs.next())
+			{
+                            blocknum = rs.getInt(1);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(conn != null){
+				try
+				{
+					conn.close();
+				}
+				catch(Exception e){}
+			}
+		}
+                return blocknum;
+        }
+        
+        /**
+         * 
+         * Searches the database for the lotnum based on user ID
+         * @param userID the user ID of the homeowner
+         * @return a lotnum integer
+         */
+        public static int queryLotnum(String userID)
+        {
+                String sql = "SELECT LOTNUM FROM HOMEOWNER WHERE USERID = " + userID + ";";
+		Connection conn = DatabaseUtils.retrieveConnection();
+		int lotnum = 0;
+                
+		try
+		{
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			ResultSet rs = pStmt.executeQuery();
+			
+			while (rs.next())
+			{
+                            lotnum = rs.getInt(1);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(conn != null){
+				try
+				{
+					conn.close();
+				}
+				catch(Exception e){}
+			}
+		}
+                return lotnum;
+        }
 }

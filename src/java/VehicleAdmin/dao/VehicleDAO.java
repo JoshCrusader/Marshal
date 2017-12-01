@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author user
+ * @author Fred Purisima
  */
 public class VehicleDAO {
 
@@ -47,7 +47,7 @@ public class VehicleDAO {
         PreparedStatement pStmt=conn.prepareStatement(sql);
         ResultSet rs = pStmt.executeQuery();
         while(rs.next()){
-            listOfV.add(new Vehicle(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getBoolean(5)));
+            listOfV.add(new Vehicle(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getBoolean(5)));
         }
          return listOfV;
      }
@@ -60,7 +60,7 @@ public class VehicleDAO {
      */
     public static boolean updateVehicle(Vehicle vehicle) throws SQLException{
         Connection conn=Database.getDBConnection();
-        String sql="UPDATE `vehicles` SET `model`='"+vehicle.getModel()+"', `make`='"+vehicle.getMake()+"', `year`="+vehicle.getYear()+" WHERE `platenum`='"+vehicle.getPlatenum()+"';";
+        String sql="UPDATE `vehicles` SET `model`='"+vehicle.getModel()+"', `make`='"+vehicle.getMake()+"', `year`='"+vehicle.getYear()+"' WHERE `platenum`='"+vehicle.getPlatenum()+"';";
         PreparedStatement pStmt=conn.prepareStatement(sql);
         int isInserted=pStmt.executeUpdate(); 
         if(isInserted !=0){
@@ -69,7 +69,38 @@ public class VehicleDAO {
         return false;
     }
     
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
+    public static ArrayList<Vehicle> getExceedViolationVehicles()throws SQLException{
+        
+        ArrayList<Vehicle> listOfV=new ArrayList<Vehicle>();
+        Connection conn=Database.getDBConnection();
+        String sql="SELECT * FROM vehicles;";
+        PreparedStatement pStmt=conn.prepareStatement(sql);
+        ResultSet rs = pStmt.executeQuery();
+        while(rs.next()){
+            
+            sql="SELECT count(securityReportID) FROM vehicle2vehicle where accusedplatenum='"+rs.getString(1)+"';";
+            pStmt=conn.prepareStatement(sql);
+            ResultSet rs1 = pStmt.executeQuery();
+            rs1.next();
+            sql="SELECT count(securityReportID) FROM vehicle2user where platenum='"+rs.getString(1)+"';";
+            pStmt=conn.prepareStatement(sql);
+            ResultSet rs2 = pStmt.executeQuery();
+            rs2.next();
+            if(rs1.getInt(1)+rs2.getInt(1)>=2){
+                listOfV.add(new Vehicle(rs.getString(1),rs.getString(2),rs.getString(3),rs.getDate(4),rs.getBoolean(5)));
+            }
+        }
+        return listOfV;
     
+    
+    
+    
+    }
     
     
     

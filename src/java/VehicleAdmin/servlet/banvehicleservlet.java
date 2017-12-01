@@ -20,11 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 
-/**
- * This program serves a means to select the specific vehicle that an
- * administrator can ban.
- * 
- */
+
 
 /**
  *
@@ -50,9 +46,7 @@ public class banvehicleservlet extends HttpServlet {
             ArrayList<String> platenumA = new ArrayList<String>();
             String bandropdown = request.getParameter("banselect");
             Connection conn = Database.getDBConnection();
-            
-
-                String sql = "SELECT * FROM vehicles WHERE banned = 0;";
+            String sql = "SELECT * FROM vehicles WHERE banned = 0;";
                 
                 PreparedStatement pStmt = null;
         try {

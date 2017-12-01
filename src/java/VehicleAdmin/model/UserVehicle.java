@@ -66,7 +66,7 @@ public class UserVehicle{
         Connection conn=Database.getDBConnection();
         ArrayList <String> listplateno=new ArrayList<String>();
         
-        String sql="SELECT plateNum FROM user_vehicles where userID="+this.user.getUserID()+";";
+        String sql="SELECT plateNum FROM user_vehicles where userID='"+this.user.getUserID()+"';";
         PreparedStatement pStmt=conn.prepareStatement(sql);
         ResultSet rs = pStmt.executeQuery();
         while(rs.next()){
@@ -93,7 +93,7 @@ public class UserVehicle{
         Connection conn=Database.getDBConnection();
         ArrayList <String> listplateno=new ArrayList<String>();
         
-        String sql="SELECT plateNum FROM user_vehicles where userID="+this.user.getUserID()+" and (stickerID is null or stickerPaid=false or stickerissuedBy is null);";
+        String sql="SELECT plateNum FROM user_vehicles where userID='"+this.user.getUserID()+"' and (stickerID is null or stickerPaid=false or stickerissuedBy is null);";
         PreparedStatement pStmt=conn.prepareStatement(sql);
         ResultSet rs = pStmt.executeQuery();
         while(rs.next()){

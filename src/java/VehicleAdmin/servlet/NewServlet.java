@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * NewServlet is a program that creates a user object and 
  * serves as a means to pass the userID attribute to output.jsp 
- * 
+ * @author Johannes
  */
 @WebServlet(urlPatterns = {"/NewServlet"})
 public class NewServlet extends HttpServlet {
@@ -47,13 +47,7 @@ public class NewServlet extends HttpServlet {
             throws ServletException, IOException {
             
             String userID = request.getParameter("userID");
-            
-            
-            
-            
-            
-            
-            
+
             User user = new User();
             user.setUserID(userID);
             

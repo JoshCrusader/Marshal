@@ -22,6 +22,7 @@ public class VehiclesDAO {
      * @param platenum
      * @return a single Vehicle object
      */
+    
     public static Vehicles GetVehicleByPlateNum(String platenum){
         Vehicles vehicle = null;
         String sql = "SELECT * FROM VEHICLES WHERE PLATENUM = ?;";

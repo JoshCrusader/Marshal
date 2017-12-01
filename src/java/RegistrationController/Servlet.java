@@ -72,7 +72,6 @@ public class Servlet extends HttpServlet {
          Ref_Properties existingBno= PropertyDAO.getProperties(lNo, bNo);
         
         if (existingUser==null){
-            System.out.println(existingUser);
             
         }
         else{
@@ -133,10 +132,10 @@ public class Servlet extends HttpServlet {
                    PreparedStatement m= con.prepareStatement(model);
                    System.out.println("model");
                    m.executeUpdate();
-                   /*String userVehicle= "Insert into user_vehicles (platenum, userID) VALUES ('"+pnum[i]+"','"+uName+"')";
+                   String userVehicle= "Insert into user_vehicles (platenum, userID) VALUES ('"+pnum[i]+"','"+uName+"')";
                    PreparedStatement user= con.prepareStatement(userVehicle);
                    System.out.println("userVehicle");
-                   user.executeUpdate();*/
+                   //user.executeUpdate();
               }
             String statement= "INSERT INTO users  (userID, passwd, lname, fname, mame, bDate, usertypeID, occupationID, movingIn, telno,phoneno,email) VALUES ('"+uName+"','"+pw+"','"+lName+"','"+mName+"','"+fName+"','"+bDate+"', "+usertype+", '"+tempOID+"', NOW(), '"+tNum+"', '"+mNum+"','"+email+"')";
             PreparedStatement a = con.prepareStatement(statement);

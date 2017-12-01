@@ -11,18 +11,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-
-/**
+/**It is used to insert,update,and get all vehicles
  *
  * @author Fred Purisima
  */
 public class VehicleDAO {
 
-    /**
+    /**It is used to insert vehicle to the database
      *
-     * @param vehicle
-     * @throws SQLException
+     * @param vehicle A vehicle that is being inputted
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static void insertVehicle(Vehicle vehicle) throws SQLException{
         Connection conn=Database.getDBConnection();
@@ -35,10 +33,10 @@ public class VehicleDAO {
         }
     }
     
-    /**
+    /**It is used to get all vehicles in the community from the database
      *
-     * @return
-     * @throws SQLException
+     * @return list of all vehicles in the community
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static ArrayList<Vehicle> getAllVehicles() throws SQLException{
         ArrayList<Vehicle> listOfV=new ArrayList<Vehicle>();
@@ -52,11 +50,11 @@ public class VehicleDAO {
          return listOfV;
      }
     
-    /**
+    /**It is used to update vehicle information of a specific user vehicle
      *
-     * @param vehicle
-     * @return
-     * @throws SQLException
+     * @param vehicle vehicle that is being updated
+     * @return true if it updates successfully and false if otherwise
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static boolean updateVehicle(Vehicle vehicle) throws SQLException{
         Connection conn=Database.getDBConnection();
@@ -69,10 +67,10 @@ public class VehicleDAO {
         return false;
     }
     
-    /**
+    /**It gets all vehicles that have way too many security reports
      *
-     * @return
-     * @throws SQLException
+     * @return a list of vehicles that are soon to be banned
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static ArrayList<Vehicle> getExceedViolationVehicles()throws SQLException{
         
@@ -96,12 +94,6 @@ public class VehicleDAO {
             }
         }
         return listOfV;
-    
-    
-    
-    
     }
-    
-    
-    
+  
 }

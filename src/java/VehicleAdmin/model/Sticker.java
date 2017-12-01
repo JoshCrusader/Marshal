@@ -5,16 +5,16 @@
  */
 package VehicleAdmin.model;
 
-/**
+/**Represents the Vehicle Pass of the community
  *
  * @author Fred Purisima
  */
 public class Sticker {
     private double price;
 
-    /**
+    /**It gets the price of the vehicle, the default price is 30 which also can be set by the board member
      *
-     * @return
+     * @return A double representing the price of the sticker
      */
     public double getPrice() {
         if(this.price==0){
@@ -24,9 +24,9 @@ public class Sticker {
         return price;
     }
 
-    /**
+    /**It sets the price of the vehicle
      *
-     * @param price
+     * @param price A double containing the price of the sticker
      */
     public void setPrice(double price) {
         this.price = price;

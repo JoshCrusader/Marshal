@@ -1,12 +1,13 @@
-<%@ page import="model.DBQueries"%>
+<%@ page import="BCP.DAO.*"%>
+<%@ page import="BCP.Models.*"%>
 <%@ page import ="java.util.ArrayList"%>
 <%@ page import ="java.util.Date" %>
 <%@ page import ="java.text.SimpleDateFormat" %>
 <%@ page import ="java.text.DateFormat" %>
 
 <%
-	DBQueries dbq = new DBQueries();
-	DBQueries dbq2 = (DBQueries) request.getAttribute("dbquery");
+	//Bill dbq = new Bill();
+	ArrayList<Bill> bills2 = (ArrayList<Bill>) request.getAttribute("bills");
 	
 	String HOname = (String) request.getAttribute("HOname");
 	String address = (String) request.getAttribute("address");
@@ -24,11 +25,10 @@
 		change = payment - amount;
 	}
 	
-	ArrayList<String> userIDs;
-	ArrayList<String> fnames;
-	ArrayList<String> lnames;
+	//ArrayList<String> fnames;
+	ArrayList<String> names;
 	ArrayList<String> addresses;
-	ArrayList<String> bills = dbq.getBills();
+	ArrayList<Bill> bills;
 %>
 
 <html>
@@ -90,31 +90,28 @@
 				<div id="generateBill" class="tab-pane fade">
 					<h3>Generate Bills</h3>
 				  
-					<form action="Generate_bill" method="POST">
+					<form action="BCP_controller" method="POST">
 								Homeowner's name:
 								
 									<input type='text'
 										   data-min-length='1'
 										   list='HOnames'
+                                                                                   bcp='getAddresses'
 										   name='HOnames'
 										   id="HOname"
 										   size="30"
-										   onchange="filterAddresses(this.value)"
+										   onchange="filterAddresses(this)"
 										   value="<% if (HOname != null) { out.print(HOname); } %>">
 											   
 									<datalist id="HOnames">
 										<%
-											dbq.queryNames();
-											userIDs = dbq.getUserIDs();
-											fnames = dbq.getFirstNames();
-											lnames = dbq.getLastNames();
+											names = BillDAO.queryNames();
 												
 											int i;
-											int size = fnames.size();
 											
-											for (i = 0; i < size; i ++)
+											for (i = 0; i < names.size(); i ++)
 											{
-												out.print("<option value='" + fnames.get(i) + " " + lnames.get(i) + "'></option>");
+												out.print("<option value='" + names.get(i) + "'></option>");
 											}
 										%>
 									</datalist>
@@ -134,10 +131,7 @@
 										   
 									<datalist id="addresses">
 										<%
-											dbq.queryAddresses();
-												
-											addresses = dbq.getAddresses();
-											
+											addresses = BillDAO.queryAddresses();
 											
 											for (i = 0; i < addresses.size(); i ++)
 											{
@@ -147,27 +141,28 @@
 									</datalist>
 						<br><br>
 						
-						<input type="submit" class="btn btn-success" value="Generate" name="generate">
+                                                <input type="submit" class="btn btn-success" value="Generate Bill" name="BCP">
 					</form>
 					
-					<form action="Generate_all_bills" method="post">
-						<input type="submit" class="btn btn-success" value="Generate All" name="generateAll">
+					<form action="BCP_controller" method="post">
+						<input type="submit" class="btn btn-success" value="Generate All" name="BCP">
 					</form>
 				</div>
 				
 				<div id="viewBills" class="tab-pane fade in active">
 					<h3>View Bills</h3>
 				  
-					<form action="Get_bills" method="POST">
+					<form action="BCP_controller" method="POST">
 						Homeowner's name:
 							
 						<input type='text'
 							   data-min-length='1'
 							   list='HOnames'
 							   name='HOnames'
+                                                           bcp='getAddresses'
 							   id="HOname"
 							   size="30"
-							   onchange="filterAddresses(this.value)"
+							   onchange="filterAddresses(this)"
 							   value="<% if (HOname != null) { out.print(HOname); } %>">
 						
 						Address:
@@ -180,7 +175,7 @@
 							   value="<% if (address != null) { out.print(address); } %>"
 							   required>
 						
-						<input type="submit" class="btn btn-success" value="Submit">
+						<input type="submit" class="btn btn-success" value="Get Bills" name="BCP">
 					</form>
 					  
 					<br>
@@ -199,21 +194,20 @@
 								</thead>
 								<tbody>
 								  <%
-									dbq.queryBills();
-									bills = dbq.getBills();
+									bills = BillDAO.queryBills();
 										
-									if (dbq2 != null)
+									if (bills2 != null)
 									{
-										bills = dbq2.getBills();
+										bills = bills2;
 									}
 									
-									for (i = 0; i < bills.size(); i += 4)
+									for (i = 0; i < bills.size(); i ++)
 									{
 										out.print("<tr>");
-										out.print("<td align='center'>" + bills.get(i) + "</td>");
-										out.print("<td align='right'>" + bills.get(i + 1) + "</td>");
-										out.print("<td align='right'>" + bills.get(i + 2) + "</td>");
-										out.print("<td align='center'><button class='btn btn-success' value='" + bills.get(i) + ","  + bills.get(i + 1) + "," + bills.get(i + 3) + "' onclick='filterTrx(this.value)'>Select</button></td>");
+										out.print("<td align='center'>" + bills.get(i).getBillDate() + "</td>");
+										out.print("<td align='right'>" + bills.get(i).getTotalDue() + "</td>");
+										out.print("<td align='right'>" + bills.get(i).getTotalPaid() + "</td>");
+										out.print("<td align='center'><button class='btn btn-success' bill='" + bills.get(i).getBillDate() + ","  + bills.get(i).getTotalDue() + "," + bills.get(i).getBillingID() + "' onclick='filterTrx(this)' value='getTrxs' name='BCP'>Select</button></td>");
 										out.print("</tr>");
 									}
 								  %>
@@ -249,17 +243,17 @@
 											<h5 class="modal-title" id="paymentModalLabel">Payment of Bill</h5>
 										</div>
 										
-										<form action="Update_payment" method="POST">
+										<form action="BCP_controller" method="POST">
 										    <div class="modal-body">
-												<h5>Billing Date: <text id="billingDate"></text></h5>
+												<h5>Billing Date: <text id="billingDate"></text></h5><input id="billingID" name="billingID" hidden>
 												<h5>Amount Due:   <text id="totalDues"></text></h5><input id="totalDuesVal" name="totalDues" hidden>
-												<h5>Payment:	  <input type="number" step=".01" min="0.01" max="999999999.99" name="payment" onchange="getChange(this.value)" required></h5>
+												<h5>Payment:	  <input type="number" step=".01" min="0.01" max="999999999.99" name="payment" onkeyup="getChange(this.value)" required></h5>
 												<h5>Change:	  	  <text id="change"></text></h5>
 										    </div>
 										  
 										    <div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-												<button type="submit" class="btn btn-success" id="billingID" name="billingID">Pay</button>
+												<button type="submit" class="btn btn-success" pay="" id="pay" value="updatePayment" name="BCP">Pay</button>
 										    </div>
 										</form>
 									</div>
@@ -324,11 +318,15 @@
 			printReceipt();
 		}
 		
-		function filterAddresses(name){
+		function filterAddresses(textinput){
+                        var BCP = textinput.getAttribute("bcp");
+                        console.log(BCP);
+                        var name = textinput.value;
+                        
 			$.ajax({
 				type: "post",
-				url: "Get_addresses",
-				data: { name: name },
+				url: "BCP_controller",
+				data: { name: name, BCP: BCP},
 				success: function(data) {
 					document.getElementById("addresses").innerHTML = data;
 				},
@@ -338,15 +336,16 @@
 			return false;
 		}
 		
-		function filterTrx(billID) {
+		function filterTrx(button) {
+                        var billID = button.getAttribute("bill");
 			billingDate = billID.substring(0, 10);
 			totalDues = billID.substring(11, billID.lastIndexOf(","));
 			billingID = billID.substring(billID.lastIndexOf(",") + 1);
 			
 			$.ajax({
 				type: "post",
-				url: "Get_trxs",
-				data: { billID: billingID },
+				url: "BCP_controller",
+				data: { billID: billingID, BCP: button.value },
 				success: function(data) {
 					document.getElementById("trxList").innerHTML = data;
 				},
@@ -394,14 +393,15 @@
 		function getData()
 		{
 			document.getElementById('billingDate').innerHTML = billingDate;
+                        document.getElementById('billingID').setAttribute("value", billingID);
 			document.getElementById('totalDues').innerHTML = totalDues;
 			document.getElementById('totalDuesVal').setAttribute('value', totalDues);
-			document.getElementById('billingID').value = billingID;
+			//document.getElementById('pay').setAttribute("pay", billingID);
 		}
 		
 		function getChange(payment)
 		{	
-			var x = document.getElementById('billingID');
+			var x = document.getElementById('pay');
 			
 			if (payment - totalDues >= 0)
 			{

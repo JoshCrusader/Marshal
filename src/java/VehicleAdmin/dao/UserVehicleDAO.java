@@ -72,7 +72,7 @@ public class UserVehicleDAO {
         PreparedStatement pStmt=conn.prepareStatement(sql);
         ResultSet rs=pStmt.executeQuery();
         rs.next();
-        Vehicle userv=new Vehicle(rs.getString(1), rs.getString(2),rs.getString(3) ,rs.getInt(4), rs.getBoolean(5));
+        Vehicle userv=new Vehicle(rs.getString(1), rs.getString(2),rs.getString(3) ,rs.getDate(4), rs.getBoolean(5));
         return userv;
     
     }

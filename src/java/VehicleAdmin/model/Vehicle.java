@@ -8,8 +8,10 @@ package VehicleAdmin.model;
 
 import java.io.Serializable;
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Date;
 
 /**It represents a vehicle
  *
@@ -18,7 +20,7 @@ import java.sql.SQLException;
 public class Vehicle{
     
     private String platenum,model,make;
-    private int year;
+    private Date year;
     private boolean banned;
 
     /**Creates a vehicle containing its necessary information needed for it to be called a vehicle in the systerm
@@ -29,7 +31,7 @@ public class Vehicle{
      * @param year The year when the vehicle is bought
      * @param banned The banned status of the vehicle
      */
-    public Vehicle(String platenum, String model, String make, int year, boolean banned) {
+    public Vehicle(String platenum, String model, String make, Date year, boolean banned) {
         this.platenum = platenum;
         this.model = model;
         this.make = make;
@@ -96,7 +98,7 @@ public class Vehicle{
      *
      * @return An int representing the year when the vehicle is bought
      */
-    public int getYear() {
+    public Date getYear() {
         return year;
     }
 
@@ -104,7 +106,7 @@ public class Vehicle{
      *
      * @param year An int containing the year when the vehicle is bought
      */
-    public void setYear(int year) {
+    public void setYear(Date year) {
         this.year = year;
     }
 

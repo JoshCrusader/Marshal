@@ -4,7 +4,8 @@
     Author     : Johannes
 --%>
 
-<%@page import="VehicleAdmin.model.Database"%>
+<%@page import="VehicleAdmin.dao.Database"%>
+
 <%@page import="VehicleAdmin.model.User"%>
 <!--Displays the registered vehicles that a user owns -->
 

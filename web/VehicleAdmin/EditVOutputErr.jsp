@@ -4,7 +4,9 @@
     Author     : Fred Purisima
 --%>
 
+<%@page import="VehicleAdmin.model.Vehicle"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -48,10 +50,13 @@
           <div class="alert alert-success" role="alert">
             <h4 class="alert-heading">Error!</h4>
             <p class="mb-0"></p>
+           
+            
+            
+            
+            
           </div>
-          <form class="" method="post" action="RegisterVehicle.jsp">
-            <button type="submit" class="btn btn-primary">Back</button>
-          </form>
+          
         </div>
       </div>
     </div>

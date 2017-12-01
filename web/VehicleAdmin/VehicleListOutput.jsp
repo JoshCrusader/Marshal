@@ -4,9 +4,9 @@
     Author     : Fred Purisima
 --%>
 
+<%@page import="VehicleAdmin.dao.ViewVehicleList"%>
 <%@page import="VehicleAdmin.model.UserVehicle"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="VehicleAdmin.model.ViewVehicleList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 

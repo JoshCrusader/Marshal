@@ -47,13 +47,7 @@ public class NewServlet extends HttpServlet {
             throws ServletException, IOException {
             
             String userID = request.getParameter("userID");
-            
-            
-            
-            
-            
-            
-            
+
             User user = new User();
             user.setUserID(userID);
             

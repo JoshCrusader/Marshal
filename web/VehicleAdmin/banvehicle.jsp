@@ -4,6 +4,7 @@
     Author     : Johannes
 --%>
 
+<%@page import="VehicleAdmin.dao.VehicleDAO"%>
 <!-- BOARD MEMBER -->
 <%@page import="java.util.*"%>
 <%@page import="java.sql.SQLException"%>
@@ -109,24 +110,15 @@
             <div class="form-group"><label class="form-control-label">User Vehicle</label>
               <select name="banselect">
                 <%
-                    ArrayList<String> model = new ArrayList<String>();
-                    ArrayList<String> platenum = new ArrayList<String>();
+                    ArrayList<Vehicle> vehicle =VehicleDAO.getExceedViolationVehicles();
+
+                    for(int i=0;i<vehicle.size();i++){
+                        
+                        out.print("<option value='"+vehicle.get(i).getPlatenum()+"'>"+vehicle.get(i).getPlatenum()+"</option>");
                     
-                    Connection conn = Database.getDBConnection();
-
-                    String sql = "SELECT * FROM vehicles JOIN user_vehicles ON vehicles.platenum = user_vehicles.plateNum WHERE banned = 0;";
-
-                    PreparedStatement pStmt = conn.prepareStatement(sql);
-
-                    ResultSet rs = pStmt.executeQuery();
-                    while(rs.next()){
-                        model.add(rs.getString(2));
-                        platenum.add(rs.getString(1));
                     }
                         
-                    for(int x = 0; x < platenum.size(); x++){
-                        out.println("<option value='" + platenum.get(x) +"'>" + model.get(x) + " - " + platenum.get(x) + "</option>");
-                    }
+                    
                         
                         
                     

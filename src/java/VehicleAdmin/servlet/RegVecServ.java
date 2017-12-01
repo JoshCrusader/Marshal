@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import VehicleAdmin.model.Vehicle;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**Servlet of the Register Vehicle functionality
  *
@@ -45,15 +48,27 @@ public class RegVecServ extends HttpServlet {
         String model=request.getParameter("model");
         String make=request.getParameter("make");
         String year=request.getParameter("year");
-        int result = Integer.parseInt(year);
+        
         String userid=request.getParameter("userid");
         boolean isExist = false;
-                    
+        
+        Date date=new Date();  
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(year);
+        } catch (ParseException ex) {
+            
+        }
+        
+        java.sql.Date d= new java.sql.Date(date.getTime());
+        
+        
+        
+        
         Vehicle vehicle=new Vehicle();
         vehicle.setPlatenum(platenum);
         vehicle.setModel(model);
         vehicle.setMake(make);
-        vehicle.setYear(result);
+        vehicle.setYear(d);
         vehicle.setBanned(false);
        
         try {

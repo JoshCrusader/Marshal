@@ -50,9 +50,7 @@ public class banvehicleservlet extends HttpServlet {
             ArrayList<String> platenumA = new ArrayList<String>();
             String bandropdown = request.getParameter("banselect");
             Connection conn = Database.getDBConnection();
-            
-
-                String sql = "SELECT * FROM vehicles WHERE banned = 0;";
+            String sql = "SELECT * FROM vehicles WHERE banned = 0;";
                 
                 PreparedStatement pStmt = null;
         try {

@@ -61,7 +61,7 @@
               <input type="text" name="make" maxlength="45" class="form-control" value="<%= userv.getMake() %>">
             </div>
             <div class="form-group"><label class="form-control-label">Year</label>
-              <input type="number" name="year" min="1" max="9999" class="form-control" value="<%= userv.getYear() %>">
+              <input type="date" name="year" class="form-control" value="<%= userv.getYear() %>">
             </div>
             <button type="submit" name="submit" class="btn btn-primary" value="editv2">Submit</button>
           </form>

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import VehicleAdmin.dao.ViewVehicleList;
 
-/**Servlet of the Vehicle List functionality
+/**It is the Servlet for the Vehicle List functionality
  *
  * @author Fred Purisima
  */

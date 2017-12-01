@@ -10,22 +10,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
+/**It is used to set vehicle pass requests and to approved paid requests
  *
  * @author Fred Purisima
  */
 public class StickerDAO {
    
-    /**
+    /**It is used to set the sticker request of the user for payment
      *
-     * @param platenum
-     * @param userid
-     * @param price
-     * @throws SQLException
+     * @param platenum plate number of the vehicle being requested to have a sticker
+     * @param userid userid of the vehicle being requested to have a sticker
+     * @param price price of the sticker
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
 
     public static void setStickerReq(String platenum,String userid,double price) throws SQLException{
-       Connection conn=Database.getDBConnection();
+        Connection conn=Database.getDBConnection();
         
         String sql="INSERT INTO `stickerinventory` (`cost`) VALUES ('"+price+"');";
         PreparedStatement pStmt=conn.prepareStatement(sql);
@@ -52,16 +52,14 @@ public class StickerDAO {
         
         if(isInserted !=0){
             
-            
-        
         }
     
     }
     
-    /**
+    /**It is used to approve paid sticker requests
      *
-     * @param userdat
-     * @throws SQLException
+     * @param userdat A checkbox value of the ones that are approved by the board member
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static void setApprovedReq(String[] userdat) throws SQLException{
         Connection conn=Database.getDBConnection();
@@ -77,15 +75,9 @@ public class StickerDAO {
             if(isInserted !=0){
             
             
-        
             }
-        
-        
+
         }
-        
-        
-        
-        
-    
+
     }
 }

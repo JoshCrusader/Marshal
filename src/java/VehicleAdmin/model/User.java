@@ -23,7 +23,7 @@ public class User implements Serializable {
         this.userID = userID;
     }
 
-    /**
+    /**Creates the user
      *
      */
     public User() {

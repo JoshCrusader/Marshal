@@ -15,17 +15,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-/**
+/**It is used to have access to the database containing user vehicles data
  *
  * @author Fred Purisima
  */
 public class UserVehicleDAO {
 
-    /**
+    /**It is used to insert user vehicle to the database
      *
-     * @param vehicle
-     * @param userid
-     * @throws SQLException
+     * @param vehicle the vehicle that is being inserted to the database 
+     * @param userid owner of the vehicle
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static void insertUserVehicle(Vehicle vehicle,String userid) throws SQLException{
         Connection conn=Database.getDBConnection();
@@ -39,12 +39,12 @@ public class UserVehicleDAO {
         }
     }
 
-    /**
+    /**It is used to check if the user owns the vehicle accurately
      *
-     * @param platenum
-     * @param userid
-     * @return
-     * @throws SQLException
+     * @param platenum plate number of the vehicle that is being checked
+     * @param userid userid of the allegedly user that is being checked
+     * @return true if the user owns the vehicle and false if it doesn't 
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static boolean isUserVehicle(String platenum,String userid) throws SQLException{
         Connection conn=Database.getDBConnection();
@@ -59,12 +59,12 @@ public class UserVehicleDAO {
        
     } 
 
-    /**
+    /**It is used to get the information of a specific vehicle 
      *
-     * @param platenum
-     * @param userid
-     * @return
-     * @throws SQLException
+     * @param platenum plate number of the vehicle being checked on
+     * @param userid userid of the vehicle being checked on
+     * @return the Vehicle object containing information regarding that specific vehicle
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static Vehicle getUserVehicle(String platenum,String userid) throws SQLException{
         Connection conn=Database.getDBConnection();
@@ -77,12 +77,12 @@ public class UserVehicleDAO {
     
     }
     
-    /**
+    /**It is used to delete a specific user vehicle according to user input
      *
-     * @param platenum
-     * @param userid
-     * @return
-     * @throws SQLException
+     * @param platenum plate number of the vehicle being deleted
+     * @param userid the user who wants its vehicle to be deleted
+     * @return true if it is deleted successfully and false if its otherwise
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static boolean deleteUserVehicle(String platenum,String userid) throws SQLException{
         Connection conn=Database.getDBConnection();
@@ -99,12 +99,12 @@ public class UserVehicleDAO {
     
     }
     
-    /**
+    /**It is used to get all vehicles owned by a single user
      *
-     * @param listOfV
-     * @param userid
-     * @return
-     * @throws SQLException
+     * @param listOfV all the vehicles in the community
+     * @param userid the user who is being checked on
+     * @return a list of user vehicles that the user owns
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static ArrayList<UserVehicle> getUserVehicles(ArrayList<Vehicle> listOfV,String userid)throws SQLException{
        ArrayList<UserVehicle> listOfFinalUserV=new ArrayList<UserVehicle>();
@@ -125,11 +125,11 @@ public class UserVehicleDAO {
        return listOfFinalUserV;
     }
     
-    /**
+    /**It is used to get all of the user's user vehicles
      *
-     * @param listOfV
-     * @return
-     * @throws SQLException
+     * @param listOfV all the vehicles in the community
+     * @return a list of all user vehicles that each user owns in the community
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static ArrayList<UserVehicle> getAllUserVehicles(ArrayList<Vehicle> listOfV)throws SQLException{
         ArrayList<UserVehicle> listOfFinalUserV=new ArrayList<UserVehicle>();

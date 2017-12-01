@@ -24,34 +24,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
+/**It is the servlet for Edit Vehicle functionality
  *
  * @author Fred Purisima
  */
 @WebServlet(name = "EditVServlet", urlPatterns = {"/EditVServlet"})
 public class EditVServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -97,10 +75,6 @@ public class EditVServlet extends HttpServlet {
                 request.getRequestDispatcher("ReqStickerOutErr.jsp").forward(request, response);
 
             }
-
-
-
-
             }
         else if(submit.equals("editv2")){
             String platenum = request.getParameter("platenum");
@@ -143,12 +117,5 @@ public class EditVServlet extends HttpServlet {
         
         
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    
 
 }

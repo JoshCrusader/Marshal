@@ -21,28 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**Servlet of the Register Vehicle Sticker functionality
+/**It is the servlet of the Register Vehicle Sticker functionality
  *
  * @author Fred Purisima
  */
 @WebServlet(urlPatterns = {"/ReqVehSticServ"})
 public class ReqVehSticServ extends HttpServlet {
-    
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-       
-
-    }
-    
     
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -62,8 +46,7 @@ public class ReqVehSticServ extends HttpServlet {
             sticker=new Sticker();
         
         }
-       
-         
+
         String platenum = request.getParameter("platenum");
         String userid = request.getParameter("userid");
         boolean uIsExist = false;

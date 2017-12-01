@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**Servlet of the Confirm Sticker Request functionality
+/**It is the servlet of the Confirm Sticker Request functionality
  *
  * @author Fred Purisima
  */

@@ -11,17 +11,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
+/**It is used to check users in the database
  *
  * @author Fred Purisima
  */
 public class UserDAO {
 
-    /**
+    /**It is used to check the authenticity of the userid that being inputted
      *
-     * @param userID
-     * @return
-     * @throws SQLException
+     * @param userID the userID that is being checked
+     * @return true if the user exists and false if it doesn't
+     * @throws SQLException It throws SQL Exception if a database access error or other errors occur.
      */
     public static boolean isUserExist(String userID)throws SQLException{
        Connection conn=Database.getDBConnection();

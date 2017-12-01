@@ -24,7 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**Servlet of the Register Vehicle functionality
+/**It is the servlet of the Register Vehicle functionality
  *
  * @author Fred Purisima
  */

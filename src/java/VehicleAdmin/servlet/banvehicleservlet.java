@@ -22,21 +22,13 @@ import javax.servlet.annotation.WebServlet;
 
 
 
-/**
+/**It is the servlet for Ban a Vehicle functionality
  *
  * @author Johannes
  */
 
 @WebServlet(urlPatterns = {"/banvehicleservlet"})
 public class banvehicleservlet extends HttpServlet {
-
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         

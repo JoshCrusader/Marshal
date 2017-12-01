@@ -1,9 +1,12 @@
+<%@page import="RegistrationController.Homeowner"%>
 <!DOCTYPE html>
+<%@page import="dao.UserDAO"%>
+<%@page import="java.util.ArrayList"%>
+<% ArrayList<Homeowner> allHomeowner = UserDAO.GetAllHomeOwner();%>
 <html>
 <head>    
 <center><h1 class="title" style="color:white">Registration of Account</h1></center>
-<link rel="stylesheet" type="text/css" href="reg.css">
-<script src='jquery-3.2.1.min.js'></script>
+<script src='<%= request.getContextPath() %>/Core/jquery.js'></script>
 </head>
 <body>
 
@@ -15,7 +18,7 @@
 							<div id="fNameRow">
 								<label>First Name</label><br>
 								<input type="text" class="field" name="fName" id="fName" placeholder="Enter First Name Here.." required>
-							</div>
+                                                    	</div>
 							<div id="mNameRow">
 								<label>Middle Name</label><br>
 								<input type="text" class="field" name="mName" id="mName" placeholder="Enter Middle Name Here.." required>
@@ -34,35 +37,33 @@
                             </div>
 							<div id="telNoRow">
 								  <label>Telephone Number:</label><br>
-                                  <input type="number" name="tNum" id="tNum" placeholder="8537011" class="field" style="width:375px" min= "7" max="7" required><br>
+                                  <input type="number" name="tNum" id="tNum" placeholder="8537011" class="field" style="width:375px" minlength= 7 maxlength=7 required><br>
                             </div>
                             <div id= "mNoRow">  
                                   <label>Mobile Number:</label>
-                                  <input type="number" name="mNum" id="mNum" placeholder="09176492934" class="field" min= "10" max="10" style="width:375px" required><br>
+                                  <input type="number" name="mNum" id="mNum" placeholder="09176492934" class="field" minlength= 10 maxlength=10 style="width:375px" required><br>
                             </div>                
              		<div class="info" id="aInfo">
 						<h2><strong> Address</strong> </h2>	
 					</div>      		
 							<div id="bNoRow">
 								<label>Block No.</label>
-								<input type="text" name="bNo" id="bNo" placeholder="Enter your block no" class="field" required><br>
+                                                                 <input type="text" name="bNo" id="bNo" placeholder="Enter your block number" class="field" required><br>
 							</div>
 							<div id="lNoRow">
 								<label>Lot No.</label>
 								<input type="text" name="lNo" id="lNo" placeholder="Enter your lot number" class="field" required><br>
-                                                                 
-                                                        </div>
-							<div id="sRow">
-								<label>Street</label>
-								<input type="text" name="street" id="street" placeholder="Enter your street name" class="field" required><br>
-                                                                    <% 
+                                                                   <% 
                                                                         String mssg3= (String) request.getAttribute("existingBno");
                                                                         if (mssg3!= null){
                                                                             out.println("<font color='red'> Your homeowner must have an account first.</font>");
                                                                         } 
 
                                                                      %>  
-							</div>
+                                                        </div>
+                                                        <!-- <div id ="isHK"style="position: relative;left: -10px; top:-28em">
+                                                        </div> -->
+							
 					<div class="info" id="v">
 						<h2><strong> Vehicles</strong> </h2>	
 					</div>
@@ -116,9 +117,6 @@
                                 <label>User Type</label><br>
                                 <select name="usertype" id="usertype" style="width:375px; height: 22px" >
                                     <option id="usertype" value=1>Home Owner
-                                    <option id="usertype"  value=2>System Administrator
-                                    <option id="usertype"  value=3> Security 
-                                    <option id="usertype"  value=4> Board Member
                                 </select><br>
                        </div>
                        <div id="la">
@@ -153,6 +151,7 @@
         if(document.getElementById("livingAs").value == 2){
             document.getElementById("isRenting").innerHTML = "Renting: <input type = 'radio' name = 'rent' id='rent' value=0 checked> Yes\n\
                                                               <input type = 'radio' name = 'rent' id='rent' value=1> No";
+            
         }
         });
     });
@@ -252,7 +251,7 @@ body{
 #bNoRow{
     position: relative;  
     left: -10px;
-    top: -12em;
+    top: -14em;
 }
 
 #lNoRow{

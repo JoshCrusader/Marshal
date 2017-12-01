@@ -1,15 +1,15 @@
-package VehicleAdmin.servlet;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package VehicleAdmin.servlet;
 
 import VehicleAdmin.dao.StickerDAO;
 import VehicleAdmin.dao.UserDAO;
 import VehicleAdmin.dao.UserVehicleDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,12 +19,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**Servlet of the Register Vehicle Sticker functionality
+/**
  *
- * @author Fred Purisima
+ * @author user
  */
-@WebServlet(urlPatterns = {"/ReqVehSticServ"})
-public class ReqVehSticServ extends HttpServlet {
+@WebServlet(name = "DeleteVServlet", urlPatterns = {"/DeleteVServlet"})
+public class DeleteVServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -56,17 +78,19 @@ public class ReqVehSticServ extends HttpServlet {
         
         if(uIsExist&&pnIsExist){
             try {
-                StickerDAO.setStickerReq(platenum, userid);
+                UserVehicleDAO.deleteUserVehicle(platenum, userid);
             } catch (SQLException ex) { 
                 Logger.getLogger(ReqVehSticServ.class.getName()).log(Level.SEVERE, null, ex);
             }
-            request.getRequestDispatcher("ReqStickerOutput.jsp").forward(request, response);
+            request.getRequestDispatcher("DeleteVOutput.jsp").forward(request, response);
                     
         }
         else{
-            request.getRequestDispatcher("ReqStickerOutErr.jsp").forward(request, response);
+            request.getRequestDispatcher("DeleteVOutputErr.jsp").forward(request, response);
                         
         }
-
     }
+
+    
+
 }

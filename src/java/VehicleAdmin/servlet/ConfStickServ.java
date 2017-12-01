@@ -6,9 +6,8 @@ package VehicleAdmin.servlet;
  * and open the template in the editor.
  */
 
-import VehicleAdmin.model.ConfirmSticker;
+import VehicleAdmin.dao.StickerDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Fred Purisima
  */
-@WebServlet(urlPatterns = {"/VehicleAdmin/ConfStickServ"})
+@WebServlet(urlPatterns = {"/ConfStickServ"})
 public class ConfStickServ extends HttpServlet {
 
     /**
@@ -38,15 +37,13 @@ public class ConfStickServ extends HttpServlet {
             throws ServletException, IOException {
         String[] userv = request.getParameterValues("check_list");
         
-        ConfirmSticker cs = new ConfirmSticker();
-        cs.setUserdat(userv);
         try {
-            cs.setApprovedReq();
+            StickerDAO.setApprovedReq(userv);
         } catch (SQLException ex) {
             Logger.getLogger(ConfStickServ.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        request.setAttribute("cs", cs);
+        
         request.getRequestDispatcher("ConfStickOutput.jsp").forward(request, response);
            
     }

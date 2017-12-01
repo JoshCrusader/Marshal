@@ -1,9 +1,8 @@
 <%-- 
-    Document   : ConfStickOutput
-    Created on : 11 25, 17, 1:54:49 PM
+    Document   : DeleteVOutputErr
+    Created on : 12 1, 17, 3:41:38 PM
     Author     : Fred Purisima
 --%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,48 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-beta.1.css" type="text/css"> </head>
-    
-    <style>
-    .dropbtn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
 
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-
-    .dropdown-content a:hover {background-color: #f1f1f1}
-
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    .dropdown:hover .dropbtn {
-        background-color: #3e8e41;
-    }
-    </style>
 <body>
   <nav class="navbar navbar-expand-md bg-secondary navbar-dark">
     <div class="container">
@@ -65,48 +23,32 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="RegisterVehicle.jsp">Register a Vehicle</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="ReqVehicleSticker.jsp">Request for Vehicle Pass</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="banvehicle.jsp">Ban a Vehicle</a>
-            </li>
-            <li class="nav-item">  
-		<div class="dropdown">
-		<a class="nav-link" href="vehicleform.jsp">Vehicle List</a>
-		<div class="dropdown-content">
-                    <a href="viewVehicleList.jsp">View Your Vehicle List</a>
-                    <a href="vehicleform.jsp">View User Vehicle List</a>
-		</div>
-                </div>
-            </li> 
-            <li class="nav-item">
-            <a class="nav-link" href="ConStickTrans.jsp">Confirm Vehicle Pass Request</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="ReqVehicleSticker.jsp">Request for Vehicle Pass</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="vehicleform.jsp">View Your Vehicle List</a>
+          </li>
+          
         </ul>
+        
       </div>
     </div>
   </nav>
-  <div class="py-5" style="background-image: url(&quot;https://pingendo.github.io/templates/sections/assets/form_red.jpg&quot;);">
+  <div class="py-5 text-white opaque-overlay" style="background-image: url(&quot;https://pingendo.github.io/templates/sections/assets/form_red.jpg&quot;);">
     <div class="container">
       <div class="row">
-        <div class="align-self-center col-md-6 text-white">
-          <h1 class="text-center text-md-left display-3">Confirm Sticker Request</h1>
-        </div>
-        <div class="col-md-6" id="book">
-          <div class="card">
-            <div class="card-body p-5">
-              <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">Well done!</h4>
-                <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-                
-              </div>
-                <form class="" method="post" action="ConStickTrans.jsp">
-                    <button type="submit" class="btn btn-primary">Back</button>
-                </form>
-            </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <h1 class="" contenteditable="true">Delete Vehicle</h1>
+          <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Error!</h4>
+            <p class="mb-0">The inputted data you sent was either invalid or doesn't exist.</p>
           </div>
+          <form class="" method="post" action="DeleteVehicle.jsp">
+            <button type="submit" class="btn btn-primary">Back</button>
+          </form>
         </div>
       </div>
     </div>

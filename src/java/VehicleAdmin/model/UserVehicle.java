@@ -6,6 +6,7 @@
 package VehicleAdmin.model;
 
 
+import VehicleAdmin.dao.Database;
 import VehicleAdmin.model.Vehicle;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -109,6 +110,5 @@ public class UserVehicle{
         
         }
     }
-    
-   
+     
 }

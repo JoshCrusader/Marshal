@@ -7,15 +7,11 @@ package VehicleAdmin.servlet;
  */
 
 
-import VehicleAdmin.model.Database;
+import VehicleAdmin.dao.UserDAO;
+import VehicleAdmin.dao.UserVehicleDAO;
+import VehicleAdmin.dao.VehicleDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,13 +19,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import VehicleAdmin.model.RegisterVehicle;
+import VehicleAdmin.model.Vehicle;
 
 /**Servlet of the Register Vehicle functionality
  *
  * @author Fred Purisima
  */
-@WebServlet(name = "RegVecServ", urlPatterns = {"/VehicleAdmin/RegVecServ"})
+@WebServlet(name = "RegVecServ", urlPatterns = {"/RegVecServ"})
 public class RegVecServ extends HttpServlet {
     
     /**
@@ -45,77 +41,43 @@ public class RegVecServ extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Connection conn=Database.getDBConnection();
         String platenum=request.getParameter("platenum");
         String model=request.getParameter("model");
         String make=request.getParameter("make");
         String year=request.getParameter("year");
+        int result = Integer.parseInt(year);
         String userid=request.getParameter("userid");
         boolean isExist = false;
-        
-        String sql1="SELECT userID FROM users where userID='"+userid+"';";
-        PreparedStatement pStmt1 = null;
+                    
+        Vehicle vehicle=new Vehicle();
+        vehicle.setPlatenum(platenum);
+        vehicle.setModel(model);
+        vehicle.setMake(make);
+        vehicle.setYear(result);
+        vehicle.setBanned(false);
+       
         try {
-            pStmt1 = conn.prepareStatement(sql1);
+            isExist = UserDAO.isUserExist(userid);
         } catch (SQLException ex) {
-            System.out.println("Logshit1");
             Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ResultSet rs1 = null;
-        try {
-            rs1 = pStmt1.executeQuery();
-        } catch (SQLException ex) {
-            System.out.println("Logshit2");
-            Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            
-            rs1.next();
-            if(rs1.getString(1).equals("")){
-                isExist=false;
-            }
-            else{
-                isExist=true;
-            
-            }
-        } catch (SQLException ex) {
-            System.out.println("Logshit3");
-            Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         if(isExist){
-            RegisterVehicle regv=new RegisterVehicle();
-            regv.setPlatenum(platenum);
-            regv.setModel(model);
-            regv.setMake(make);
-            regv.setYear(year);
-            regv.setBanned(false);
-            regv.setUserid(userid);
-
             try {
-                regv.insertVehicle();
+                VehicleDAO.insertVehicle(vehicle);
             } catch (SQLException ex) {
-                System.out.println("Logshit4");
                 Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
             }
-
             try {
-                regv.insertUserVehicle();
+                UserVehicleDAO.insertUserVehicle(vehicle, userid);
             } catch (SQLException ex) {
-                System.out.println("Logshit5");
                 Logger.getLogger(RegVecServ.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            request.setAttribute("regv", regv);
             request.getRequestDispatcher("RegVehOutput.jsp").forward(request, response);
-            
+
         }
-        
-        else{
-            RegisterVehicle regv=new RegisterVehicle();
-            request.setAttribute("regv", regv);
-            request.getServletContext().getRequestDispatcher("/VehicleAdmin/RegVehOutputErr.jsp").forward(request, response);
-            
+        else{      
+            request.getRequestDispatcher("RegVehOutputErr.jsp").forward(request, response);
+
         }
   
     }

@@ -1,6 +1,6 @@
 package VehicleAdmin.servlet;
 
-import VehicleAdmin.model.Database;
+import VehicleAdmin.dao.Database;
 import VehicleAdmin.model.Vehicle;
 import VehicleAdmin.servlet.*;
 import java.io.IOException;
@@ -31,8 +31,16 @@ import javax.servlet.annotation.WebServlet;
  * @author Johannes
  */
 
-@WebServlet(urlPatterns = {"/VehicleAdmin/banvehicleservlet"})
+@WebServlet(urlPatterns = {"/banvehicleservlet"})
 public class banvehicleservlet extends HttpServlet {
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         

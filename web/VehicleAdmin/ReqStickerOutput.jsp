@@ -4,7 +4,7 @@
     Author     : Fred Purisima
 --%>
 
-<%@page import="VehicleAdmin.model.RequestSticker"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

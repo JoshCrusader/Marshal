@@ -37,6 +37,9 @@ public class Vehicle{
         this.banned = banned;
     }
 
+    /**
+     *
+     */
     public Vehicle() {
         
     }

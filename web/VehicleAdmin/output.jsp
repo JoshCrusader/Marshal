@@ -5646,32 +5646,32 @@ body > * {
                   </tr>
                 </thead>
                 <tbody>
-            <%
-            User person = (User)request.getAttribute("user");
+                <%
+                User person = (User)request.getAttribute("user");
 
-                Connection conn = Database.getDBConnection();
+                    Connection conn = Database.getDBConnection();
 
-                String sql = "SELECT * FROM vehicles JOIN user_vehicles ON vehicles.platenum = user_vehicles.platenum WHERE user_vehicles.userID ='" + person.getUserID() + "';";
-                
-                PreparedStatement pStmt = conn.prepareStatement(sql);
+                    String sql = "SELECT * FROM vehicles JOIN user_vehicles ON vehicles.platenum = user_vehicles.platenum WHERE user_vehicles.userID ='" + person.getUserID() + "';";
 
-                ResultSet rs = pStmt.executeQuery();
-                while(rs.next()){
-                    
-                    out.println("<tr>");
-                    out.println("<td bgcolor='white'> <label class='form-control-label'>" + rs.getString(1) + "</label> </td>");
-                    out.println("<td bgcolor='white'> <label class='form-control-label'>" + rs.getString(2) + "</label> </td>");
-                    out.println("<td bgcolor='white'> <label class='form-control-label'>" + rs.getString(3) + "</label> </td>");
-                    out.println("<td bgcolor='white'> <label class='form-control-label'>" + rs.getInt(4) + "</label> </td>");
-                    out.println("</tr>");
-                    
-                    
-                    
-                    
-                    
-                }
-           
-        %>
+                    PreparedStatement pStmt = conn.prepareStatement(sql);
+
+                    ResultSet rs = pStmt.executeQuery();
+                    while(rs.next()){
+
+                        out.println("<tr>");
+                        out.println("<td bgcolor='white'> <label class='form-control-label'>" + rs.getString(1) + "</label> </td>");
+                        out.println("<td bgcolor='white'> <label class='form-control-label'>" + rs.getString(2) + "</label> </td>");
+                        out.println("<td bgcolor='white'> <label class='form-control-label'>" + rs.getString(3) + "</label> </td>");
+                        out.println("<td bgcolor='white'> <label class='form-control-label'>" + rs.getInt(4) + "</label> </td>");
+                        out.println("</tr>");
+
+
+
+
+
+                    }
+
+            %>
           </tbody>
          </table> 
          </form>

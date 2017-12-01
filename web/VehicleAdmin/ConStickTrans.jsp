@@ -1,12 +1,16 @@
 <%-- 
     Document   : ConStickTrans
     Created on : 11 25, 17, 1:23:31 AM
-    Author     : Fred
+    Author     : Fred Purisima
 --%>
 
+<%@page import="VehicleAdmin.model.UserVehicle"%>
+<%@page import="VehicleAdmin.dao.UserVehicleDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="VehicleAdmin.dao.Database"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
-<%@page import="VehicleAdmin.model.Database"%>
+
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -112,19 +116,21 @@
                 <tbody>
                   <%
 	
-                    Connection conn=Database.getDBConnection();
-                    String sql="SELECT uv.plateNum,uv.userID ,concat(lname,\" \",fname,\" \",mame) as 'fullname' FROM user_vehicles uv join users u on uv.userID=u.userID where uv.stickerPaid=true and uv.stickerissuedBy is null;";
+                        Connection conn=Database.getDBConnection();
+                        String sql="SELECT uv.plateNum,uv.userID ,concat(lname,\" \",fname,\" \",mame) as 'fullname' FROM user_vehicles uv join users u on uv.userID=u.userID where uv.stickerPaid=true and uv.stickerissuedBy is null;";
 
-                    PreparedStatement pStmt=conn.prepareStatement(sql);
-                    ResultSet rs = pStmt.executeQuery();
-                    while(rs.next()){
-                       out.println("<tr>");
-                       out.println("<td>"+rs.getString(1)+"</td>");
-                       out.println("<td>"+rs.getString(2)+"</td>");
-                       out.println("<td>"+rs.getString(3)+"</td>");
-                       out.println("<td><input type='checkbox' name='check_list' value='"+rs.getString(1)+" "+rs.getString(2)+"'></td>");
-                       out.println("</tr>");
-                    }
+                        PreparedStatement pStmt=conn.prepareStatement(sql);
+                        ResultSet rs = pStmt.executeQuery();
+                        while(rs.next()){
+                                       out.println("<tr>");
+                                       out.println("<td>"+rs.getString(1)+"</td>");
+                                       out.println("<td>"+rs.getString(2)+"</td>");
+                                       out.println("<td>"+rs.getString(3)+"</td>");
+                                       out.println("<td><input type='checkbox' name='check_list' value='"+rs.getString(1)+" "+rs.getString(2)+"'></td>");
+                                       out.println("</tr>");
+                        }
+                    
+                    
 
                     %>
                 </tbody>

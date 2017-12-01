@@ -8,6 +8,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import model.DatabaseUtils;
 import model.Users;
 
@@ -16,7 +17,8 @@ import model.Users;
  * @author drjeoffreycruzada
  */
 public class SearchDirectoryDAO {
-     Users user = null;
+    public static Users getUserbyUsername(String username){
+            Users user = null;
             String sql = "SELECT * FROM USERS WHERE userID = ?;";
             Connection conn = DatabaseUtils.retrieveConnection();
             try{
@@ -37,5 +39,10 @@ public class SearchDirectoryDAO {
                     }
             }
             return user;
+    }
+    public static ArrayList<Users> getAllUsers(int filter){
+        ArrayList<Users> users = new ArrayList<Users>();
+        
+        return users;
     }
 }

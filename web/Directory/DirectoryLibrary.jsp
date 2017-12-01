@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@page import = "java.sql.ResultSet" %>
-     <%@page import = "Objects.User" %>
+     <%@page import = "model.Users" %>
+     <%@page import = "model.Ref_Occupation" %>
+     <%@page import = "model.Document" %>
+     
      <%@page import = "java.util.ArrayList" %>
     <%
-	ArrayList<User> rs = (ArrayList<User>) request.getAttribute("rs");
+	ArrayList<Users> rs = (ArrayList<Users>) request.getAttribute("searchresult");
     %>
 <html>
 <head>
@@ -69,11 +71,11 @@
 		  			%>
 		  			<tr style = "background-color:#f6f7f9;border: 1px solid black;">
 			  		
-			  		<td><center><div class = "UD_user_image"><img src="<%= rs.get(i).getphotolocation() %>" style = "height:100%; width: 100%;"></div></center></td>
+			  		<td><center><div class = "UD_user_image"><img src="<%= rs.get(i).getPhoto().getDocumentLocation() %>" style = "height:100%; width: 100%;"></div></center></td>
 			  		<td>
-			  			<a href = "UserProfile?uId=<%= rs.get(i).getUserID() %>"><span><%= rs.get(i).getfName() %> <%= rs.get(i).getmName() %> <%= rs.get(i).getlName() %></span></a>
+			  			<a href = "UserProfile?uId=<%= rs.get(i).getuserID() %>"><span><%= rs.get(i).getfName() %> <%= rs.get(i).getmName() %> <%= rs.get(i).getlName() %></span></a>
 			  			<br>
-			  			<span><%= rs.get(i).getOccupation() %></span>
+			  			<span><%= rs.get(i).getOccupation().getOccupation() %></span>
 			  		</td>
 		  		</tr>	
 		  		<%

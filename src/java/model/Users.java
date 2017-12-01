@@ -33,6 +33,8 @@ public class Users implements Serializable{
     private String email;
     public Users(){}
     
+    private static Document photo;
+    private static Ref_Occupation occupation;
     
     public Users(String userID, String password, int userType, String lname, String fname, String mame, String bDate, int photoID, int occupationID, String movingIn, int movingOutclearID, int trxID, String telno, String phoneno, String email){
         this.userID = userID;
@@ -114,5 +116,17 @@ public class Users implements Serializable{
     }
     public String getEmail(){
         return this.email;
+    }
+    public Document getPhoto(){
+        return this.photo;
+    }
+    public Ref_Occupation getOccupation(){
+        return this.occupation;
+    }
+    public void setPhoto(Document photo){
+        this.photo = photo;
+    }
+    public void setOccupation(Ref_Occupation occupation){
+        this.occupation = occupation;
     }
 }

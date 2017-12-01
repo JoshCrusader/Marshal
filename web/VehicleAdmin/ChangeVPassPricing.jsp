@@ -1,7 +1,7 @@
 <%-- 
     Document   : ChangeVPassPricing
     Created on : 12 1, 17, 11:10:09 PM
-    Author     : user
+    Author     : Fred Purisima
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

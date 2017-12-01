@@ -5620,15 +5620,24 @@ body > * {
           <li class="nav-item">
             <a class="nav-link" href="ReqVehicleSticker.jsp">Request for Vehicle Pass</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="vehicleform.jsp">View Your Vehicle List</a>
-          </li>
-          
+          <li class="nav-item">  
+		<div class="dropdown">
+                    <a class="nav-link">User Vehicles</a>
+                    <div class="dropdown-content">
+			<a href="DeleteVehicle.jsp">Delete Vehicle</a>
+			<a href="EditVehicle.jsp">Edit Vehicle</a>
+			<a href="vehicleform.jsp">View Your Vehicle List</a>
+                    </div>
+                </div>
+            </li>
         </ul>
-        
+        <form class="form-inline m-0">
+          <input class="form-control mr-2" type="text" placeholder="Search">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
       </div>
     </div>
-  </nav>
+</nav>
   <div class="py-5 text-white opaque-overlay" style="background-image: url(&quot;https://pingendo.github.io/templates/sections/assets/form_red.jpg&quot;);">
     <div class="container">
       <div class="row">

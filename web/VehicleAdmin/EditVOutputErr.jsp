@@ -14,7 +14,50 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-beta.1.css" type="text/css"> </head>
+  <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-beta.1.css" type="text/css"> 
+
+<style>
+    .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {background-color: #f1f1f1}
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+    </style>
+</head>
 
 <body>
   <nav class="navbar navbar-expand-md bg-secondary navbar-dark">
@@ -29,10 +72,16 @@
           <li class="nav-item">
             <a class="nav-link" href="ReqVehicleSticker.jsp">Request for Vehicle Pass</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="vehicleform.jsp">View Your Vehicle List</a>
-          </li>
-          
+          <li class="nav-item">  
+		<div class="dropdown">
+                    <a class="nav-link">User Vehicles</a>
+                    <div class="dropdown-content">
+			<a href="DeleteVehicle.jsp">Delete Vehicle</a>
+			<a href="EditVehicle.jsp">Edit Vehicle</a>
+			<a href="vehicleform.jsp">View Your Vehicle List</a>
+                    </div>
+                </div>
+            </li>
         </ul>
         <form class="form-inline m-0">
           <input class="form-control mr-2" type="text" placeholder="Search">
@@ -40,7 +89,7 @@
         </form>
       </div>
     </div>
-  </nav>
+</nav>
   <div class="py-5 text-white opaque-overlay" style="background-image: url(&quot;https://pingendo.github.io/templates/sections/assets/form_red.jpg&quot;);">
     <div class="container">
       <div class="row">

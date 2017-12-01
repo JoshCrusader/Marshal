@@ -1,7 +1,7 @@
 <%-- 
-    Document   : ReqVehicleSticker
-    Created on : 11 23, 17, 8:58:47 PM
-    Author     : Fred Purisima
+    Document   : ChangeVPassPricing
+    Created on : 12 1, 17, 11:10:09 PM
+    Author     : user
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,7 +13,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-beta.1.css" type="text/css"> 
+  <link rel="stylesheet" href="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-beta.1.css" type="text/css"> </head>
 <style>
     .dropbtn {
         background-color: #4CAF50;
@@ -55,8 +55,6 @@
         background-color: #3e8e41;
     }
     </style>
-</head>
-
 <body>
   <nav class="navbar navbar-expand-md bg-secondary navbar-dark">
     <div class="container">
@@ -64,45 +62,41 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="RegisterVehicle.jsp">Register a Vehicle</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="ReqVehicleSticker.jsp">Request for Vehicle Pass</a>
-          </li>
-          <li class="nav-item">  
+		
+            <li class="nav-item">  
 		<div class="dropdown">
-                    <a class="nav-link">User Vehicles</a>
+                    <a class="nav-link">Vehicle List</a>
                     <div class="dropdown-content">
-			<a href="DeleteVehicle.jsp">Delete Vehicle</a>
-			<a href="EditVehicle.jsp">Edit Vehicle</a>
-			<a href="vehicleform.jsp">View Your Vehicle List</a>
+			<a href="viewVehicleList.jsp">View User Vehicle List</a>
+			<a href="ConStickTrans.jsp">Confirm Vehicle Pass Request</a>
                     </div>
                 </div>
+            </li> 
+		
+            <li class="nav-item">
+                <a class="nav-link" href="banvehicle.jsp">Ban a Vehicle</a>
             </li>
+            
+            <li class="nav-item">
+		<a class="nav-link" href="ChangeVPassPricing.jsp">Change Vehicle Pass Price</a>
+            </li>
+			
         </ul>
-        <form class="form-inline m-0">
-          <input class="form-control mr-2" type="text" placeholder="Search">
-          <button class="btn btn-primary" type="submit">Search</button>
-        </form>
       </div>
     </div>
-</nav>
+  </nav>
   <div class="py-5 text-white opaque-overlay" style="background-image: url(&quot;https://pingendo.github.io/templates/sections/assets/form_red.jpg&quot;);">
     <div class="container">
       <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-          <h1 class="text-gray-dark">Request Vehicle Pass</h1>
+          <h1 class="text-gray-dark">Change Vehicle Pass Price</h1>
           <p class="lead mb-4">Complete all the fields below to send us a message</p>
-          <form class="" action="ReqVehSticServ" method="POST">
-            <div class="form-group"><label class="form-control-label">User ID</label>
-              <input type="text" name="userid" maxlength="25" class="form-control" placeholder="Text">
+          <form class="" action="CPriceServ" method="POST">
+            <div class="form-group"><label class="form-control-label">Price:</label>
+              <input type="number" name="price" max="9999999" class="form-control">
             </div>
-            <div class="form-group"><label class="form-control-label">Plate Number</label>
-              <input type="text" name="platenum" maxlength="7" class="form-control" placeholder="Text">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
       </div>

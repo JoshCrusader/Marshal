@@ -11,7 +11,7 @@
 <body>
 
 <div class="container">
-				<form action="Servlet" method="POST">
+                                    <form action="Servlet" method="POST">
 					<div class="info" id="pInfo">
 						<h2><strong> Personal Information</strong> </h2>	
 					</div>       
@@ -46,13 +46,13 @@
              		<div class="info" id="aInfo">
 						<h2><strong> Address</strong> </h2>	
 					</div>      		
-							<div id="bNoRow">
+							<div id = "toHide" ><div id="bNoRow">
 								<label>Block No.</label>
-                                                                 <input type="text" name="bNo" id="bNo" placeholder="Enter your block number" class="field" required><br>
+                                                                 <input type="text" name="bNo" id="bNo" placeholder="Enter your block number" class="field" style="width:375px; height: 22px"><br>
 							</div>
-							<div id="lNoRow">
+							<div id="lNoRow" >
 								<label>Lot No.</label>
-								<input type="text" name="lNo" id="lNo" placeholder="Enter your lot number" class="field" required><br>
+								<input type="text" name="lNo" id="lNo" placeholder="Enter your lot number" class="field" style="width:375px; height: 22px"><br>
                                                                    <% 
                                                                         String mssg3= (String) request.getAttribute("existingBno");
                                                                         if (mssg3!= null){
@@ -60,9 +60,16 @@
                                                                         } 
 
                                                                      %>  
+                                                        </div></div>
+                                                              
+                                                         <div id ="isHK" style="position: relative;left: 35em; top:-20em; display: none;" >
+                                                           <input list ="n" name="dL"> 
+                                                                <datalist  id="n" style="width:375px; height: 22px" required>
+                                                                    <% for(Homeowner ho: allHomeowner){ %>
+                                                                    <option value="<%=ho.getuserID()%>"> Blocknum <%=  ho.getbNo()%> Lotnum <%=ho.getlNo()%> </option>
+                                                                    <% } %> 
+                                                                </datalist><br> 
                                                         </div>
-                                                        <!-- <div id ="isHK"style="position: relative;left: -10px; top:-28em">
-                                                        </div> -->
 							
 					<div class="info" id="v">
 						<h2><strong> Vehicles</strong> </h2>	
@@ -106,19 +113,14 @@
                                 <label>Re-Type Password</label>
                                 <input type="password" name="pw2" id="pw2" placeholder="Re-type Password Here..." class="field" style="width:375px" required><br>
                                 <% 
-                                        String mssg2= (String) request.getAttribute("Invalid");
+                                                String mssg2= (String) request.getAttribute("Invalid");
                                         if (mssg2!= null){
                                             out.println("<font color='red'> Password doesn't match. Please try again! </font>");
                                         } 
                                  %>    
                        </div>
                                  
-                       <div id ="user">
-                                <label>User Type</label><br>
-                                <select name="usertype" id="usertype" style="width:375px; height: 22px" >
-                                    <option id="usertype" value=1>Home Owner
-                                </select><br>
-                       </div>
+                       
                        <div id="la">
                                 <label>Living As</label><br>
                                    <select name="livingAs" id="livingAs" style="width:375px; height: 22px">
@@ -151,9 +153,15 @@
         if(document.getElementById("livingAs").value == 2){
             document.getElementById("isRenting").innerHTML = "Renting: <input type = 'radio' name = 'rent' id='rent' value=0 checked> Yes\n\
                                                               <input type = 'radio' name = 'rent' id='rent' value=1> No";
-            
+            $("#isHK").toggle();
+            $("#toHide").toggle();
         }
-        });
+ 
+        else if(document.getElementById("livingAs").value == 3){
+            $("#isHK").toggle();
+            $("#toHide").toggle();
+        }   
+        }); 
     });
     
     function moreV(){
@@ -203,7 +211,7 @@ body{
 }
 #aInfo{
     position: relative;
-    top:-13em;
+    top:-14em;
 }
 
 #fNameRow{
@@ -251,13 +259,13 @@ body{
 #bNoRow{
     position: relative;  
     left: -10px;
-    top: -14em;
+    top: -13.5em;
 }
 
 #lNoRow{
     position: relative;  
-    left: 15.5em;
-    top: -15.8em;
+    left: 23.5em;
+    top: -17.4em;
 }
 
 #sRow{
@@ -320,7 +328,7 @@ body{
 #la{
     position: relative;
     left: 23.5em;
-    top: -29.3em;
+    top: -69.3em;
 }
 .rc{
     position: relative;

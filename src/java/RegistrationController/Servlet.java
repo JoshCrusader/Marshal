@@ -47,29 +47,43 @@ public class Servlet extends HttpServlet {
      String mName= request.getParameter("mName");
      String bDate= request.getParameter("bDate");
      String uName= request.getParameter("username");
+     String existingUname= request.getParameter("dL");
      String occupation= request.getParameter("occupation");
      String email= request.getParameter("email");
      String pw= request.getParameter("pw");
      String pw2= request.getParameter("pw2");
      String tNum= request.getParameter("tNum");
      String mNum= request.getParameter("mNum");
-     int usertype= Integer.parseInt(request.getParameter("usertype"));
+     int usertype= 1;
      int livingAs= Integer.parseInt(request.getParameter("livingAs"));
-     int bNo= Integer.parseInt(request.getParameter("bNo"));
-     int lNo= Integer.parseInt(request.getParameter("lNo"));
      int renting= Integer.parseInt(request.getParameter("rent"));
      boolean isexistingUname= false;
      boolean isvalidPw= false;
      String movingIn = null;
      String[] carmodels= request.getParameterValues("c1");
      String[] pnum= request.getParameterValues("v1");
-
-    
+     int bNo=0;
+     int lNo=0;
+    System.out.print("LivingAs: " + livingAs);
     System.out.println("UserType: " + usertype);
-     
-    try{
-         Users existingUser= UserDAO.getUserbyUsername(uName);
+    System.out.print("Dl: " + existingUname);
+    
+    try{    
+         System.out.print("Uname: " + uName);
+            Users existingUser= UserDAO.getUserbyUsername(uName);
+            if (livingAs==1){
+                   bNo= Integer.parseInt(request.getParameter("bNo"));
+                   lNo= Integer.parseInt(request.getParameter("lNo"));
+              }
+              else if (livingAs==2 || livingAs==3){
+
+                   bNo= UserDAO.getBlocknum(existingUname);
+                   System.out.print("bNo: " + bNo);
+                   lNo= UserDAO.getLotnum(existingUname);
+                   System.out.print("lNo: "+ lNo);
+               }
          String existingHo= UserDAO.existingHomeowner(bNo, lNo);
+         
          System.out.print("Existing HomeOwner: " + existingHo);
          Ref_Properties existingBno= UserDAO.getProperties(bNo, lNo);
         

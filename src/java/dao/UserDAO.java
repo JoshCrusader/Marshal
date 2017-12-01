@@ -22,6 +22,9 @@ import model.Vehicles;
 /**
  *
  * @author Andrew Santiago
+ * 
+ * 
+ * 
  */
 public class UserDAO {
 
@@ -331,5 +334,57 @@ public class UserDAO {
             }
         }
         return user;
+    }
+     public static int getBlocknum(String userID){
+        Connection conn = DatabaseUtils.retrieveConnection();
+        int bNo  = 0;
+        String sql = "SELECT BLOCKNUM FROM HOMEOWNER WHERE USERID = ?;";
+        try{
+            PreparedStatement o= conn.prepareStatement(sql);
+            o.setString(1, userID);
+              ResultSet rs = o.executeQuery();
+              if (rs.next()){
+                  bNo = rs.getInt(1);
+              }
+             
+            } 
+       
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            if(conn != null){
+                try{
+                        conn.close();
+                }catch(Exception e){}
+            }
+        }
+        return bNo;
+    }
+     public static int getLotnum(String userID){
+        Connection conn = DatabaseUtils.retrieveConnection();
+        int lNo  = 0;
+        String sql = "SELECT LOTNUM FROM HOMEOWNER WHERE USERID = ?;";
+        try{
+            PreparedStatement o= conn.prepareStatement(sql);
+            o.setString(1, userID);
+              ResultSet rs = o.executeQuery();
+              if (rs.next()){
+                  lNo = rs.getInt(1);
+              }
+             
+            } 
+       
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            if(conn != null){
+                try{
+                        conn.close();
+                }catch(Exception e){}
+            }
+        }
+        return lNo;
     }
 }

@@ -19,7 +19,12 @@ import model.Users;
  * @author drjeoffreycruzada
  */
 public class UserManagementDAO {
-    
+   /**
+     * Gets user by a username
+     * 
+     * @param username
+     * @return Users with that unique username id
+     */
    public static Users getUserbyUsername(String username){
             Users user = null;
             String sql = "SELECT * FROM USERS WHERE userID = ?;";
@@ -43,6 +48,11 @@ public class UserManagementDAO {
             }
             return user;
     }
+   
+   /**
+    * Gets all the types of users
+    * @return ArrayList<Ref_Usertype> a list of usertypes
+    */
    public static ArrayList<Ref_Usertype> getAllUsertype(){
        ArrayList<Ref_Usertype> usertypes = new ArrayList<Ref_Usertype>();
        String sql = "SELECT * FROM REF_USERTYPE;";

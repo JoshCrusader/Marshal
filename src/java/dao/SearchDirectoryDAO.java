@@ -19,6 +19,13 @@ import model.Users;
  * @author drjeoffreycruzada
  */
 public class SearchDirectoryDAO {
+    
+    /**
+     * Gets user by a username
+     * 
+     * @param username
+     * @return Users with that unique username id
+     */
     public static Users getUserbyUsername(String username){
             Users user = null;
             String sql = "SELECT * FROM USERS WHERE userID = ?;";
@@ -42,6 +49,13 @@ public class SearchDirectoryDAO {
             }
             return user;
     }
+    /**
+     * Gets all the users and information to be diplayed on screen
+     * 
+     * @param filter 1 - no filter, 2 - Filter through occupation, 3 - Filter throough name
+     * @param searchrequest - Gets occupation or name that contains this variable
+     * @return ArrayList<Users> of users that may or may not have been filtered.
+     */
     public static ArrayList<Users> getUnfilteredUsers(int filter, String searchrequest){
         ArrayList<Users> users = new ArrayList<Users>();
         String sql;

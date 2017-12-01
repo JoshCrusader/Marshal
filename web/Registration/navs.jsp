@@ -39,30 +39,43 @@
 			</div>
 			<ul class = "css-sidelist">
                             <%@page import = "model.Users" %>
+                            <%@page import = "dao.navDAO" %>
                             <% Users user = (Users) session.getAttribute("currentSessionUser"); %>
-                                <% if(user.getuserType() == 2){%>
+                                <% if(navDAO.isAllowed(1, user.getuserType())){%>
 				<li>
 					<a href = "#"> Preventions</a>
 				</li>
                                 <% } %>
+                                <% if(navDAO.isAllowed(3, user.getuserType())){%>
 				<li>
 					<a href = "#"> Vehicle Management</a>
 				</li>
+                                <% } %>
+                                <% if(navDAO.isAllowed(5, user.getuserType())){%>
 				<li>
 					<a href = "#"> Fees Processing</a>
 				</li>
+                                <% } %>
+                                <% if(navDAO.isAllowed(7, user.getuserType())){%>
 				<li>
 					<a href = "#"> Payment Processing</a>
 				</li>
+                                <% } %>
+                                <% if(navDAO.isAllowed(10, user.getuserType())){%>
 				<li>
 					<a href = "#"> Users</a>
 				</li>
+                                <% } %>
+                                <% if(navDAO.isAllowed(13, user.getuserType())){%>
                                 <li>
 					<a href = "#"> Policy and Mapping</a>
 				</li>
+                                <% } %>
+                                <% if(navDAO.isAllowed(15, user.getuserType())){%>
                                 <li>
 					<a href = "#"> Document Management</a>
 				</li>
+                                <% } %>
 			</ul>
 		</div>
 	</div>

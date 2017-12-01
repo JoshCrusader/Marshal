@@ -6,7 +6,6 @@
 <%@ page import ="java.text.DateFormat" %>
 
 <%
-	//Bill dbq = new Bill();
 	ArrayList<Bill> bills2 = (ArrayList<Bill>) request.getAttribute("bills");
 	
 	String HOname = (String) request.getAttribute("HOname");
@@ -79,106 +78,15 @@
 	<div id = "css-id-body">
 		<div class="container">
 			<h2>Billing, Collection and Payment</h2>
+			<p>Welcome, Officer Yuta!</p>
 			
 			<ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#viewBills">View Bills</a></li>
-				<li><a data-toggle="tab" href="#generateBill">Generate Bills</a></li>
 			  </ul>
 
 			<div class="tab-content">
-				<div id="generateBill" class="tab-pane fade">
-					<h3>Generate Bills</h3>
-				  
-					<form action="BCP_controller" method="POST">
-								Homeowner's name:
-								
-									<input type='text'
-										   data-min-length='1'
-										   list='HOnames'
-                                                                                   bcp='getAddresses'
-										   name='HOnames'
-										   id="HOname"
-										   size="30"
-										   onchange="filterAddresses(this)"
-										   value="<% if (HOname != null) { out.print(HOname); } %>">
-											   
-									<datalist id="HOnames">
-										<%
-											names = BillDAO.queryNames();
-												
-											int i;
-											
-											for (i = 0; i < names.size(); i ++)
-											{
-												out.print("<option value='" + names.get(i) + "'></option>");
-											}
-										%>
-									</datalist>
-								
-							<br><br>
-							
-							Address:
-								
-									<input type='text'
-										   data-min-length='1'
-										   list='addresses'
-										   name='addresses'
-										   size="30"
-										   value="<% if (address != null) { out.print(address); } %>"
-										   style="margin-left: 5.95rem;"
-										   required>
-										   
-									<datalist id="addresses">
-										<%
-											addresses = BillDAO.queryAddresses();
-											
-											for (i = 0; i < addresses.size(); i ++)
-											{
-												out.print("<option value='" + addresses.get(i) + "'></option>");
-											}
-										%>
-									</datalist>
-						<br><br>
-						
-                                                <input type="submit" class="btn btn-success" value="Generate Bill" name="BCP">
-					</form>
-					
-					<form action="BCP_controller" method="post">
-						<input type="submit" class="btn btn-success" value="Generate All" name="BCP">
-					</form>
-				</div>
-				
 				<div id="viewBills" class="tab-pane fade in active">
-					<h3>View Bills</h3>
-				  
-					<form action="BCP_controller" method="POST">
-						Homeowner's name:
-							
-						<input type='text'
-							   data-min-length='1'
-							   list='HOnames'
-							   name='HOnames'
-                                                           bcp='getAddresses'
-							   id="HOname"
-							   size="30"
-							   onchange="filterAddresses(this)"
-							   value="<% if (HOname != null) { out.print(HOname); } %>">
-						
-						Address:
-						
-						<input type='text'
-							   data-min-length='1'
-							   list='addresses'
-							   name='addresses'
-							   size="30"
-							   value="<% if (address != null) { out.print(address); } %>"
-							   required>
-						
-						<input type="submit" class="btn btn-success" value="Get Bills" name="BCP">
-					</form>
-					  
-					<br>
-					
+					<h3>View Bills</h3>	
 					<div class="panel panel-default col-md-7">
 						<div class="panel-body">
 							<table id="table" class="display" cellspacing="0">
@@ -193,13 +101,20 @@
 								</thead>
 								<tbody>
 								  <%
-									bills = BillDAO.queryBills();
+                                                                      String userID = user.getuserID();
+                                                                      int blocknum = BillDAO.queryBlocknum(userID);
+                                                                      int lotnum = BillDAO.queryLotnum(userID);
+                                                                      
+                                                                      Bill b = new Bill();
+                                                                      b.setBlocknum(blocknum);
+                                                                      b.setLotnum(lotnum);
+									bills = BillDAO.queryHOBills(b);
 										
 									if (bills2 != null)
 									{
 										bills = bills2;
 									}
-									
+									int i;
 									for (i = 0; i < bills.size(); i ++)
 									{
 										out.print("<tr>");
@@ -231,34 +146,8 @@
 				  
 							<div>
 								<button class="btn btn-success" value="hello" onclick="printDiv(this.value)">Print</button>
-								<button class="btn btn-success" onclick="getData()" data-toggle="modal" data-target="#paymentModal">Pay</button>
 							</div>
-
-							<!-- Modal -->
-							<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header background">
-											<h5 class="modal-title" id="paymentModalLabel">Payment of Bill</h5>
-										</div>
-										
-										<form action="BCP_controller" method="POST">
-										    <div class="modal-body">
-												<h5>Billing Date: <text id="billingDate"></text></h5><input id="billingID" name="billingID" hidden>
-												<h5>Amount Due:   <text id="totalDues"></text></h5><input id="totalDuesVal" name="totalDues" hidden>
-												<h5>Payment:	  <input type="number" step=".01" min="0.01" max="999999999.99" name="payment" onkeyup="getChange(this.value)" required></h5>
-												<h5>Change:	  	  <text id="change"></text></h5>
-										    </div>
-										  
-										    <div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-												<button type="submit" class="btn btn-success" pay="" id="pay" value="updatePayment" name="BCP">Pay</button>
-										    </div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
+                                            </div>
 					</div>
 				</div>
 			</div>

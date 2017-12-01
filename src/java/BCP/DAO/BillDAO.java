@@ -885,4 +885,80 @@ public class BillDAO implements Serializable
 			}
 		}
 	}
+        
+        /**
+         * 
+         * /
+         * 
+         */
+        public static int queryBlocknum(String userID)
+        {
+                String sql = "SELECT BLOCKNUM FROM HOMEOWNER WHERE USERID = " + userID + ";";
+		Connection conn = DatabaseUtils.retrieveConnection();
+		int blocknum = 0;
+                
+		try
+		{
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			ResultSet rs = pStmt.executeQuery();
+			
+			while (rs.next())
+			{
+                            blocknum = rs.getInt(1);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(conn != null){
+				try
+				{
+					conn.close();
+				}
+				catch(Exception e){}
+			}
+		}
+                return blocknum;
+        }
+        
+        /**
+         * 
+         * /
+         * 
+         */
+        public static int queryLotnum(String userID)
+        {
+                String sql = "SELECT LOTNUM FROM HOMEOWNER WHERE USERID = " + userID + ";";
+		Connection conn = DatabaseUtils.retrieveConnection();
+		int lotnum = 0;
+                
+		try
+		{
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			ResultSet rs = pStmt.executeQuery();
+			
+			while (rs.next())
+			{
+                            lotnum = rs.getInt(1);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(conn != null){
+				try
+				{
+					conn.close();
+				}
+				catch(Exception e){}
+			}
+		}
+                return lotnum;
+        }
 }

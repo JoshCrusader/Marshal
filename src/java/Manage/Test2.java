@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dao.
+//import dao.
  /**
  * Servlet implementation class A4Controller
  */

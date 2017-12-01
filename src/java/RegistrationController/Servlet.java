@@ -128,7 +128,10 @@ public class Servlet extends HttpServlet {
               System.out.print("HEYAH");
               UserDAO.registerKasambahay(uName, bNo, lNo);
             }
-             //request.getRequestDispatcher("home.jsp").forward(request,response);
+            HttpSession session = request.getSession(true);
+            Users me = UserDAO.getUserbyUsername(uName);
+            session.setAttribute("currentSessionUser",me);
+            request.getRequestDispatcher("home.jsp").forward(request,response);
         }
           
         else{

@@ -9,6 +9,7 @@ package VehicleAdmin.servlet;
 import VehicleAdmin.dao.StickerDAO;
 import VehicleAdmin.dao.UserDAO;
 import VehicleAdmin.dao.UserVehicleDAO;
+import VehicleAdmin.model.Sticker;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**Servlet of the Register Vehicle Sticker functionality
  *
@@ -25,7 +27,23 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/ReqVehSticServ"})
 public class ReqVehSticServ extends HttpServlet {
+    
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+       
+       
 
+    }
+    
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -37,6 +55,15 @@ public class ReqVehSticServ extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session =request.getSession();
+        Sticker sticker=(Sticker) session.getAttribute("sticker");
+        if(sticker==null){
+        
+            sticker=new Sticker();
+        
+        }
+       
+         
         String platenum = request.getParameter("platenum");
         String userid = request.getParameter("userid");
         boolean uIsExist = false;
@@ -56,7 +83,7 @@ public class ReqVehSticServ extends HttpServlet {
         
         if(uIsExist&&pnIsExist){
             try {
-                StickerDAO.setStickerReq(platenum, userid);
+                StickerDAO.setStickerReq(platenum, userid,sticker.getPrice());
             } catch (SQLException ex) { 
                 Logger.getLogger(ReqVehSticServ.class.getName()).log(Level.SEVERE, null, ex);
             }

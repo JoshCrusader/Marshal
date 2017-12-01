@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author user
+ * @author Fred Purisima
  */
 public class UserVehicleDAO {
 

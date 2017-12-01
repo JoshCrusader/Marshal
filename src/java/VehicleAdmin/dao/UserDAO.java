@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author user
+ * @author Fred Purisima
  */
 public class UserDAO {
 

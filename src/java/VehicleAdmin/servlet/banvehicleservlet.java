@@ -20,11 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 
-/**
- * This program serves a means to select the specific vehicle that an
- * administrator can ban.
- * 
- */
+
 
 /**
  *

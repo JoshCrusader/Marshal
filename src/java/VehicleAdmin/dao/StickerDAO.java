@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author user
+ * @author Fred Purisima
  */
 public class StickerDAO {
    
@@ -20,13 +20,14 @@ public class StickerDAO {
      *
      * @param platenum
      * @param userid
+     * @param price
      * @throws SQLException
      */
 
-    public static void setStickerReq(String platenum,String userid) throws SQLException{
+    public static void setStickerReq(String platenum,String userid,double price) throws SQLException{
        Connection conn=Database.getDBConnection();
         
-        String sql="INSERT INTO `stickerinventory` (`cost`) VALUES ('30.00');";
+        String sql="INSERT INTO `stickerinventory` (`cost`) VALUES ('"+price+"');";
         PreparedStatement pStmt=conn.prepareStatement(sql);
         int isInserted=pStmt.executeUpdate(); 
         
